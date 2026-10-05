@@ -41,5 +41,6 @@
   "offline.efficiency": { "base": 0.25, "min": 0.0, "max": 1.0 },
 
   "unlock.cost": { "base": 1.0, "min": 0.01 },
+
   "upgrade.cost": { "base": 1.0, "min": 0.01 }
 }

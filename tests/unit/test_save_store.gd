@@ -69,3 +69,12 @@ func test_quarantine_moves_main_file_aside() -> void:
 	var moved_to := store.quarantine_main()
 	assert_false(FileAccess.file_exists(store.main_path()))
 	assert_true(FileAccess.file_exists(moved_to))
+
+
+func test_delete_all_removes_every_slot_file() -> void:
+	store.write({"schema_version": 1, "n": 1})
+	store.write({"schema_version": 1, "n": 2})
+	store.delete_all()
+	assert_false(FileAccess.file_exists(store.main_path()))
+	assert_false(FileAccess.file_exists(store.backup_path()))
+	assert_eq(store.read().status, SaveStore.ReadStatus.NONE)

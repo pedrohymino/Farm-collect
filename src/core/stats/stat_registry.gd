@@ -35,6 +35,13 @@ func has_stat(stat_id: StringName) -> bool:
 	return _defs.has(stat_id)
 
 
+func get_base(stat_id: StringName) -> float:
+	if not _defs.has(stat_id):
+		push_error("Unknown stat: %s" % stat_id)
+		return 0.0
+	return _defs[stat_id].base
+
+
 func stat_ids() -> Array[StringName]:
 	var ids: Array[StringName] = []
 	ids.assign(_defs.keys())

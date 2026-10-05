@@ -3,7 +3,9 @@
 Jogo cozy, casual e incremental de fazenda em 3D low-poly isométrico, no estilo "idle arcade":
 coletar, empilhar, vender, desbloquear e automatizar. Feito em Godot 4.7.
 
-**Status:** M0, M1 e M2 (primeiro loop jogável, graybox) prontos — M2 aguardando validação de diversão; próximo: M3 (dev mode).
+**Status:** M0–M3 prontos (setup, sistemas, primeiro loop jogável, dev mode) — próximo: M4 (desbloqueios e expansão).
+
+Dev mode: **F1** (ou `'`) abre o painel de ajuste ao vivo; no celular, 5 toques rápidos no canto superior esquerdo.
 
 Controles: WASD / setas / analógico. Pise nas zonas ciano: coletar ovos → entregar no balcão → ficar no "VENDER" → pegar o dinheiro.
 

@@ -48,10 +48,16 @@ Ordem pensada para validar a diversão o mais cedo possível (M2) antes de inves
 **Aceite:** dá para jogar o loop coletar → entregar → vender → pegar dinheiro por 5 minutos e **já é gostoso**.
 Este é o principal ponto de validação do projeto: se não estiver divertido aqui, ajustamos antes de seguir.
 
-## M3 — Dev mode v1 · M
-- [ ] Painel com abas Status, Economia, Tempo, Save (doc 05).
-- [ ] Overrides via camada dev do `Stats`; breakdown visível.
-- [ ] Presets + "gravar no projeto" + "recarregar balanceamento".
+## M3 — Dev mode v1 · M · ✅ concluído (2026-10-05)
+- [x] Painel (`src/dev/`) aberto com F1 / ` ou 5 toques no canto superior esquerdo; só em debug ou feature tag `dev`.
+- [x] Aba Status: todos os status, favoritos primeiro, busca, multiplicador, valor fixo, base, reset, "aplicar na base", breakdown.
+- [x] Abas Economia (somar/definir dinheiro e estrelas), Tempo (velocidade 0.1×–10×, pausa),
+      Mundo (encher/esvaziar pilhas, gerar cliente, FPS/draw calls, alternar retrato/paisagem).
+- [x] Aba Save e balanço: salvar, recarregar, resetar save, copiar/colar save, presets nomeados,
+      recarregar JSON do disco, gravar bases no `stats.json` (só pelo executável do editor, com confirmação e diff).
+- [x] Sessão de tuning persistida em `user://dev/session.json` (fora do save do jogador); selo "DEV ×N" com overrides ativos.
+- [x] `BalanceWriter` reproduz o formato do `stats.json` byte a byte (diffs pequenos). Mapa de entrada reproduzível em `tools/setup_input_map.gd`.
+- [x] Testes: `BalanceWriter`, `DevSessionStore`, `SaveStore.delete_all` e integração do painel com o `Stats` real (149 verdes).
 
 **Aceite:** alterar `player.carry_capacity` e `production.yield` ao vivo muda o jogo imediatamente;
 um valor ajustado pode ser gravado no JSON e persiste ao reabrir.

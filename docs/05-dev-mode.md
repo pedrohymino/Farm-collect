@@ -60,7 +60,11 @@ e salvar o balanceamento ajustado de volta no projeto.
 
 - Overrides do dev são uma camada no `StatSystem` (`set_dev_override`), aplicada por último na fórmula.
   Não tocam nos modificadores reais, então desligar o dev mode volta tudo ao normal.
-- Overrides **não** vão para o save do jogador (ficam em `user://dev_session.json`), para não contaminar o progresso de teste.
+- Overrides **não** vão para o save do jogador (ficam em `user://dev/session.json`, presets em `user://dev/presets/`),
+  para não contaminar o progresso de teste. A sessão é restaurada ao abrir o jogo de novo; o selo "DEV ×N" lembra que há overrides ativos.
+- "Aplicar na base" transforma o override atual em valor base (base × multiplicador, ou o valor fixo) — depois é só "Gravar bases no projeto".
+- Implementado no M3: abas Status, Economia, Tempo, Mundo e Save e balanço. Progressão (desbloqueios/upgrades/passivas)
+  e simulação de tempo offline entram junto com esses sistemas (M4–M6).
 - Toda ação do painel passa pelos mesmos sistemas do jogo (`Economy`, `UnlockSystem`, …), então o dev mode
   também serve para testar esses sistemas.
 - Status novos aparecem automaticamente no painel ao serem registrados em `stats.json`.

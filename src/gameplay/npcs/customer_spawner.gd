@@ -17,6 +17,7 @@ var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 
 func _ready() -> void:
+	add_to_group(&"customer_spawner")
 	_rng.randomize()
 	_cycle = ProductionCycle.new(FIRST_SPAWN_RATIO, Stats.get_value(&"customer.spawn_interval"))
 
@@ -25,6 +26,11 @@ func _process(delta: float) -> void:
 	var interval := Stats.get_value(&"customer.spawn_interval")
 	if _cycle.advance(delta, interval) > 0 and not _try_spawn():
 		_cycle.hold(interval)
+
+
+## Spawns a customer right away (dev mode). Returns false if every queue is full.
+func spawn_now() -> bool:
+	return _try_spawn()
 
 
 func _try_spawn() -> bool:

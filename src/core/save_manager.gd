@@ -38,16 +38,33 @@ func load_game() -> void:
 func save_game() -> bool:
 	if not _is_active:
 		return false
+	var saved := _store.write(build_payload())
+	if saved:
+		EventBus.game_saved.emit()
+	return saved
+
+
+## Current game as a save payload (also used by dev mode to export the save).
+func build_payload() -> Dictionary:
 	get_tree().call_group(&"persistent_location", &"write_state")
-	var payload := {
+	return {
 		"schema_version": SaveMigrator.CURRENT_VERSION,
 		"saved_at_unix": Time.get_unix_time_from_system(),
 		"data": GameState.data.to_dict(),
 	}
-	var saved := _store.write(payload)
-	if saved:
-		EventBus.game_saved.emit()
-	return saved
+
+
+## Dev mode: validates a payload and writes it as the current save. Caller reloads the scene.
+func import_payload(payload: Dictionary) -> bool:
+	if not _migrator.migrate(payload).ok:
+		return false
+	return _store.write(payload)
+
+
+## Dev mode "reset save": deletes the save files and starts a new game in memory.
+func delete_save() -> void:
+	_store.delete_all()
+	GameState.new_game()
 
 
 func _notification(what: int) -> void:

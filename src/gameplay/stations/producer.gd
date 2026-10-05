@@ -25,6 +25,7 @@ var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 func _ready() -> void:
 	add_to_group(&"persistent_station")
+	add_to_group(&"producer")
 	_rng.randomize()
 	item_id = ContentDB.producer_item(producer_id)
 	output = ItemContainer.new(

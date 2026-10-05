@@ -2,6 +2,7 @@ extends Node
 ## Dev tool: plays the core loop by itself (fresh game, no save) so it can be recorded:
 ##   godot --write-movie out.png --fixed-fps 30 --quit-after 900 res://tools/demo/autoplay_demo.tscn
 ## Drives the player through the real input actions, like a person would.
+## Add `-- --dev-panel` to record with the dev panel open.
 
 const FARM_SCENE: PackedScene = preload("res://src/gameplay/locations/farm/farm.tscn")
 const ARRIVE_DISTANCE: float = 0.3
@@ -16,6 +17,9 @@ var _wait: float = 0.0
 
 func _ready() -> void:
 	GameState.new_game()
+	if OS.get_cmdline_user_args().has("--dev-panel"):
+		DevMode.activate()
+		DevMode.toggle()
 	var farm := FARM_SCENE.instantiate() as Location
 	add_child(farm)
 	_player = farm.get_node("Player")

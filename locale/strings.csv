@@ -9,3 +9,57 @@ ITEM_WHEAT,Wheat,Trigo
 HUD_MAX,MAX,MÁX
 ZONE_SELL,SELL,VENDER
 FX_MONEY_GAIN,+$%s,+$%s
+DEV_TITLE,Dev mode,Dev mode
+DEV_CLOSE,Close,Fechar
+DEV_TAB_STATS,Stats,Status
+DEV_TAB_ECONOMY,Economy,Economia
+DEV_TAB_TIME,Time,Tempo
+DEV_TAB_WORLD,World,Mundo
+DEV_TAB_SAVE,Save & balance,Save e balanço
+DEV_SEARCH,Search stats...,Buscar status...
+DEV_MULTIPLIER,Mult.,Mult.
+DEV_FIXED,Fixed,Fixo
+DEV_BASE,Base,Base
+DEV_RESET,Reset,Resetar
+DEV_BAKE,Apply to base,Aplicar na base
+DEV_BREAKDOWN,Base %s | %s | Final %s,Base %s | %s | Final %s
+DEV_NO_MODIFIERS,no modifiers,sem modificadores
+DEV_OVERRIDE_TAG,dev,dev
+DEV_MONEY,Money: %s,Dinheiro: %s
+DEV_STARS,Stars: %s,Estrelas: %s
+DEV_SET,Set,Definir
+DEV_TIME_SCALE,Game speed: %s×,Velocidade do jogo: %s×
+DEV_PAUSE,Pause,Pausar
+DEV_ITEM,Item,Item
+DEV_SPAWN_CUSTOMER,Spawn customer,Gerar cliente
+DEV_FILL_CARRY,Fill player stack,Encher pilha do jogador
+DEV_EMPTY_CARRY,Empty player stack,Esvaziar pilha do jogador
+DEV_FILL_PRODUCERS,Fill producer piles,Encher pilhas dos produtores
+DEV_FILL_COUNTERS,Fill counters,Encher balcões
+DEV_SHOW_FPS,Show FPS,Mostrar FPS
+DEV_TOGGLE_ORIENTATION,Toggle portrait / landscape,Alternar retrato / paisagem
+DEV_SAVE_NOW,Save now,Salvar agora
+DEV_RELOAD_SAVE,Reload save (discard unsaved),Recarregar save (descarta o não salvo)
+DEV_RESET_SAVE,Reset save,Resetar save
+DEV_RESET_SAVE_CONFIRM,Delete the save and start over?,Apagar o save e começar do zero?
+DEV_EXPORT_SAVE,Copy save to clipboard,Copiar save
+DEV_IMPORT_SAVE,Load save from clipboard,Carregar save copiado
+DEV_IMPORT_FAILED,Clipboard has no valid save,A área de transferência não tem um save válido
+DEV_PRESETS,Presets,Presets
+DEV_PRESET_NAME,Preset name,Nome do preset
+DEV_PRESET_SAVE,Save preset,Salvar preset
+DEV_PRESET_LOAD,Load,Carregar
+DEV_PRESET_DELETE,Delete,Apagar
+DEV_PRESET_INVALID,"Invalid name (letters, numbers, - and _)","Nome inválido (letras, números, - e _)"
+DEV_CLEAR_OVERRIDES,Clear all overrides,Limpar todos os overrides
+DEV_BALANCE,Balance data,Balanceamento
+DEV_RELOAD_BALANCE,Reload balance from disk,Recarregar balanceamento do disco
+DEV_WRITE_BALANCE,Write bases to project,Gravar bases no projeto
+DEV_WRITE_BALANCE_CONFIRM,Write these changes to data/balance/stats.json?,Gravar estas mudanças em data/balance/stats.json?
+DEV_WRITE_BALANCE_NONE,No base changes to write,Nenhuma base alterada
+DEV_WRITE_BALANCE_EDITOR_ONLY,Only available when running with the editor build,Só disponível rodando pelo executável do editor
+DEV_OVERRIDES_ACTIVE,%d overrides active,%d overrides ativos
+DEV_BADGE,DEV ×%d,DEV ×%d
+DEV_DONE,Done,Feito
+DEV_FAILED,Failed (see log),Falhou (veja o log)
+DEV_FPS,%d FPS | %d draw calls,%d FPS | %d draw calls

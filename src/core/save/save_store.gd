@@ -83,6 +83,13 @@ func read() -> ReadResult:
 	return result
 
 
+## Deletes main, backup and temp files (dev "reset save"; never used for corrupt saves).
+func delete_all() -> void:
+	for path in [main_path(), backup_path(), temp_path()]:
+		if FileAccess.file_exists(path):
+			DirAccess.remove_absolute(path)
+
+
 ## Moves the main save aside (never deletes player data). Returns the new path.
 func quarantine_main() -> String:
 	var target := _dir_path.path_join(

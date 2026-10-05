@@ -145,3 +145,8 @@ func test_modifier_for_unknown_stat_is_rejected() -> void:
 	registry.add_modifier(Modifier.new(&"nope", Modifier.Type.FLAT, 1.0, &"a"))
 	assert_push_error("Unknown stat")
 	assert_eq(registry.modifier_count(), 0)
+
+
+func test_get_base_ignores_modifiers() -> void:
+	registry.add_modifier(Modifier.new(&"speed", Modifier.Type.FLAT, 3.0, &"a"))
+	assert_eq(registry.get_base(&"speed"), 4.0)

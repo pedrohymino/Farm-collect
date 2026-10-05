@@ -1,0 +1,18 @@
+# Godot
+.godot/
+/android/
+*.translation
+
+# Builds
+/builds/
+/export/
+
+# Save/temp
+*.tmp
+*.bak
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+*.blend1

@@ -47,7 +47,6 @@ enabled=PackedStringArray("res://addons/gut/plugin.cfg")
 [internationalization]
 
 locale/translations=PackedStringArray("res://locale/strings.en.translation", "res://locale/strings.pt_BR.translation")
-locale/fallback="en"
 
 [rendering]
 

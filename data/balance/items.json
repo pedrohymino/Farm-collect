@@ -1,0 +1,5 @@
+{
+  "wheat": { "base_price": 2.0, "production_seconds": 8.0, "stage": "raw" },
+  "egg": { "base_price": 3.0, "production_seconds": 4.0, "stage": "raw" },
+  "milk": { "base_price": 8.0, "production_seconds": 7.0, "stage": "raw" }
+}

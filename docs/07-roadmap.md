@@ -18,13 +18,16 @@ Ordem pensada para validar a diversão o mais cedo possível (M2) antes de inves
 
 **Aceite:** o projeto abre no editor sem erros, `main.tscn` roda (tela vazia), testes rodam via linha de comando.
 
-## M1 — Fundação de sistemas · M
-- [ ] `StatSystem` + `StatDef` + `Modifier` (fórmula, cache, sinal, breakdown, camada dev).
-- [ ] `ContentDB` carregando `data/balance/*.json` e `.tres`, com validação de IDs.
-- [ ] `ItemContainer` com capacidade baseada em status.
-- [ ] `Economy` (ganhar/gastar, nunca negativo) + `NumberFormat` (1.2K, 3.4M, aa…).
-- [ ] `SaveManager` (escrita atômica, backup, versão, migrações) + `GameState`.
-- [ ] Testes unitários de tudo acima.
+## M1 — Fundação de sistemas · M · ✅ concluído (2026-10-05)
+- [x] `StatRegistry` (lógica pura) + `Stats` (autoload) + `StatDef` + `Modifier` (fórmula, cache, sinal, breakdown, camada dev,
+      status com escopo, recarga de definições mantendo modificadores).
+- [x] `BalanceData` + `ContentDB` carregando e validando `data/balance/*.json` (stats, items, progression).
+      `.tres` de conteúdo entram no M2, junto com os visuais.
+- [x] `ItemContainer` com capacidade ao vivo (Callable/status), filtro de tipos, `transfer_one`, serialização.
+- [x] `Wallet` + `Economy` (ganhar/gastar, nunca negativo, eventos) + `NumberFormat` (1.2K, 3.4M, 1aa…; sempre arredonda para baixo).
+- [x] `SaveStore` (escrita atômica, `.bak`, fallback, quarentena de save corrompido) + `SaveMigrator` + `GameData` + `GameState` + `SaveManager`
+      (autosave 30 s, salvar ao fechar/pausar, inativo em testes).
+- [x] 79 testes (unitários + integração dos autoloads) verdes; save verificado de ponta a ponta rodando o jogo.
 
 **Aceite:** testes verdes cobrindo fórmula, containers, economia, formatação e save (ida e volta + migração fictícia v0→v1).
 
@@ -94,6 +97,8 @@ e o save reconstrói a fazenda corretamente.
 **Aceite:** sessão nova até a fazenda completa sem travas, bugs bloqueantes ou momentos "sem objetivo".
 
 ## M9 — Plataformas e lançamento · G
+- [ ] Export presets com `*.json` no filtro de recursos não-Godot ("Filters to export non-resource files"),
+      senão `data/balance/` fica fora do build. Testar um build exportado, não só o editor.
 - [ ] Steam: GodotSteam, conquistas, Steam Cloud, controle completo, Steam Deck (1280×800).
 - [ ] Android: joystick de toque, layout retrato, AAB assinado, teste em aparelho real.
 - [ ] iOS: export via Xcode (exige Mac), teste em aparelho.

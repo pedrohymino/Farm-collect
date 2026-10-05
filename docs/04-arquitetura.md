@@ -44,13 +44,17 @@ locale/
   strings.csv               # chaves → pt_BR, en
 src/
   core/                     # autoloads e sistemas puros
-    event_bus.gd
-    game_state.gd
-    save_manager.gd
-    content_db.gd
-    economy.gd
+    event_bus.gd            # autoload
+    game_state.gd           # autoload (guarda o GameData vivo)
+    save_manager.gd         # autoload
+    content_db.gd           # autoload
+    economy.gd              # autoload
+    balance_data.gd         # carrega/valida data/balance/*.json
+    game_data.gd            # tudo que vai para o save
+    wallet.gd               # moedas
     number_format.gd
-    stats/ stat_system.gd, stat_def.gd, modifier.gd
+    save/ save_store.gd, save_migrator.gd
+    stats/ stat_system.gd (autoload), stat_registry.gd (lógica pura), stat_def.gd, modifier.gd
     items/ item_container.gd
     progression/ unlock_system.gd, upgrade_system.gd, passive_tree.gd, farm_level.gd, offline_earnings.gd
   gameplay/
@@ -153,6 +157,12 @@ Se ficar limitado, migrar para `NavigationRegion3D`.
 - Save corrompido → tenta `.bak` → se falhar, avisa o jogador e começa novo jogo (nunca crasha).
 - Configurações (volume, idioma, vibração) em arquivo separado `user://settings.cfg`.
 - Steam Cloud (M9) sincroniza a pasta `user://saves/`.
+
+### Notas de implementação (M1)
+- Payload: `{"schema_version": N, "saved_at_unix": t, "data": GameData.to_dict()}`.
+- `SaveManager` só lê/grava depois de `load_game()` (chamado por `main.gd`), para testes e ferramentas nunca tocarem no save do jogador.
+- Save ilegível ou de versão mais nova → movido para `slot_0.corrupt-<unix>.json` (nunca apagado) e começa jogo novo.
+- **Export:** os JSON de `data/balance/` precisam estar no filtro de arquivos não-recurso do export preset (M9).
 
 ## 9. Preparação para a Fábrica
 

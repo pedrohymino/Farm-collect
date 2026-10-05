@@ -31,16 +31,19 @@ Ordem pensada para validar a diversão o mais cedo possível (M2) antes de inves
 
 **Aceite:** testes verdes cobrindo fórmula, containers, economia, formatação e save (ida e volta + migração fictícia v0→v1).
 
-## M2 — Primeiro loop jogável (graybox) · G
-- [ ] Cena da fazenda área A1 com chão, cercas e caminho em primitivas.
-- [ ] Jogador com movimento (teclado/controle), câmera isométrica seguindo.
-- [ ] Galinheiro produzindo ovos para a pilha de saída (com capacidade).
-- [ ] Zona de coleta → pilha nas costas com visual empilhado e balanço.
-- [ ] Balcão: zona de entrega, estoque, ponto SELL, fila de clientes, pilha de dinheiro.
-- [ ] Clientes chegando, comprando, saindo.
-- [ ] HUD com dinheiro.
-- [ ] Juice mínimo: item voando em arco, pop de escala, contador rolando, sons placeholder.
-- [ ] Save/carregar do estado da fazenda.
+## M2 — Primeiro loop jogável (graybox) · G · ✅ implementado (2026-10-05) — aguardando validação de diversão
+- [x] Cena da fazenda área A1 (`src/gameplay/locations/farm/farm.tscn`): chão, quintal, cercas (`FenceLine`), estrada, árvores.
+- [x] Jogador (`Player`) com movimento relativo à câmera (teclado/controle), câmera isométrica seguindo (`FollowCamera`),
+      retrato e paisagem (o lado estreito da tela fica constante).
+- [x] Galinheiro (`Producer` + `coop.tscn`) com 2 galinhas, `ProductionCycle` por galinha, pilha de saída com capacidade.
+- [x] Zona de coleta (`TransferZone`) → pilha nas mãos (`StackVisual`) com balanço; "MÁX" quando cheia; tipos misturados.
+- [x] Balcão (`Counter` + `counter.tscn`): zona de entrega (só puxa o tipo certo), estoque, ponto VENDER, fila, pilha de dinheiro.
+- [x] Clientes (`Customer` + `CustomerSpawner`): chegam, fazem fila, compram, saem felizes/tristes (paciência).
+- [x] HUD com dinheiro (contador rolando + pulso).
+- [x] Juice: itens voando em arco, pop de escala, "+$X" flutuante, notas voando ao coletar, sons gerados (`AudioDirector` via EventBus).
+- [x] Save/carregar do estado da fazenda (`Location` + grupo `persistent_station`).
+- [x] Lógica pura testada: `ProductionCycle`, `YieldRoller`, `TransferTicker`, `CounterService`, `SaleRules`, `MoneyStash`, `IsoInput`;
+      teste de integração do loop completo na cena real. Demo automática em `tools/demo/` para gravar o loop.
 
 **Aceite:** dá para jogar o loop coletar → entregar → vender → pegar dinheiro por 5 minutos e **já é gostoso**.
 Este é o principal ponto de validação do projeto: se não estiver divertido aqui, ajustamos antes de seguir.

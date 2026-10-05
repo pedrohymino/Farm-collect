@@ -33,15 +33,32 @@ static func stat_capacity(stat_source: Object, stat_id: StringName) -> Callable:
 static func transfer_one(
 	from: ItemContainer, to: ItemContainer, filter: Array[StringName] = []
 ) -> StringName:
-	if to.is_full():
+	var index := find_transfer_index(from, to, filter)
+	if index < 0:
 		return NONE
+	return transfer_at(from, to, index)
+
+
+## Index (in `from`) of the item transfer_one would move, or -1. Lets visuals know
+## where the item leaves from before it moves.
+static func find_transfer_index(
+	from: ItemContainer, to: ItemContainer, filter: Array[StringName] = []
+) -> int:
+	if to.is_full():
+		return -1
 	for index in range(from._items.size() - 1, -1, -1):
 		var item_id := from._items[index]
 		if (filter.is_empty() or filter.has(item_id)) and to.accepts(item_id):
-			from._remove_at(index)
-			to.push(item_id)
-			return item_id
-	return NONE
+			return index
+	return -1
+
+
+## Moves the item at `index` of `from` to the top of `to`. Caller must have checked
+## it is transferable (see find_transfer_index).
+static func transfer_at(from: ItemContainer, to: ItemContainer, index: int) -> StringName:
+	var item_id := from._remove_at(index)
+	to.push(item_id)
+	return item_id
 
 
 func capacity() -> int:

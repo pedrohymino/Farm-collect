@@ -1,0 +1,37 @@
+[gd_scene format=3]
+
+[sub_resource type="CylinderMesh" id="Mesh_trunk"]
+top_radius = 0.12
+bottom_radius = 0.18
+height = 1.2
+radial_segments = 8
+
+[sub_resource type="StandardMaterial3D" id="Mat_trunk"]
+albedo_color = Color(0.54, 0.32, 0.16, 1)
+
+[sub_resource type="SphereMesh" id="Mesh_leaves"]
+radius = 0.9
+height = 1.6
+radial_segments = 10
+rings = 6
+
+[sub_resource type="StandardMaterial3D" id="Mat_leaves"]
+albedo_color = Color(0.3, 0.62, 0.25, 1)
+
+[node name="Tree" type="Node3D"]
+
+[node name="Trunk" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.6, 0)
+mesh = SubResource("Mesh_trunk")
+surface_material_override/0 = SubResource("Mat_trunk")
+
+[node name="Leaves" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.75, 0)
+mesh = SubResource("Mesh_leaves")
+surface_material_override/0 = SubResource("Mat_leaves")
+
+[node name="Leaves2" type="MeshInstance3D" parent="."]
+position = Vector3(0.35, 2.35, 0.1)
+scale = Vector3(0.65, 0.65, 0.65)
+mesh = SubResource("Mesh_leaves")
+surface_material_override/0 = SubResource("Mat_leaves")

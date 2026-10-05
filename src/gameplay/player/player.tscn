@@ -1,0 +1,91 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/player/player.gd" id="1_player"]
+[ext_resource type="Script" path="res://src/gameplay/items/stack_visual.gd" id="2_stack"]
+
+[sub_resource type="CapsuleShape3D" id="Shape_body"]
+radius = 0.3
+height = 1.3
+
+[sub_resource type="CapsuleMesh" id="Mesh_torso"]
+radius = 0.27
+height = 0.95
+radial_segments = 10
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="Mat_overalls"]
+albedo_color = Color(0.25, 0.45, 0.85, 1)
+
+[sub_resource type="SphereMesh" id="Mesh_head"]
+radius = 0.2
+height = 0.4
+radial_segments = 10
+rings = 6
+
+[sub_resource type="StandardMaterial3D" id="Mat_skin"]
+albedo_color = Color(1, 0.8, 0.65, 1)
+
+[sub_resource type="CylinderMesh" id="Mesh_hat"]
+top_radius = 0.17
+bottom_radius = 0.34
+height = 0.14
+radial_segments = 12
+
+[sub_resource type="StandardMaterial3D" id="Mat_hat"]
+albedo_color = Color(0.95, 0.78, 0.38, 1)
+
+[sub_resource type="BoxMesh" id="Mesh_arm"]
+size = Vector3(0.12, 0.12, 0.42)
+
+[node name="Player" type="CharacterBody3D"]
+motion_mode = 1
+script = ExtResource("1_player")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.65, 0)
+shape = SubResource("Shape_body")
+
+[node name="Body" type="Node3D" parent="."]
+
+[node name="Model" type="Node3D" parent="Body"]
+
+[node name="Torso" type="MeshInstance3D" parent="Body/Model"]
+position = Vector3(0, 0.52, 0)
+mesh = SubResource("Mesh_torso")
+surface_material_override/0 = SubResource("Mat_overalls")
+
+[node name="Head" type="MeshInstance3D" parent="Body/Model"]
+position = Vector3(0, 1.18, 0)
+mesh = SubResource("Mesh_head")
+surface_material_override/0 = SubResource("Mat_skin")
+
+[node name="Hat" type="MeshInstance3D" parent="Body/Model"]
+position = Vector3(0, 1.36, 0)
+mesh = SubResource("Mesh_hat")
+surface_material_override/0 = SubResource("Mat_hat")
+
+[node name="ArmLeft" type="MeshInstance3D" parent="Body/Model"]
+position = Vector3(-0.22, 0.72, 0.2)
+mesh = SubResource("Mesh_arm")
+surface_material_override/0 = SubResource("Mat_skin")
+
+[node name="ArmRight" type="MeshInstance3D" parent="Body/Model"]
+position = Vector3(0.22, 0.72, 0.2)
+mesh = SubResource("Mesh_arm")
+surface_material_override/0 = SubResource("Mat_skin")
+
+[node name="CarryVisual" type="Node3D" parent="Body"]
+position = Vector3(0, 0.78, 0.42)
+script = ExtResource("2_stack")
+sway_strength = 0.06
+
+[node name="MaxLabel" type="Label3D" parent="."]
+position = Vector3(0, 2.6, 0)
+billboard = 1
+no_depth_test = true
+modulate = Color(1, 0.35, 0.3, 1)
+outline_modulate = Color(0.1, 0.1, 0.1, 1)
+text = "HUD_MAX"
+font_size = 96
+outline_size = 24
+pixel_size = 0.005

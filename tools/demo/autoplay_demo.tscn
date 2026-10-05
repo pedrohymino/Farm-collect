@@ -1,0 +1,13 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tools/demo/autoplay_demo.gd" id="1_demo"]
+[ext_resource type="PackedScene" path="res://src/ui/hud/hud.tscn" id="2_hud"]
+[ext_resource type="Script" path="res://src/gameplay/audio/audio_director.gd" id="3_audio"]
+
+[node name="AutoplayDemo" type="Node"]
+script = ExtResource("1_demo")
+
+[node name="Hud" parent="." instance=ExtResource("2_hud")]
+
+[node name="AudioDirector" type="Node" parent="."]
+script = ExtResource("3_audio")

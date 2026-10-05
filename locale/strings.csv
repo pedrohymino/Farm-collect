@@ -3,3 +3,9 @@ GAME_TITLE,Farm Collect,Farm Collect
 MENU_PLAY,Play,Jogar
 MENU_SETTINGS,Settings,Configurações
 MENU_QUIT,Quit,Sair
+ITEM_EGG,Egg,Ovo
+ITEM_MILK,Milk,Leite
+ITEM_WHEAT,Wheat,Trigo
+HUD_MAX,MAX,MÁX
+ZONE_SELL,SELL,VENDER
+FX_MONEY_GAIN,+$%s,+$%s

@@ -6,12 +6,14 @@ extends RefCounted
 const STATS_FILE: String = "stats.json"
 const ITEMS_FILE: String = "items.json"
 const PROGRESSION_FILE: String = "progression.json"
+const PRODUCERS_FILE: String = "producers.json"
 const ITEM_STAGES: Array[String] = ["raw", "processed"]
 const SCOPED_ITEM_STATS: Array[String] = ["production.rate", "sell.price"]
 
 var stats: Dictionary = {}
 var items: Dictionary = {}
 var progression: Dictionary = {}
+var producers: Dictionary = {}
 var errors: PackedStringArray = PackedStringArray()
 
 
@@ -20,10 +22,12 @@ static func load_from_dir(dir_path: String) -> BalanceData:
 	data.stats = data._load_json(dir_path.path_join(STATS_FILE))
 	data.items = data._load_json(dir_path.path_join(ITEMS_FILE))
 	data.progression = data._load_json(dir_path.path_join(PROGRESSION_FILE))
+	data.producers = data._load_json(dir_path.path_join(PRODUCERS_FILE))
 	data.errors.append_array(validate_stats(data.stats))
 	data.errors.append_array(validate_items(data.items))
 	data.errors.append_array(validate_progression(data.progression))
 	data.errors.append_array(validate_item_stats(data.items, data.stats))
+	data.errors.append_array(validate_producers(data.producers, data.items))
 	return data
 
 
@@ -74,6 +78,23 @@ static func validate_item_stats(items_raw: Dictionary, stats_raw: Dictionary) ->
 			var stat_id := "%s.%s" % [prefix, item_id]
 			if not stats_raw.has(stat_id):
 				found.append("item '%s' is missing stat '%s'" % [item_id, stat_id])
+	return found
+
+
+static func validate_producers(raw: Dictionary, items_raw: Dictionary) -> PackedStringArray:
+	var found := PackedStringArray()
+	for producer_id: String in raw:
+		var entry: Variant = raw[producer_id]
+		if typeof(entry) != TYPE_DICTIONARY:
+			found.append("producer '%s' must be an object" % producer_id)
+		elif not items_raw.has(entry.get("item", "")):
+			found.append(
+				"producer '%s' produces unknown item '%s'" % [producer_id, entry.get("item")]
+			)
+		elif not _is_positive(entry.get("base_units")) or not _is_number(entry.get("max_units")):
+			found.append("producer '%s' needs positive 'base_units' and 'max_units'" % producer_id)
+		elif float(entry["base_units"]) > float(entry["max_units"]):
+			found.append("producer '%s' has base_units > max_units" % producer_id)
 	return found
 
 

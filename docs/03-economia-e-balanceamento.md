@@ -43,13 +43,15 @@ se dev override ativo:  final = override_absoluto  OU  final × override_multipl
 | `production.output_capacity` | 30 | itens | 5 | pilha de saída dos produtores |
 | `sell.price` | 1.0 | × | 0.1 | multiplicador global de preço |
 | `sell.price.<item>` | 1.0 | × | 0.1 | |
-| `sell.tip_chance` | 0 | % | 0 | gorjeta = +50% |
+| `sell.tip_chance` | 0 | % | 0 | |
+| `sell.tip_bonus` | 0.5 | × | 0 | gorjeta = +50% do valor do pedido |
 | `counter.capacity` | 30 | itens | 5 | |
 | `counter.serve_time` | 0.6 | s | 0.1 | tempo por cliente no caixa |
 | `customer.spawn_interval` | 5.0 | s | 0.5 | menor = mais clientes |
 | `customer.max_queue` | 5 | clientes | 1 | por balcão |
 | `customer.buy_min` / `customer.buy_max` | 1 / 3 | itens | 1 | |
 | `customer.patience` | 25 | s | 5 | |
+| `customer.move_speed` | 2.5 | m/s | 0.5 | |
 | `worker.move_speed` | 3.0 | m/s | 1 | |
 | `worker.carry_capacity` | 6 | itens | 1 | |
 | `machine.speed` | 1.0 | × | 0.1 | |
@@ -157,6 +159,7 @@ data/balance/upgrades.json     # base, crescimento, efeitos
 data/balance/unlocks.json      # sequência de pads, custos, pré-requisitos
 data/balance/passives.json     # nós da árvore, custo, efeitos, vizinhos
 data/balance/progression.json  # curva de XP, estrelas por nível, offline
+data/balance/producers.json    # produtores: item, unidades iniciais e máximas (galinhas, vacas)
 ```
 
 JSON foi escolhido para balanceamento porque é fácil de editar, comparar em diffs, gerar por planilha e

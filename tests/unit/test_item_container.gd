@@ -122,3 +122,22 @@ func test_load_array_skips_items_not_accepted() -> void:
 	var c := _container(5, [&"egg"])
 	c.load_array(["egg", "milk", 42, "egg"])
 	assert_eq(c.items(), [&"egg", &"egg"])
+
+
+func test_find_transfer_index_points_at_topmost_acceptable_item() -> void:
+	var from := _container(5)
+	var to := _container(5, [&"egg"])
+	from.push(&"egg")
+	from.push(&"egg")
+	from.push(&"milk")
+	assert_eq(ItemContainer.find_transfer_index(from, to), 1)
+	assert_eq(ItemContainer.find_transfer_index(from, _container(0)), -1)
+
+
+func test_stat_capacity_reads_from_stat_source() -> void:
+	var registry := StatRegistry.new()
+	registry.load_defs({"cap": {"base": 2, "integer": true}})
+	var c := ItemContainer.new(ItemContainer.stat_capacity(registry, &"cap"))
+	assert_eq(c.capacity(), 2)
+	registry.set_base(&"cap", 4.0)
+	assert_eq(c.capacity(), 4)

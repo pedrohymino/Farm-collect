@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3]
+
+[sub_resource type="CylinderMesh" id="Mesh_bundle"]
+top_radius = 0.13
+bottom_radius = 0.1
+height = 0.3
+radial_segments = 8
+
+[sub_resource type="StandardMaterial3D" id="Mat_bundle"]
+albedo_color = Color(0.968, 0.772, 0.192, 1)
+roughness = 0.8
+
+[sub_resource type="TorusMesh" id="Mesh_tie"]
+inner_radius = 0.09
+outer_radius = 0.125
+rings = 12
+ring_segments = 4
+
+[sub_resource type="StandardMaterial3D" id="Mat_tie"]
+albedo_color = Color(0.71, 0.443, 0.227, 1)
+
+[node name="Wheat" type="Node3D"]
+
+[node name="Bundle" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+mesh = SubResource("Mesh_bundle")
+surface_material_override/0 = SubResource("Mat_bundle")
+
+[node name="Tie" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14, 0)
+mesh = SubResource("Mesh_tie")
+surface_material_override/0 = SubResource("Mat_tie")

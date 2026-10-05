@@ -1,0 +1,4 @@
+{
+  "coop": { "item": "egg", "base_units": 2, "max_units": 6 },
+  "barn": { "item": "milk", "base_units": 1, "max_units": 4 }
+}

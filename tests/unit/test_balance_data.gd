@@ -37,3 +37,14 @@ func test_validate_reports_bad_items() -> void:
 func test_missing_directory_is_an_error() -> void:
 	var data := BalanceData.load_from_dir("res://data/does_not_exist")
 	assert_gt(data.errors.size(), 0)
+
+
+func test_validate_reports_bad_producers() -> void:
+	var items := {"egg": {}}
+	var raw := {
+		"ok": {"item": "egg", "base_units": 2, "max_units": 6},
+		"ghost": {"item": "unicorn", "base_units": 1, "max_units": 1},
+		"zero": {"item": "egg", "base_units": 0, "max_units": 1},
+		"inverted": {"item": "egg", "base_units": 5, "max_units": 1},
+	}
+	assert_eq(BalanceData.validate_producers(raw, items).size(), 3)

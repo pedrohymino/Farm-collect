@@ -38,6 +38,7 @@ func load_game() -> void:
 func save_game() -> bool:
 	if not _is_active:
 		return false
+	get_tree().call_group(&"persistent_location", &"write_state")
 	var payload := {
 		"schema_version": SaveMigrator.CURRENT_VERSION,
 		"saved_at_unix": Time.get_unix_time_from_system(),

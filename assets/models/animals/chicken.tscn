@@ -1,0 +1,55 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/npcs/animal_wander.gd" id="1_wander"]
+
+[sub_resource type="SphereMesh" id="Mesh_body"]
+radius = 0.2
+height = 0.4
+radial_segments = 10
+rings = 6
+
+[sub_resource type="StandardMaterial3D" id="Mat_white"]
+albedo_color = Color(0.97, 0.95, 0.9, 1)
+
+[sub_resource type="SphereMesh" id="Mesh_head"]
+radius = 0.11
+height = 0.22
+radial_segments = 10
+rings = 6
+
+[sub_resource type="BoxMesh" id="Mesh_comb"]
+size = Vector3(0.05, 0.08, 0.12)
+
+[sub_resource type="StandardMaterial3D" id="Mat_red"]
+albedo_color = Color(0.9, 0.28, 0.23, 1)
+
+[sub_resource type="PrismMesh" id="Mesh_beak"]
+size = Vector3(0.07, 0.08, 0.06)
+
+[sub_resource type="StandardMaterial3D" id="Mat_orange"]
+albedo_color = Color(1, 0.62, 0.2, 1)
+
+[node name="Chicken" type="Node3D"]
+script = ExtResource("1_wander")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.19, 0)
+scale = Vector3(1, 0.85, 1.15)
+mesh = SubResource("Mesh_body")
+surface_material_override/0 = SubResource("Mat_white")
+
+[node name="Head" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.4, 0.14)
+mesh = SubResource("Mesh_head")
+surface_material_override/0 = SubResource("Mat_white")
+
+[node name="Comb" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.53, 0.13)
+mesh = SubResource("Mesh_comb")
+surface_material_override/0 = SubResource("Mat_red")
+
+[node name="Beak" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.39, 0.27)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("Mesh_beak")
+surface_material_override/0 = SubResource("Mat_orange")

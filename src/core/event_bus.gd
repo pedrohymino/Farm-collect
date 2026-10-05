@@ -8,4 +8,11 @@ signal currency_earned(currency: StringName, amount: float)
 signal currency_spent(currency: StringName, amount: float)
 signal game_loaded
 signal game_saved
+
+signal item_produced(item_id: StringName)
+signal item_collected(item_id: StringName)
+signal item_delivered(item_id: StringName)
+signal item_sold(item_id: StringName, count: int, value: float)
+signal money_collected(amount: float)
+signal customer_left(happy: bool)
 @warning_ignore_restore("unused_signal")

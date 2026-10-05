@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemDef" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/core/items/item_def.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://assets/models/items/milk.tscn" id="2_visual"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"milk"
+name_key = "ITEM_MILK"
+visual_scene = ExtResource("2_visual")
+stack_height = 0.32

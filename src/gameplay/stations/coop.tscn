@@ -1,0 +1,109 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/stations/producer.gd" id="1_producer"]
+[ext_resource type="Script" path="res://src/gameplay/items/stack_visual.gd" id="2_stack"]
+[ext_resource type="Script" path="res://src/gameplay/stations/transfer_zone.gd" id="3_zone"]
+[ext_resource type="Script" path="res://src/gameplay/stations/zone_marker.gd" id="4_marker"]
+[ext_resource type="Script" path="res://src/gameplay/world/fence_line.gd" id="5_fence"]
+[ext_resource type="PackedScene" path="res://assets/models/animals/chicken.tscn" id="6_chicken"]
+
+[sub_resource type="PlaneMesh" id="Mesh_straw"]
+size = Vector2(3.6, 2.8)
+
+[sub_resource type="StandardMaterial3D" id="Mat_straw"]
+albedo_color = Color(0.92, 0.8, 0.45, 1)
+
+[sub_resource type="BoxMesh" id="Mesh_house"]
+size = Vector3(1.8, 1.2, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="Mat_house"]
+albedo_color = Color(0.85, 0.33, 0.25, 1)
+
+[sub_resource type="PrismMesh" id="Mesh_roof"]
+size = Vector3(2.1, 0.7, 1.4)
+
+[sub_resource type="StandardMaterial3D" id="Mat_roof"]
+albedo_color = Color(0.55, 0.32, 0.2, 1)
+
+[sub_resource type="BoxShape3D" id="Shape_house"]
+size = Vector3(1.8, 1.4, 1.2)
+
+[sub_resource type="BoxMesh" id="Mesh_pallet"]
+size = Vector3(1.4, 0.1, 1.1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_wood"]
+albedo_color = Color(0.71, 0.44, 0.23, 1)
+
+[sub_resource type="BoxShape3D" id="Shape_zone"]
+size = Vector3(1.8, 1, 1.8)
+
+[sub_resource type="PlaneMesh" id="Mesh_zone"]
+size = Vector2(1.6, 1.6)
+
+[sub_resource type="StandardMaterial3D" id="Mat_zone"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.25, 0.83, 0.95, 0.45)
+
+[node name="Coop" type="Node3D"]
+script = ExtResource("1_producer")
+producer_id = &"coop"
+persist_id = &"coop"
+unit_scene = ExtResource("6_chicken")
+pen_half_extents = Vector2(1.4, 1)
+
+[node name="Straw" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.01, 0)
+mesh = SubResource("Mesh_straw")
+surface_material_override/0 = SubResource("Mat_straw")
+
+[node name="Pen" type="Node3D" parent="."]
+script = ExtResource("5_fence")
+points = PackedVector2Array(-1.8, -1.4, 1.8, -1.4, 1.8, 1.4, -1.8, 1.4)
+closed = true
+
+[node name="House" type="StaticBody3D" parent="."]
+position = Vector3(0, 0, -2.2)
+
+[node name="Walls" type="MeshInstance3D" parent="House"]
+position = Vector3(0, 0.6, 0)
+mesh = SubResource("Mesh_house")
+surface_material_override/0 = SubResource("Mat_house")
+
+[node name="Roof" type="MeshInstance3D" parent="House"]
+position = Vector3(0, 1.55, 0)
+mesh = SubResource("Mesh_roof")
+surface_material_override/0 = SubResource("Mat_roof")
+
+[node name="Collision" type="CollisionShape3D" parent="House"]
+position = Vector3(0, 0.7, 0)
+shape = SubResource("Shape_house")
+
+[node name="Units" type="Node3D" parent="."]
+
+[node name="Pallet" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.05, 2.4)
+mesh = SubResource("Mesh_pallet")
+surface_material_override/0 = SubResource("Mat_wood")
+
+[node name="OutputVisual" type="Node3D" parent="."]
+position = Vector3(0, 0.1, 2.4)
+script = ExtResource("2_stack")
+columns = 4
+rows = 3
+
+[node name="PickupZone" type="Area3D" parent="." node_paths=PackedStringArray("station_visual", "marker")]
+position = Vector3(0, 0, 2.4)
+script = ExtResource("3_zone")
+station_visual = NodePath("../OutputVisual")
+marker = NodePath("Marker")
+
+[node name="Shape" type="CollisionShape3D" parent="PickupZone"]
+position = Vector3(0, 0.5, 0)
+shape = SubResource("Shape_zone")
+
+[node name="Marker" type="MeshInstance3D" parent="PickupZone"]
+position = Vector3(0, 0.02, 0)
+mesh = SubResource("Mesh_zone")
+surface_material_override/0 = SubResource("Mat_zone")
+script = ExtResource("4_marker")

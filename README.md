@@ -3,7 +3,9 @@
 Jogo cozy, casual e incremental de fazenda em 3D low-poly isométrico, no estilo "idle arcade":
 coletar, empilhar, vender, desbloquear e automatizar. Feito em Godot 4.7.
 
-**Status:** M0 (setup) e M1 (fundação de sistemas) concluídos — próximo: M2 (primeiro loop jogável).
+**Status:** M0, M1 e M2 (primeiro loop jogável, graybox) prontos — M2 aguardando validação de diversão; próximo: M3 (dev mode).
+
+Controles: WASD / setas / analógico. Pise nas zonas ciano: coletar ovos → entregar no balcão → ficar no "VENDER" → pegar o dinheiro.
 
 ## Rodando
 
@@ -11,6 +13,8 @@ coletar, empilhar, vender, desbloquear e automatizar. Feito em Godot 4.7.
 "C:/Program Files/Godot/Godot_v4.7.2-stable_win64_console.exe" --headless --import
 "C:/Program Files/Godot/Godot_v4.7.2-stable_win64.exe"
 ```
+
+Demo automática (o jogador joga sozinho, útil para gravar): `"C:/Program Files/Godot/Godot_v4.7.2-stable_win64.exe" res://tools/demo/autoplay_demo.tscn`
 
 Testes: `"C:/Program Files/Godot/Godot_v4.7.2-stable_win64_console.exe" --headless -s addons/gut/gut_cmdln.gd`
 

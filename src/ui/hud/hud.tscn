@@ -1,0 +1,72 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/hud/hud.gd" id="1_hud"]
+
+[sub_resource type="StyleBoxFlat" id="Style_panel"]
+content_margin_left = 28.0
+content_margin_top = 14.0
+content_margin_right = 40.0
+content_margin_bottom = 14.0
+bg_color = Color(0.1, 0.12, 0.15, 0.75)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+
+[sub_resource type="StyleBoxFlat" id="Style_icon"]
+bg_color = Color(0.24, 0.73, 0.3, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.1, 0.42, 0.15, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="Hud" type="CanvasLayer"]
+script = ExtResource("1_hud")
+
+[node name="TopBar" type="MarginContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 180.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 32
+
+[node name="Center" type="CenterContainer" parent="TopBar"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MoneyPanel" type="PanelContainer" parent="TopBar/Center"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_panel")
+
+[node name="Row" type="HBoxContainer" parent="TopBar/Center/MoneyPanel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="Icon" type="Panel" parent="TopBar/Center/MoneyPanel/Row"]
+custom_minimum_size = Vector2(76, 50)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_icon")
+
+[node name="MoneyLabel" type="Label" parent="TopBar/Center/MoneyPanel/Row"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.05, 0.05, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 72
+text = "0"

@@ -1,25 +1,13 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_main"]
+[ext_resource type="PackedScene" path="res://src/ui/hud/hud.tscn" id="2_hud"]
+[ext_resource type="Script" path="res://src/gameplay/audio/audio_director.gd" id="3_audio"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_main")
 
-[node name="Hud" type="CanvasLayer" parent="."]
+[node name="Hud" parent="." instance=ExtResource("2_hud")]
 
-[node name="TitleLabel" type="Label" parent="Hud"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -50.0
-offset_right = 300.0
-offset_bottom = 50.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 64
-text = "GAME_TITLE"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="AudioDirector" type="Node" parent="."]
+script = ExtResource("3_audio")

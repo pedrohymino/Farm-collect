@@ -7,8 +7,8 @@ func after_each() -> void:
 	Stats.clear_all_dev_overrides()
 
 
-func test_content_db_loaded_balance_without_errors() -> void:
-	assert_eq(ContentDB.balance.errors, PackedStringArray())
+func test_content_db_loaded_without_errors() -> void:
+	assert_eq(ContentDB.errors, PackedStringArray())
 	assert_eq(ContentDB.item_base_price(&"egg"), 3.0)
 
 

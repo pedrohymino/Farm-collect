@@ -13,7 +13,7 @@ const MUTED_COLOR: Color = Color(1, 1, 1, 0.65)
 
 ## Compact number text without trailing zeros (GDScript's % has no %g).
 static func num(value: float) -> String:
-	return String.num(value, 4)
+	return NumberFormat.trimmed(value, 4)
 
 
 ## Like num(), with an explicit sign: +2, -0.5.

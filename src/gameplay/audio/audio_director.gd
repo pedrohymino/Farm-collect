@@ -9,6 +9,7 @@ const STREAK_RESET_SEC: float = 0.6
 const PITCH_STEP: float = 0.05
 const MAX_PITCH: float = 1.8
 const PITCH_JITTER: float = 0.06
+const LEVEL_UP_PITCH: float = 1.25
 
 const SFX_COLLECT: AudioStream = preload("res://assets/audio/sfx/pop.wav")
 const SFX_DELIVER: AudioStream = preload("res://assets/audio/sfx/drop.wav")
@@ -38,6 +39,13 @@ func _ready() -> void:
 	)
 	EventBus.money_collected.connect(func(_amount: float) -> void: _play(SFX_MONEY, _jitter()))
 	EventBus.unlock_completed.connect(func(_unlock_id: StringName) -> void: _play(SFX_UNLOCK, 1.0))
+	EventBus.level_up.connect(func(_level: int) -> void: _play(SFX_UNLOCK, LEVEL_UP_PITCH))
+	EventBus.upgrade_purchased.connect(
+		func(_upgrade_id: StringName, _level: int) -> void: _play(SFX_SELL, _jitter())
+	)
+	EventBus.passive_purchased.connect(
+		func(_node_id: StringName) -> void: _play(SFX_UNLOCK, LEVEL_UP_PITCH)
+	)
 
 
 func _on_item_collected(_item_id: StringName) -> void:

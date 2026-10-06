@@ -5,6 +5,7 @@ extends Node3D
 
 const SALE_TEXT_HEIGHT: float = 1.8
 const SALE_TEXT_COLOR: Color = Color("7dff6b")
+const VIP_TEXT_COLOR: Color = Color("ffd166")
 
 @export var item_id: StringName = &"egg"
 @export var persist_id: StringName = &"egg_counter"
@@ -87,13 +88,16 @@ func _complete_sale(order: CustomerOrder) -> void:
 	var value := SaleRules.order_value(
 		unit, order.count, tipped, Stats.get_value(&"sell.tip_bonus")
 	)
+	var is_vip := _rng.randf() < Stats.get_value(&"sell.vip_chance")
+	if is_vip:
+		value *= Stats.get_value(&"sell.vip_multiplier")
 	money_pile.stash.add(value)
 	var customer: Customer = _customers[order]
 	FloatingText.spawn(
 		get_parent(),
 		customer.global_position + Vector3.UP * SALE_TEXT_HEIGHT,
 		tr("FX_MONEY_GAIN") % Economy.format(value),
-		SALE_TEXT_COLOR
+		VIP_TEXT_COLOR if is_vip else SALE_TEXT_COLOR
 	)
 	EventBus.item_sold.emit(item_id, order.count, value)
 	_release(order, true)

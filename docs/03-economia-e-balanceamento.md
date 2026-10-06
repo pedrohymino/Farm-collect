@@ -41,10 +41,14 @@ se dev override ativo:  final = override_absoluto  OU  final × override_multipl
 | `production.yield` | 1.0 | × | 1 | "farm item multiplier" — itens por ciclo (fração vira chance) |
 | `production.double_chance` | 0 | % | 0 | |
 | `production.output_capacity` | 30 | itens | 5 | pilha de saída dos produtores |
+| `production.super_chance` | 0 | % | 0 | nó-chave Super safra |
+| `production.super_multiplier` | 10 | × | 1 | |
 | `sell.price` | 1.0 | × | 0.1 | multiplicador global de preço |
 | `sell.price.<item>` | 1.0 | × | 0.1 | |
 | `sell.tip_chance` | 0 | % | 0 | |
 | `sell.tip_bonus` | 0.5 | × | 0 | gorjeta = +50% do valor do pedido |
+| `sell.vip_chance` | 0 | % | 0 | nó-chave Clientes VIP |
+| `sell.vip_multiplier` | 5 | × | 1 | |
 | `counter.capacity` | 30 | itens | 5 | |
 | `counter.serve_time` | 0.6 | s | 0.1 | tempo por cliente no caixa |
 | `customer.spawn_interval` | 5.0 | s | 0.5 | menor = mais clientes |
@@ -88,10 +92,13 @@ xp_para_próximo(nível) = 50 × 1.35^(nível − 1)
 | Preço justo | $50 | 1.65 | +10% `sell.price` |
 | Fazenda fértil | $40 | 1.60 | +8% `production.rate` |
 | Propaganda | $35 | 1.60 | −6% `customer.spawn_interval` (percent negativo, clamp) |
-| Treinamento | $150 | 1.70 | +8% velocidade e +1 carga dos ajudantes |
+| Treinamento *(M6)* | $150 | 1.70 | +8% velocidade e +1 carga dos ajudantes |
 
-Árvore de passivas: nós custam 1★ (tier 1), 2★ (tier 2), 3★ (tier 3), 5★ (nós-chave).
-~25 nós na v1; com ~40 níveis de fazenda o jogador compra a árvore quase inteira.
+Árvore de passivas: nós custam 1–3★ e 5★ os nós-chave (ver `passives.json`).
+M5: 15 nós (Fazendeiro, Produção, Comércio). M6 adiciona Automação e Descanso (~25 no total).
+Propaganda tem nível máximo 12 (o intervalo de clientes tem piso de 0,5 s).
+
+Fonte da verdade: `data/balance/upgrades.json` e `data/balance/passives.json`.
 
 ## 6. Sequência de desbloqueios v1
 

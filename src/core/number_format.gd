@@ -22,6 +22,14 @@ static func format(value: float) -> String:
 	return sign_prefix + _mantissa(magnitude, tier) + _suffix(tier)
 
 
+## Plain number with up to `decimals` decimals and no trailing zeros: 6.0 -> "6", 0.25 -> "0.25".
+static func trimmed(value: float, decimals: int = 2) -> String:
+	var text := ("%." + str(decimals) + "f") % value
+	if text.contains("."):
+		text = text.rstrip("0").rstrip(".")
+	return "0" if text == "-0" else text
+
+
 static func _mantissa(magnitude: float, tier: int) -> String:
 	if tier == 0 or magnitude >= 100.0:
 		return str(floori(magnitude + EPSILON))

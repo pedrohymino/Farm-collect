@@ -36,3 +36,11 @@ func test_letter_suffixes_after_trillions() -> void:
 
 func test_negative_numbers_keep_sign() -> void:
 	assert_eq(NumberFormat.format(-1500.0), "-1.5K")
+
+
+func test_trimmed_drops_trailing_zeros() -> void:
+	assert_eq(NumberFormat.trimmed(6.0), "6")
+	assert_eq(NumberFormat.trimmed(0.25), "0.25")
+	assert_eq(NumberFormat.trimmed(1.5), "1.5")
+	assert_eq(NumberFormat.trimmed(-0.0001), "0")
+	assert_eq(NumberFormat.trimmed(2.12345, 4), "2.1235")

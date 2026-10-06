@@ -80,3 +80,44 @@ DEV_RESET_UNLOCKS,Reset unlocks (saves and reloads),Resetar desbloqueios (salva 
 DEV_SKIP_TUTORIAL,Skip onboarding,Pular onboarding
 DEV_RIPEN_FIELDS,Ripen crop fields,Amadurecer plantações
 DEV_UNLOCKED_COUNT,Unlocked: %d / %d,Desbloqueados: %d / %d
+UNLOCK_UPGRADE_BOARD,Upgrades,Upgrades
+ZONE_UPGRADES,UPGRADES,UPGRADES
+UPGRADES_TITLE,Upgrades,Upgrades
+UI_CLOSE,Close,Fechar
+UI_MAX,MAX,MÁX
+UI_LEVEL_SHORT,Lv. %d,Nv. %d
+UPGRADE_BOOTS,Boots,Botas
+UPGRADE_BACKPACK,Backpack,Mochila
+UPGRADE_QUICK_HANDS,Quick hands,Mãos rápidas
+UPGRADE_FAIR_PRICE,Fair price,Preço justo
+UPGRADE_FERTILE_FARM,Fertile farm,Fazenda fértil
+UPGRADE_ADVERTISING,Advertising,Propaganda
+STAT_PLAYER_MOVE_SPEED,speed,velocidade
+STAT_PLAYER_CARRY_CAPACITY,carry capacity,capacidade de carga
+STAT_PLAYER_PICKUP_RATE,pickup speed,velocidade de coleta
+STAT_PLAYER_DROP_RATE,delivery speed,velocidade de entrega
+STAT_PLAYER_MAGNET_RADIUS,magnet reach (m),alcance do ímã (m)
+STAT_SELL_PRICE,sell price,preço de venda
+STAT_SELL_TIP_CHANCE,tip chance,chance de gorjeta
+STAT_SELL_VIP_CHANCE,VIP customer chance (pays ×5),chance de cliente VIP (paga ×5)
+STAT_PRODUCTION_RATE,production speed,velocidade de produção
+STAT_PRODUCTION_DOUBLE_CHANCE,double harvest chance,chance de colheita dupla
+STAT_PRODUCTION_YIELD,items per harvest,itens por colheita
+STAT_PRODUCTION_SUPER_CHANCE,super harvest chance (×10),chance de super safra (×10)
+STAT_CUSTOMER_SPAWN_INTERVAL,time between customers,tempo entre clientes
+STAT_CUSTOMER_BUY_MAX,max items per customer,máx. de itens por cliente
+HUD_TREE,Skills,Passivas
+HUD_LEVEL_UP,Level %d!,Nível %d!
+TREE_TITLE,Skill tree,Árvore de passivas
+TREE_HINT,Tap a skill to see it,Toque numa passiva para ver
+TREE_BUY,Buy (%d stars),Comprar (%d estrelas)
+BRANCH_FARMER,Farmer,Fazendeiro
+BRANCH_PRODUCTION,Production,Produção
+BRANCH_COMMERCE,Commerce,Comércio
+PASSIVE_FARMER_KEY,Magnet,Ímã
+PASSIVE_PRODUCTION_KEY,Super harvest,Super safra
+PASSIVE_COMMERCE_KEY,VIP customers,Clientes VIP
+DEV_LEVEL,Farm level,Nível da fazenda
+DEV_ADD_XP,+%s XP,+%s XP
+DEV_LEVEL_UP,Level up,Subir de nível
+DEV_RESET_PROGRESSION,Reset upgrades and skills,Resetar upgrades e passivas

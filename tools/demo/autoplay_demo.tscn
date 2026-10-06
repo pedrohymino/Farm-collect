@@ -3,6 +3,8 @@
 [ext_resource type="Script" path="res://tools/demo/autoplay_demo.gd" id="1_demo"]
 [ext_resource type="PackedScene" path="res://src/ui/hud/hud.tscn" id="2_hud"]
 [ext_resource type="Script" path="res://src/gameplay/audio/audio_director.gd" id="3_audio"]
+[ext_resource type="Script" path="res://src/ui/upgrade_menu/upgrade_menu.gd" id="4_upgrades"]
+[ext_resource type="Script" path="res://src/ui/passive_tree/passive_tree_screen.gd" id="5_tree"]
 
 [node name="AutoplayDemo" type="Node"]
 script = ExtResource("1_demo")
@@ -11,3 +13,9 @@ script = ExtResource("1_demo")
 
 [node name="AudioDirector" type="Node" parent="."]
 script = ExtResource("3_audio")
+
+[node name="UpgradeMenu" type="CanvasLayer" parent="."]
+script = ExtResource("4_upgrades")
+
+[node name="PassiveTree" type="CanvasLayer" parent="."]
+script = ExtResource("5_tree")

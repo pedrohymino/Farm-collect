@@ -1,0 +1,37 @@
+{
+  "farmer_1": { "branch": "farmer", "cost": 1, "requires": [],
+    "effects": [{ "stat": "player.move_speed", "type": "percent", "value": 0.08 }] },
+  "farmer_2": { "branch": "farmer", "cost": 1, "requires": ["farmer_1"],
+    "effects": [{ "stat": "player.carry_capacity", "type": "flat", "value": 2 }] },
+  "farmer_3": { "branch": "farmer", "cost": 2, "requires": ["farmer_2"],
+    "effects": [
+      { "stat": "player.pickup_rate", "type": "percent", "value": 0.15 },
+      { "stat": "player.drop_rate", "type": "percent", "value": 0.15 }
+    ] },
+  "farmer_4": { "branch": "farmer", "cost": 2, "requires": ["farmer_3"],
+    "effects": [{ "stat": "player.carry_capacity", "type": "flat", "value": 3 }] },
+  "farmer_key": { "branch": "farmer", "cost": 5, "requires": ["farmer_4"], "key": true,
+    "effects": [{ "stat": "player.magnet_radius", "type": "flat", "value": 1.5 }] },
+
+  "production_1": { "branch": "production", "cost": 1, "requires": [],
+    "effects": [{ "stat": "production.rate", "type": "percent", "value": 0.1 }] },
+  "production_2": { "branch": "production", "cost": 1, "requires": ["production_1"],
+    "effects": [{ "stat": "production.double_chance", "type": "flat", "value": 0.05 }] },
+  "production_3": { "branch": "production", "cost": 2, "requires": ["production_2"],
+    "effects": [{ "stat": "production.rate", "type": "percent", "value": 0.15 }] },
+  "production_4": { "branch": "production", "cost": 3, "requires": ["production_3"],
+    "effects": [{ "stat": "production.yield", "type": "flat", "value": 0.25 }] },
+  "production_key": { "branch": "production", "cost": 5, "requires": ["production_4"], "key": true,
+    "effects": [{ "stat": "production.super_chance", "type": "flat", "value": 0.01 }] },
+
+  "commerce_1": { "branch": "commerce", "cost": 1, "requires": [],
+    "effects": [{ "stat": "sell.price", "type": "percent", "value": 0.1 }] },
+  "commerce_2": { "branch": "commerce", "cost": 1, "requires": ["commerce_1"],
+    "effects": [{ "stat": "sell.tip_chance", "type": "flat", "value": 0.1 }] },
+  "commerce_3": { "branch": "commerce", "cost": 2, "requires": ["commerce_2"],
+    "effects": [{ "stat": "customer.buy_max", "type": "flat", "value": 1 }] },
+  "commerce_4": { "branch": "commerce", "cost": 3, "requires": ["commerce_3"],
+    "effects": [{ "stat": "sell.price", "type": "percent", "value": 0.15 }] },
+  "commerce_key": { "branch": "commerce", "cost": 5, "requires": ["commerce_4"], "key": true,
+    "effects": [{ "stat": "sell.vip_chance", "type": "flat", "value": 0.05 }] }
+}

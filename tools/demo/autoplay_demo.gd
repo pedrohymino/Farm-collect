@@ -3,13 +3,16 @@ extends Node
 ##   godot --write-movie out.png --fixed-fps 30 --quit-after 900 res://tools/demo/autoplay_demo.tscn
 ## Drives the player through the real input actions, like a person would.
 ## User args (after `--`): --dev-panel (panel open), --all-unlocked (every unlock done),
-## --overview (camera pulled back to show the whole farm).
+## --overview (camera pulled back to show the whole farm), --show-upgrades (upgrade menu open),
+## --show-tree (passive tree open with a few skills bought).
 
 const FARM_SCENE: PackedScene = preload("res://src/gameplay/locations/farm/farm.tscn")
 const ARRIVE_DISTANCE: float = 0.3
 const WAIT_AT_CASHIER_SEC: float = 4.0
 const WAIT_AT_PICKUP_SEC: float = 2.0
 const OVERVIEW_DISTANCE: float = 42.0
+const SHOWCASE_MONEY: float = 500.0
+const SHOWCASE_STARS: float = 6.0
 
 var _player: Player
 var _route: Array[Dictionary] = []
@@ -30,6 +33,15 @@ func _ready() -> void:
 	var farm := FARM_SCENE.instantiate() as Location
 	add_child(farm)
 	_player = farm.get_node("Player")
+	if args.has("--show-upgrades"):
+		Economy.earn(Wallet.MONEY, SHOWCASE_MONEY)
+		Progression.set_upgrade_level(&"backpack", 3)
+		EventBus.upgrade_board_entered.emit.call_deferred()
+	if args.has("--show-tree"):
+		Economy.earn(Wallet.STARS, SHOWCASE_STARS)
+		for node_id: StringName in [&"farmer_1", &"farmer_2", &"production_1"]:
+			Progression.buy_passive(node_id)
+		EventBus.passive_tree_requested.emit.call_deferred()
 	if args.has("--overview"):
 		(farm.get_node("Camera") as FollowCamera).distance = OVERVIEW_DISTANCE
 	var coop := farm.get_node("Coop")

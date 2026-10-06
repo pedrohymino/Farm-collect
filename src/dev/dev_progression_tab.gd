@@ -2,6 +2,8 @@ class_name DevProgressionTab
 extends VBoxContainer
 ## Dev panel tab: unlocks and onboarding shortcuts.
 
+const XP_STEPS: Array[float] = [100.0, 1000.0, 10000.0]
+
 var _report: Callable
 var _count_label: Label
 
@@ -15,6 +17,19 @@ func _init(report: Callable) -> void:
 	add_child(DevUi.button(tr("DEV_UNLOCK_ALL"), _unlock_all))
 	add_child(DevUi.button(tr("DEV_RESET_UNLOCKS"), _reset_unlocks))
 	add_child(DevUi.button(tr("DEV_SKIP_TUTORIAL"), _skip_tutorial))
+	add_child(DevUi.section(tr("DEV_LEVEL")))
+	var xp_buttons: Array[Control] = []
+	for amount in XP_STEPS:
+		xp_buttons.append(
+			DevUi.button(tr("DEV_ADD_XP") % DevUi.num(amount), Progression.add_xp.bind(amount))
+		)
+	add_child(DevUi.flow(xp_buttons))
+	add_child(
+		DevUi.button(
+			tr("DEV_LEVEL_UP"), func() -> void: Progression.add_xp(Progression.xp_to_next())
+		)
+	)
+	add_child(DevUi.button(tr("DEV_RESET_PROGRESSION"), _reset_progression))
 	EventBus.unlock_completed.connect(_refresh_count.unbind(1))
 	_refresh_count()
 
@@ -48,6 +63,11 @@ func _skip_tutorial() -> void:
 	GameState.data.tutorial_step = GuideArrow.STEPS.size()
 	EventBus.tutorial_step_changed.emit(GameState.data.tutorial_step)
 	get_tree().call_group(&"guide_arrow", &"queue_free")
+	_report.call(tr("DEV_DONE"))
+
+
+func _reset_progression() -> void:
+	Progression.reset_all()
 	_report.call(tr("DEV_DONE"))
 
 

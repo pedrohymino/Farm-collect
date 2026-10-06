@@ -3,7 +3,7 @@
 Jogo cozy, casual e incremental de fazenda em 3D low-poly isométrico, no estilo "idle arcade":
 coletar, empilhar, vender, desbloquear e automatizar. Feito em Godot 4.7.
 
-**Status:** M0–M4 prontos (setup, sistemas, loop jogável, dev mode, desbloqueios e expansão) — próximo: M5 (upgrades, nível e passivas).
+**Status:** M0–M5 prontos (setup, sistemas, loop jogável, dev mode, desbloqueios, upgrades/nível/passivas) — próximo: M6 (automação e caminhões).
 
 Dev mode: **F1** (ou `'`) abre o painel de ajuste ao vivo; no celular, 5 toques rápidos no canto superior esquerdo.
 

@@ -18,4 +18,13 @@ signal customer_left(happy: bool)
 
 signal unlock_completed(unlock_id: StringName)
 signal tutorial_step_changed(step: int)
+
+signal xp_changed(xp: float, level: int)
+signal level_up(level: int)
+signal upgrade_purchased(upgrade_id: StringName, level: int)
+signal passive_purchased(node_id: StringName)
+
+signal upgrade_board_entered
+signal upgrade_board_exited
+signal passive_tree_requested
 @warning_ignore_restore("unused_signal")

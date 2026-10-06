@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" path="res://src/gameplay/stations/crop_field.tscn" id="11_field"]
 [ext_resource type="PackedScene" path="res://src/gameplay/stations/barn.tscn" id="12_barn"]
 [ext_resource type="PackedScene" path="res://src/gameplay/ui3d/guide_arrow.tscn" id="13_guide"]
+[ext_resource type="PackedScene" path="res://src/gameplay/stations/upgrade_board.tscn" id="14_board"]
 
 [sub_resource type="Environment" id="Env"]
 background_mode = 1
@@ -164,6 +165,9 @@ position = Vector3(2, 0, 6)
 item_id = &"egg"
 persist_id = &"egg_counter"
 
+[node name="UpgradeStation" parent="." groups=["unlock:upgrade_board"] instance=ExtResource("14_board")]
+position = Vector3(3.5, 0, -5.5)
+
 [node name="WheatField" parent="." groups=["unlock:wheat_field"] instance=ExtResource("11_field")]
 position = Vector3(14, 0, -4.2)
 
@@ -186,6 +190,11 @@ persist_id = &"milk_counter"
 position = Vector3(-0.8, 0, -3.6)
 unlock_id = &"chicken_3"
 name_key = "UNLOCK_CHICKEN"
+
+[node name="UpgradeBoard" parent="Pads" instance=ExtResource("10_pad")]
+position = Vector3(3.5, 0, -4.2)
+unlock_id = &"upgrade_board"
+name_key = "UNLOCK_UPGRADE_BOARD"
 
 [node name="Chicken4" parent="Pads" instance=ExtResource("10_pad")]
 position = Vector3(-0.8, 0, -3.6)

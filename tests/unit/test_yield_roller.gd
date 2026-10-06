@@ -33,3 +33,12 @@ func test_double_chance_averages_out() -> void:
 
 func test_yield_below_one_still_gives_at_least_zero() -> void:
 	assert_gte(YieldRoller.roll(0.0, 0.0, rng), 0)
+
+
+func test_super_harvest_multiplies_result() -> void:
+	assert_eq(YieldRoller.roll(1.0, 0.0, rng, 1.0, 10), 10)
+
+
+func test_super_harvest_disabled_by_default() -> void:
+	for i in 100:
+		assert_lte(YieldRoller.roll(1.0, 0.0, rng), 1)

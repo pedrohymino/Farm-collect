@@ -1,0 +1,29 @@
+{
+  "boots": {
+    "base_cost": 25, "growth": 1.55,
+    "effects": [{ "stat": "player.move_speed", "type": "percent", "value": 0.06 }]
+  },
+  "backpack": {
+    "base_cost": 30, "growth": 1.6,
+    "effects": [{ "stat": "player.carry_capacity", "type": "flat", "value": 2 }]
+  },
+  "quick_hands": {
+    "base_cost": 35, "growth": 1.55,
+    "effects": [
+      { "stat": "player.pickup_rate", "type": "percent", "value": 0.1 },
+      { "stat": "player.drop_rate", "type": "percent", "value": 0.1 }
+    ]
+  },
+  "fair_price": {
+    "base_cost": 50, "growth": 1.65,
+    "effects": [{ "stat": "sell.price", "type": "percent", "value": 0.1 }]
+  },
+  "fertile_farm": {
+    "base_cost": 40, "growth": 1.6,
+    "effects": [{ "stat": "production.rate", "type": "percent", "value": 0.08 }]
+  },
+  "advertising": {
+    "base_cost": 35, "growth": 1.6, "max_level": 12,
+    "effects": [{ "stat": "customer.spawn_interval", "type": "percent", "value": -0.06 }]
+  }
+}

@@ -127,7 +127,7 @@ Níveis infinitos, custo exponencial. Menu aberto ao pisar na mesa.
 | Preço justo | + preço de venda global |
 | Fazenda fértil | + velocidade de produção global |
 | Propaganda | + taxa de chegada de clientes |
-| Treinamento | + velocidade e capacidade dos ajudantes (após o primeiro ajudante) |
+| Treinamento *(M6)* | + velocidade e capacidade dos ajudantes (após o primeiro ajudante) |
 
 ## 7. Árvore de Passivas (paga com Estrelas)
 
@@ -140,8 +140,8 @@ Níveis infinitos, custo exponencial. Menu aberto ao pisar na mesa.
 | Fazendeiro | +velocidade, +carga, +taxa de coleta | **Ímã**: coleta itens a 2 m sem pisar na zona |
 | Produção | +taxa, +rendimento, +chance de colheita dupla | **Super safra**: 1% de chance de ×10 itens |
 | Comércio | +preço, +gorjeta, clientes compram mais | **Cliente VIP**: clientes ocasionais pagam ×5 |
-| Automação | +velocidade/capacidade dos ajudantes, +velocidade das máquinas | **Turno extra**: ajudantes nunca descansam |
-| Descanso | +tempo máximo offline, +eficiência offline | **Fazenda que não dorme**: offline a 100% |
+| Automação *(M6)* | +velocidade/capacidade dos ajudantes, +velocidade das máquinas | **Turno extra**: ajudantes nunca descansam |
+| Descanso *(M6)* | +tempo máximo offline, +eficiência offline | **Fazenda que não dorme**: offline a 100% |
 
 ## 8. Ganhos offline
 

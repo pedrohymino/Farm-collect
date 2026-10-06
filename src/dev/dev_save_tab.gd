@@ -119,6 +119,8 @@ func _selected_preset() -> String:
 func _reload_balance() -> void:
 	ContentDB.reload()
 	Stats.reload_defs()
+	Unlocks.reload()
+	Progression.reload()
 	_report.call(tr("DEV_DONE"))
 
 

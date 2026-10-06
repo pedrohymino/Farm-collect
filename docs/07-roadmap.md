@@ -79,14 +79,22 @@ um valor ajustado pode ser gravado no JSON e persiste ao reabrir.
 **Aceite:** é possível ir do início até a primeira vaca só jogando, seguindo a sequência da tabela 6 do doc 03,
 e o save reconstrói a fazenda corretamente.
 
-## M5 — Upgrades, nível e passivas · M
-- [ ] Mesa de Upgrades + menu (níveis, custo exponencial, efeito do próximo nível).
-- [ ] XP da fazenda, nível, estrelas, banner de subir de nível.
-- [ ] Árvore de passivas (UI em grafo, vizinhança, nós-chave como Ímã).
+## M5 — Upgrades, nível e passivas · M · ✅ concluído (2026-10-05)
+- [x] `EffectSpec` (efeitos de dados → modificadores), `UpgradeRules`, `PassiveRules`, `FarmLevelRules` (lógica pura) + autoload `Progression`
+      (compra, reaplica tudo ao carregar o save, XP das vendas, nível → estrelas).
+- [x] `data/balance/upgrades.json` (6 upgrades, custo exponencial, nível máximo opcional) e `passives.json`
+      (3 ramos × 5 nós: Fazendeiro, Produção, Comércio; nós-chave Ímã, Super safra, Clientes VIP).
+- [x] Mesa de Upgrades (desbloqueio `upgrade_board`, $40) + menu inferior (`UpgradeMenu`) com nível, efeito e preço.
+- [x] HUD: nível + barra de XP, estrelas, botão "Passivas", banner "Nível X!". Árvore radial (`PassiveTreeScreen`) com estados
+      comprado/disponível/bloqueado e painel de detalhe.
+- [x] Efeitos dos nós-chave no jogo: Ímã (coleta a distância em pilhas e plantações), Super safra (×10), Cliente VIP (×5).
+- [x] Dev mode: +XP, subir de nível, resetar upgrades e passivas; recarregar balanço recarrega desbloqueios e progressão.
+- [x] Testes: regras puras, autoload, UI (menu e árvore) e efeitos na fazenda — 226 verdes.
 
 **Aceite:** comprar upgrade/passiva muda os status certos (verificável no breakdown do dev mode); testes de custo e vizinhança verdes.
 
 ## M6 — Automação e caminhões · G
+- [ ] Ramos da árvore Automação e Descanso + upgrade Treinamento (precisam dos ajudantes/offline).
 - [ ] Ajudantes: caixa, carregador, coletor de dinheiro.
 - [ ] Máquinas de fazenda: esteira de ovos, ordenhadeira, irrigação.
 - [ ] Área A4: caminhões com pedidos.

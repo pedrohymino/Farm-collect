@@ -78,7 +78,11 @@ func _interval() -> float:
 
 func _produce(unit_index: int) -> void:
 	var amount := YieldRoller.roll(
-		Stats.get_value(&"production.yield"), Stats.get_value(&"production.double_chance"), _rng
+		Stats.get_value(&"production.yield"),
+		Stats.get_value(&"production.double_chance"),
+		_rng,
+		Stats.get_value(&"production.super_chance"),
+		Stats.get_int(&"production.super_multiplier")
 	)
 	var unit := _units[unit_index]
 	var from := unit.global_position + Vector3.UP * DROP_HEIGHT

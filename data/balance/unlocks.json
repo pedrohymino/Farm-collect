@@ -1,5 +1,6 @@
 {
   "chicken_3": { "cost": 15, "requires": [], "units": { "coop": 1 } },
+  "upgrade_board": { "cost": 40, "requires": ["chicken_3"] },
   "chicken_4": { "cost": 60, "requires": ["chicken_3"], "units": { "coop": 1 } },
   "area_field": { "cost": 120, "requires": ["chicken_3"] },
   "wheat_field": { "cost": 80, "requires": ["area_field"] },

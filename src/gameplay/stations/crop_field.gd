@@ -81,7 +81,11 @@ func _physics_process(_delta: float) -> void:
 func _harvest(index: int, carrier: Node3D) -> void:
 	var visual: StackVisual = carrier.get(&"carry_visual")
 	var amount := YieldRoller.roll(
-		Stats.get_value(&"production.yield"), Stats.get_value(&"production.double_chance"), _rng
+		Stats.get_value(&"production.yield"),
+		Stats.get_value(&"production.double_chance"),
+		_rng,
+		Stats.get_value(&"production.super_chance"),
+		Stats.get_int(&"production.super_multiplier")
 	)
 	var harvested := 0
 	for i in amount:
@@ -101,7 +105,10 @@ func _harvest(index: int, carrier: Node3D) -> void:
 func _is_near(carrier: Node3D, index: int) -> bool:
 	var offset := carrier.global_position - bed_global_position(index)
 	offset.y = 0.0
-	return offset.length() <= HARVEST_RADIUS
+	var reach := HARVEST_RADIUS
+	if carrier.is_in_group(&"player"):
+		reach += Stats.get_value(&"player.magnet_radius")
+	return offset.length() <= reach
 
 
 func _interval() -> float:

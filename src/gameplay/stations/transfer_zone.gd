@@ -2,15 +2,20 @@ class_name TransferZone
 extends Area3D
 ## While a carrier stands inside, moves items between it and a station pile at a
 ## stat-driven rate. Carriers are bodies in group "carrier" exposing `carry_visual: StackVisual`.
+## PICKUP zones also reach the player from player.magnet_radius away (passive "Magnet").
 
 enum Mode { PICKUP, DROP }
+
+## Approximate half-size of a zone, added to the magnet radius.
+const ZONE_REACH: float = 0.9
 
 @export var mode: Mode = Mode.PICKUP
 @export var station_visual: StackVisual
 @export var rate_stat: StringName = &"player.pickup_rate"
 @export var marker: ZoneMarker
 
-var _carriers: Dictionary = {}  # Node3D -> TransferTicker
+var _overlapping: Dictionary = {}  # Node3D -> true, from body signals
+var _tickers: Dictionary = {}  # Node3D -> TransferTicker
 
 
 func _ready() -> void:
@@ -19,13 +24,40 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	for carrier: Node3D in _carriers:
-		var ticker: TransferTicker = _carriers[carrier]
-		var allowed := ticker.consume(delta, Stats.get_value(rate_stat))
-		for i in allowed:
+	var active := _active_carriers()
+	for carrier: Node3D in _tickers.keys():
+		if not active.has(carrier):
+			_tickers.erase(carrier)
+	for carrier in active:
+		if not _tickers.has(carrier):
+			_tickers[carrier] = TransferTicker.new()
+		var ticker: TransferTicker = _tickers[carrier]
+		for i in ticker.consume(delta, Stats.get_value(rate_stat)):
 			if not _move_one(carrier):
 				ticker.reset()
 				break
+	if marker != null:
+		marker.set_active(not active.is_empty())
+
+
+func _active_carriers() -> Array[Node3D]:
+	var active: Array[Node3D] = []
+	for carrier: Node3D in _overlapping:
+		if is_instance_valid(carrier):
+			active.append(carrier)
+	if mode != Mode.PICKUP:
+		return active
+	var reach := Stats.get_value(&"player.magnet_radius")
+	if reach <= 0.0:
+		return active
+	for node in get_tree().get_nodes_in_group(&"player"):
+		var player := node as Node3D
+		if player.is_in_group(&"carrier") and not active.has(player):
+			var offset := player.global_position - global_position
+			offset.y = 0.0
+			if offset.length() <= ZONE_REACH + reach:
+				active.append(player)
+	return active
 
 
 func _move_one(carrier: Node3D) -> bool:
@@ -49,15 +81,8 @@ func _move_one(carrier: Node3D) -> bool:
 
 func _on_body_entered(body: Node3D) -> void:
 	if body.is_in_group(&"carrier"):
-		_carriers[body] = TransferTicker.new()
-		_update_marker()
+		_overlapping[body] = true
 
 
 func _on_body_exited(body: Node3D) -> void:
-	if _carriers.erase(body):
-		_update_marker()
-
-
-func _update_marker() -> void:
-	if marker != null:
-		marker.set_active(not _carriers.is_empty())
+	_overlapping.erase(body)

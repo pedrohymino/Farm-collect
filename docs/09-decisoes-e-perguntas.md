@@ -19,6 +19,9 @@
 | D13 | 2026-10-05 | **Campo a leste e Pasto a oeste** da área inicial (não ao norte) | Todo balcão precisa ficar na estrada para os clientes chegarem |
 | D14 | 2026-10-05 | **Mesa de Upgrades entra no M5**, junto com o menu | Sem o menu seria um pad que não faz nada |
 | D15 | 2026-10-05 | **Pad que surge sob o jogador só cobra depois de sair e entrar de novo** | Pads em sequência no mesmo lugar não podem gastar dinheiro sem o jogador querer |
+| D17 | 2026-10-05 | **Árvore de passivas paga com estrelas** (1 estrela por nível da fazenda; XP = valor vendido) | Resposta à Q4; separa progressão de longo prazo do dinheiro do dia a dia |
+| D18 | 2026-10-05 | **Ramos Automação/Descanso e upgrade Treinamento ficam para o M6** | Só fazem efeito com ajudantes e ganhos offline; comprar nó sem efeito seria ruim |
+| D19 | 2026-10-05 | **Efeitos de upgrades/passivas são dados** (`stat`, `type`, `value`); por nível, flat/percent somam e multiplicadores compõem | Novo upgrade ou nó = só JSON; aparecem no breakdown do dev mode pela origem |
 | D16 | 2026-10-05 | **Plantações e curral usam `producers.json`** (unidades = canteiros/animais) e desbloqueios dão unidades extras | Um único modelo para "mais produção" em qualquer produtor |
 
 ## Perguntas em aberto
@@ -27,7 +30,6 @@
 |---|---|---|---|
 | Q1 | Nome final do jogo? | "Farm Collect" é provisório | M9 (página da Steam antes, idealmente M7) |
 | Q2 | Monetização? | Premium / Steam pago + mobile com anúncios / F2P + IAP (ver doc 08) | M8 |
-| Q4 | Moeda da árvore de passivas? | Estrelas por nível (recomendado) / dinheiro / outra moeda | M5 |
 | Q5 | Ganho offline só com automação? | Sim (recomendado) / sempre um pouco | M6 |
 | Q6 | Prestígio na v1? | Não (recomendado, entra depois da fábrica) / sim | M8 |
 | Q8 | Personagem do jogador: fixo ou escolhível (cor/gênero)? | Fixo na v1 / customização simples | M7 |

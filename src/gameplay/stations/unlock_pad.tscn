@@ -1,0 +1,66 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/stations/unlock_pad.gd" id="1_pad"]
+
+[sub_resource type="BoxShape3D" id="Shape_pad"]
+size = Vector3(1.6, 1, 1.6)
+
+[sub_resource type="PlaneMesh" id="Mesh_base"]
+size = Vector2(1.7, 1.7)
+
+[sub_resource type="StandardMaterial3D" id="Mat_base"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0.55)
+
+[sub_resource type="PlaneMesh" id="Mesh_inner"]
+size = Vector2(1.45, 1.45)
+
+[sub_resource type="StandardMaterial3D" id="Mat_inner"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.2, 0.35, 0.3, 0.55)
+
+[sub_resource type="StandardMaterial3D" id="Mat_fill"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.24, 0.73, 0.3, 0.9)
+
+[node name="UnlockPad" type="Area3D"]
+script = ExtResource("1_pad")
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.5, 0)
+shape = SubResource("Shape_pad")
+
+[node name="Border" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.012, 0)
+mesh = SubResource("Mesh_base")
+surface_material_override/0 = SubResource("Mat_base")
+
+[node name="Inner" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.016, 0)
+mesh = SubResource("Mesh_inner")
+surface_material_override/0 = SubResource("Mat_inner")
+
+[node name="Fill" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.02, 0)
+mesh = SubResource("Mesh_inner")
+surface_material_override/0 = SubResource("Mat_fill")
+
+[node name="Title" type="Label3D" parent="."]
+position = Vector3(0, 0.03, -0.42)
+rotation = Vector3(-1.5708, 0, 0)
+outline_modulate = Color(0.1, 0.1, 0.1, 1)
+font_size = 48
+outline_size = 12
+pixel_size = 0.004
+
+[node name="Price" type="Label3D" parent="."]
+position = Vector3(0, 0.03, 0.2)
+rotation = Vector3(-1.5708, 0, 0)
+modulate = Color(0.75, 1, 0.7, 1)
+outline_modulate = Color(0.05, 0.2, 0.05, 1)
+font_size = 96
+outline_size = 20
+pixel_size = 0.004

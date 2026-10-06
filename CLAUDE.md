@@ -45,6 +45,8 @@ Arquivos `*.translation` são gerados pelo import a partir de `locale/strings.cs
 - Eventos globais pelo `EventBus`; áudio/juice/conquistas escutam, gameplay não conhece quem escuta.
 - Visual referenciado por cena wrapper (`.tscn`) — trocar arte = trocar o `.glb`.
 - A fazenda é uma `Location`; a futura fábrica será outra. Não acoplar lógica à fazenda.
+- Conteúdo desbloqueável: nós no grupo `unlock:<id>` só existem depois do desbloqueio; `lock:<id>` somem com ele
+  (a `Location` aplica). Custos/requisitos em `data/balance/unlocks.json`; pads (`UnlockPad`) só aparecem quando disponíveis.
 - Save versionado com migrações; nunca quebrar saves antigos.
 
 ## Convenções

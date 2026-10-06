@@ -37,6 +37,11 @@ func _ready() -> void:
 	_cashier_spot.body_exited.connect(_on_cashier_exited)
 
 
+## False while the counter is still locked (disabled by its Location).
+func is_open() -> bool:
+	return can_process()
+
+
 func has_queue_space() -> bool:
 	return service.has_space(Stats.get_int(&"customer.max_queue"))
 

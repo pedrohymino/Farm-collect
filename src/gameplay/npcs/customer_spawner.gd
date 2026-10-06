@@ -37,7 +37,9 @@ func _try_spawn() -> bool:
 	var open: Array[Counter] = []
 	for node in get_tree().get_nodes_in_group(&"counter"):
 		var counter := node as Counter
-		if counter != null and get_parent().is_ancestor_of(counter) and counter.has_queue_space():
+		if counter == null or not get_parent().is_ancestor_of(counter):
+			continue
+		if counter.is_open() and counter.has_queue_space():
 			open.append(counter)
 	if open.is_empty():
 		return false

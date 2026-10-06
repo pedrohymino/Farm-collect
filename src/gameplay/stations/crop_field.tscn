@@ -1,0 +1,20 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/stations/crop_field.gd" id="1_field"]
+
+[sub_resource type="PlaneMesh" id="Mesh_ground"]
+size = Vector2(4, 5)
+
+[sub_resource type="StandardMaterial3D" id="Mat_ground"]
+albedo_color = Color(0.62, 0.42, 0.22, 1)
+
+[node name="WheatField" type="Node3D"]
+script = ExtResource("1_field")
+producer_id = &"field"
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.01, 1.65)
+mesh = SubResource("Mesh_ground")
+surface_material_override/0 = SubResource("Mat_ground")
+
+[node name="Beds" type="Node3D" parent="."]

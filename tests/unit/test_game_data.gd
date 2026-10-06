@@ -19,6 +19,7 @@ func test_dict_round_trip_preserves_everything() -> void:
 	data.farm_level = 4
 	data.farm_xp = 17.5
 	data.locations[&"farm"] = {"coop_output": ["egg", "egg"]}
+	data.tutorial_step = 3
 
 	var restored := GameData.from_dict(JSON.parse_string(JSON.stringify(data.to_dict())))
 
@@ -30,6 +31,7 @@ func test_dict_round_trip_preserves_everything() -> void:
 	assert_eq(restored.farm_level, 4)
 	assert_eq(restored.farm_xp, 17.5)
 	assert_eq(restored.locations[&"farm"]["coop_output"], ["egg", "egg"])
+	assert_eq(restored.tutorial_step, 3)
 
 
 func test_from_dict_tolerates_missing_and_wrong_types() -> void:

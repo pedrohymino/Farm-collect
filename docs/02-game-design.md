@@ -108,8 +108,8 @@ A fazenda é dividida em **áreas** separadas por cercas/arbustos. Comprar a exp
 | Área | Conteúdo | Libera |
 |---|---|---|
 | A1 — Início | Galinheiro (2 galinhas), balcão de ovos | Galinhas extras, Mesa de Upgrades |
-| A2 — Campo | Plantação de trigo, balcão de trigo | Canteiros extras, irrigação |
-| A3 — Pasto | Curral + vacas, balcão de leite | Caixa, carregador, ordenhadeira |
+| A2 — Campo (leste) | Plantação de trigo, balcão de trigo | Canteiros extras, irrigação |
+| A3 — Pasto (oeste) | Curral + vacas, balcão de leite | Caixa, carregador, ordenhadeira |
 | A4 — Estrada | Vaga de caminhões | Pedidos de caminhão, coletor de dinheiro |
 | A5 — "Terreno à venda" | Placa misteriosa | Teaser da Fábrica (futuro) |
 

@@ -15,4 +15,7 @@ signal item_delivered(item_id: StringName)
 signal item_sold(item_id: StringName, count: int, value: float)
 signal money_collected(amount: float)
 signal customer_left(happy: bool)
+
+signal unlock_completed(unlock_id: StringName)
+signal tutorial_step_changed(step: int)
 @warning_ignore_restore("unused_signal")

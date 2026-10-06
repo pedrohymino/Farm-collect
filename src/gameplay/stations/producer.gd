@@ -32,7 +32,8 @@ func _ready() -> void:
 		ItemContainer.stat_capacity(Stats, &"production.output_capacity"), [item_id]
 	)
 	output_visual.bind(output)
-	set_unit_count(ContentDB.producer_base_units(producer_id))
+	_refresh_units()
+	EventBus.unlock_completed.connect(_refresh_units.unbind(1))
 
 
 func unit_count() -> int:
@@ -43,6 +44,11 @@ func set_unit_count(count: int) -> void:
 	var target := clampi(count, 0, ContentDB.producer_max_units(producer_id))
 	while _units.size() < target:
 		_add_unit()
+
+
+## Base units from producers.json plus what completed unlocks add.
+func _refresh_units() -> void:
+	set_unit_count(ContentDB.producer_base_units(producer_id) + Unlocks.units_bonus(producer_id))
 
 
 func save_state() -> Dictionary:

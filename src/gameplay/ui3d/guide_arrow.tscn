@@ -1,0 +1,41 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/ui3d/guide_arrow.gd" id="1_guide"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_cyan"]
+shading_mode = 0
+albedo_color = Color(0.25, 0.83, 0.95, 1)
+
+[sub_resource type="PrismMesh" id="Mesh_head"]
+size = Vector3(0.7, 0.55, 0.06)
+
+[sub_resource type="BoxMesh" id="Mesh_tail"]
+size = Vector3(0.28, 0.06, 0.45)
+
+[sub_resource type="CylinderMesh" id="Mesh_marker"]
+top_radius = 0.3
+bottom_radius = 0.0
+height = 0.6
+radial_segments = 8
+
+[node name="GuideArrow" type="Node3D"]
+script = ExtResource("1_guide")
+
+[node name="GroundArrow" type="Node3D" parent="."]
+top_level = true
+
+[node name="Head" type="MeshInstance3D" parent="GroundArrow"]
+position = Vector3(0, 0, 0.32)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("Mesh_head")
+surface_material_override/0 = SubResource("Mat_cyan")
+
+[node name="Tail" type="MeshInstance3D" parent="GroundArrow"]
+position = Vector3(0, 0, -0.12)
+mesh = SubResource("Mesh_tail")
+surface_material_override/0 = SubResource("Mat_cyan")
+
+[node name="Marker" type="MeshInstance3D" parent="."]
+top_level = true
+mesh = SubResource("Mesh_marker")
+surface_material_override/0 = SubResource("Mat_cyan")

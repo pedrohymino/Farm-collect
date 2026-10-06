@@ -62,11 +62,19 @@ Este é o principal ponto de validação do projeto: se não estiver divertido a
 **Aceite:** alterar `player.carry_capacity` e `production.yield` ao vivo muda o jogo imediatamente;
 um valor ajustado pode ser gravado no JSON e persiste ao reabrir.
 
-## M4 — Desbloqueios e expansão · G
-- [ ] `UnlockSystem` + `unlocks.json` + pads com drenagem de dinheiro e progresso parcial.
-- [ ] Grupos `unlock:<id>` ativando com animação; panorâmica de câmera em área nova.
-- [ ] Áreas A2 (trigo — colheita ao passar) e A3 (curral, leite) com seus balcões.
-- [ ] Seta guia de onboarding nos primeiros passos.
+## M4 — Desbloqueios e expansão · G · ✅ concluído (2026-10-05)
+- [x] `UnlockRules` (lógica pura) + autoload `Unlocks` + `data/balance/unlocks.json` (custo, requisitos, unidades extras), validado
+      (requisitos existentes, sem ciclos, unidades dentro do máximo).
+- [x] `UnlockPad`: drena o dinheiro em ~1,5 s, guarda pagamento parcial, notas voando, confete; um pad que surge sob o jogador
+      exige sair e entrar de novo (não gasta sem querer).
+- [x] `Location` aplica desbloqueios: grupos `unlock:<id>` aparecem com "pop", `lock:<id>` (cercas no caminho) somem;
+      câmera dá uma olhada nas áreas novas (`FollowCamera.focus_on`).
+- [x] Área A2 Campo (leste): plantação de trigo (`CropField`, colhida ao passar por cima) + balcão de trigo.
+      Área A3 Pasto (oeste): curral com vacas (leite) + balcão de leite. Galinhas extras e canteiros extras por desbloqueio.
+- [x] Onboarding (`GuideArrow`): seta no chão + marcador sobre o próximo objetivo nos 5 primeiros passos; progresso salvo.
+- [x] Dev mode: aba Progressão (desbloquear próximo/tudo, resetar, pular onboarding) + "amadurecer plantações".
+- [x] Testes: `UnlockRules`, autoload `Unlocks`, integração na fazenda (pad, pagamento parcial, cercas, colheita, curral,
+      reconstrução pelo save) e onboarding — 179 verdes.
 
 **Aceite:** é possível ir do início até a primeira vaca só jogando, seguindo a sequência da tabela 6 do doc 03,
 e o save reconstrói a fazenda corretamente.

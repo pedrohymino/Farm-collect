@@ -52,4 +52,7 @@ write("cash.wav", mix(tone(0.35, 1320, 1320, 9, ((1, 1.0), (2.76, 0.3))),
                       delayed(tone(0.4, 1760, 1760, 8, ((1, 1.0), (2.76, 0.3))), 0.07)))
 write("coin.wav", mix(tone(0.18, 1900, 2100, 22, ((1, 1.0), (3, 0.2))),
                       delayed(tone(0.18, 2500, 2700, 22, ((1, 1.0),)), 0.05)))
+notes = [523.25, 659.25, 783.99, 1046.5]
+write("unlock.wav", mix(*[delayed(tone(0.45, f, f, 6, ((1, 1.0), (2, 0.35), (3, 0.1))), i * 0.09)
+                          for i, f in enumerate(notes)]))
 print("written to", OUT)

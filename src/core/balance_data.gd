@@ -7,6 +7,7 @@ const STATS_FILE: String = "stats.json"
 const ITEMS_FILE: String = "items.json"
 const PROGRESSION_FILE: String = "progression.json"
 const PRODUCERS_FILE: String = "producers.json"
+const UNLOCKS_FILE: String = "unlocks.json"
 const ITEM_STAGES: Array[String] = ["raw", "processed"]
 const SCOPED_ITEM_STATS: Array[String] = ["production.rate", "sell.price"]
 
@@ -14,6 +15,7 @@ var stats: Dictionary = {}
 var items: Dictionary = {}
 var progression: Dictionary = {}
 var producers: Dictionary = {}
+var unlocks: Dictionary = {}
 var errors: PackedStringArray = PackedStringArray()
 
 
@@ -23,11 +25,13 @@ static func load_from_dir(dir_path: String) -> BalanceData:
 	data.items = data._load_json(dir_path.path_join(ITEMS_FILE))
 	data.progression = data._load_json(dir_path.path_join(PROGRESSION_FILE))
 	data.producers = data._load_json(dir_path.path_join(PRODUCERS_FILE))
+	data.unlocks = data._load_json(dir_path.path_join(UNLOCKS_FILE))
 	data.errors.append_array(validate_stats(data.stats))
 	data.errors.append_array(validate_items(data.items))
 	data.errors.append_array(validate_progression(data.progression))
 	data.errors.append_array(validate_item_stats(data.items, data.stats))
 	data.errors.append_array(validate_producers(data.producers, data.items))
+	data.errors.append_array(UnlockRules.validate(data.unlocks, data.producers))
 	return data
 
 

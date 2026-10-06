@@ -95,31 +95,26 @@ xp_para_próximo(nível) = 50 × 1.35^(nível − 1)
 
 ## 6. Sequência de desbloqueios v1
 
-| # | Pad | Custo | Área | Pré-requisito |
-|---|---|---|---|---|
-| 0 | *(início)* Galinheiro c/ 2 galinhas + balcão de ovos | — | A1 | — |
-| 1 | Galinha #3 | $15 | A1 | — |
-| 2 | Mesa de Upgrades | $40 | A1 | 1 |
-| 3 | Galinha #4 | $60 | A1 | 1 |
-| 4 | Expansão: Campo | $120 | A2 | 2 |
-| 5 | Plantação de trigo (6 canteiros) | $80 | A2 | 4 |
-| 6 | Balcão de trigo | $100 | A2 | 5 |
-| 7 | Galinhas #5 e #6 | $250 | A1 | 3 |
-| 8 | Canteiros +6 | $300 | A2 | 6 |
-| 9 | Expansão: Pasto | $600 | A3 | 6 |
-| 10 | Curral + vaca #1 | $400 | A3 | 9 |
-| 11 | Balcão de leite | $450 | A3 | 10 |
-| 12 | Caixa (balcão de ovos) | $700 | A1 | 11 |
-| 13 | Vaca #2 | $900 | A3 | 10 |
-| 14 | Carregador (ovos) | $1.2K | A1 | 12 |
-| 15 | Irrigação | $1.5K | A2 | 8 |
-| 16 | Esteira coletora de ovos | $2.5K | A1 | 14 |
-| 17 | Expansão: Estrada | $4K | A4 | 13 |
-| 18 | Vaga de caminhões | $3K | A4 | 17 |
-| 19 | Caixas nos outros balcões | $5K cada | — | 12 |
-| 20 | Vacas #3 e #4, ordenhadeira | $8K–15K | A3 | 13 |
-| 21 | Coletor de dinheiro | $20K | A4 | 18 |
-| 22 | Placa "Terreno à venda" (teaser fábrica) | — | A5 | 21 |
+Fonte da verdade: `data/balance/unlocks.json` (custos × status `unlock.cost`). Implementado até o #11 no M4;
+o resto entra com seus sistemas (M5 Mesa de Upgrades, M6 ajudantes/máquinas/caminhões).
+
+| # | ID | Pad | Custo | Área | Pré-requisito | Efeito |
+|---|---|---|---|---|---|---|
+| 0 | — | *(início)* Galinheiro c/ 2 galinhas + balcão de ovos | — | A1 | — | |
+| 1 | `chicken_3` | Galinha #3 | $15 | A1 | — | coop +1 |
+| 2 | `chicken_4` | Galinha #4 | $60 | A1 | 1 | coop +1 |
+| 3 | `area_field` | Expansão: Campo (leste) | $120 | A2 | 1 | abre a cerca leste |
+| 4 | `wheat_field` | Plantação de trigo (6 canteiros) | $80 | A2 | 3 | |
+| 5 | `wheat_counter` | Balcão de trigo | $100 | A2 | 4 | |
+| 6 | `chickens_5_6` | Galinhas #5 e #6 | $250 | A1 | 2 | coop +2 |
+| 7 | `wheat_beds_2` | Canteiros +6 | $300 | A2 | 5 | field +6 |
+| 8 | `area_pasture` | Expansão: Pasto (oeste) | $600 | A3 | 5 | abre a cerca oeste |
+| 9 | `barn` | Curral + vaca #1 | $400 | A3 | 8 | |
+| 10 | `milk_counter` | Balcão de leite | $450 | A3 | 9 | |
+| 11 | `cow_2` | Vaca #2 | $900 | A3 | 9 | barn +1 |
+| — | *(M5)* | Mesa de Upgrades | $40 | A1 | 1 | |
+| — | *(M6)* | Caixa, carregador, irrigação, esteira, ordenhadeira, estrada/caminhões, coletor de dinheiro | $700+ | | | |
+| — | *(M6)* | Placa "Terreno à venda" (teaser fábrica) | — | A5 | | |
 
 ## 7. Metas de ritmo (o que o balanceamento precisa atingir)
 

@@ -14,6 +14,7 @@ const SFX_COLLECT: AudioStream = preload("res://assets/audio/sfx/pop.wav")
 const SFX_DELIVER: AudioStream = preload("res://assets/audio/sfx/drop.wav")
 const SFX_SELL: AudioStream = preload("res://assets/audio/sfx/cash.wav")
 const SFX_MONEY: AudioStream = preload("res://assets/audio/sfx/coin.wav")
+const SFX_UNLOCK: AudioStream = preload("res://assets/audio/sfx/unlock.wav")
 
 var _players: Array[AudioStreamPlayer] = []
 var _next_player: int = 0
@@ -36,6 +37,7 @@ func _ready() -> void:
 		func(_item_id: StringName, _count: int, _value: float) -> void: _play(SFX_SELL, _jitter())
 	)
 	EventBus.money_collected.connect(func(_amount: float) -> void: _play(SFX_MONEY, _jitter()))
+	EventBus.unlock_completed.connect(func(_unlock_id: StringName) -> void: _play(SFX_UNLOCK, 1.0))
 
 
 func _on_item_collected(_item_id: StringName) -> void:

@@ -89,6 +89,7 @@ func _ready() -> void:
 	_add_tab(tabs, tr("DEV_TAB_ECONOMY"), _build_economy_tab())
 	_add_tab(tabs, tr("DEV_TAB_TIME"), _build_time_tab())
 	_add_tab(tabs, tr("DEV_TAB_WORLD"), _build_world_tab())
+	_add_tab(tabs, tr("DEV_TAB_PROGRESSION"), DevProgressionTab.new(_set_status))
 	_add_tab(tabs, tr("DEV_TAB_SAVE"), DevSaveTab.new(_store, _set_status))
 
 	_status = DevUi.label("", DevUi.SMALL_FONT_SIZE)
@@ -223,6 +224,12 @@ func _build_world_tab() -> Control:
 	box.add_child(DevUi.button(tr("DEV_EMPTY_CARRY"), _empty_player_stack))
 	box.add_child(DevUi.button(tr("DEV_FILL_PRODUCERS"), _fill_producers))
 	box.add_child(DevUi.button(tr("DEV_FILL_COUNTERS"), _fill_counters))
+	box.add_child(
+		DevUi.button(
+			tr("DEV_RIPEN_FIELDS"),
+			func() -> void: get_tree().call_group(&"crop_field", &"ripen_all")
+		)
+	)
 	box.add_child(DevUi.button(tr("DEV_SPAWN_CUSTOMER"), _spawn_customer))
 	box.add_child(DevUi.toggle(tr("DEV_SHOW_FPS"), _set_show_fps))
 	box.add_child(DevUi.button(tr("DEV_TOGGLE_ORIENTATION"), _toggle_orientation))

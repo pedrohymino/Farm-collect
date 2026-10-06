@@ -16,6 +16,10 @@
 | D10 | 2026-10-05 | **Fábrica fica para depois da v1**, mas a arquitetura já a prevê | Foco em validar o loop da fazenda primeiro |
 | D11 | 2026-10-05 | **Mobile em retrato (portrait)**; PC/Steam em paisagem | Padrão do gênero e dos anúncios de referência; câmera e HUD se adaptam à proporção |
 | D12 | 2026-10-05 | **Jogador carrega tipos de item misturados** na pilha | Menos atrito; cada balcão só puxa os itens do seu tipo |
+| D13 | 2026-10-05 | **Campo a leste e Pasto a oeste** da área inicial (não ao norte) | Todo balcão precisa ficar na estrada para os clientes chegarem |
+| D14 | 2026-10-05 | **Mesa de Upgrades entra no M5**, junto com o menu | Sem o menu seria um pad que não faz nada |
+| D15 | 2026-10-05 | **Pad que surge sob o jogador só cobra depois de sair e entrar de novo** | Pads em sequência no mesmo lugar não podem gastar dinheiro sem o jogador querer |
+| D16 | 2026-10-05 | **Plantações e curral usam `producers.json`** (unidades = canteiros/animais) e desbloqueios dão unidades extras | Um único modelo para "mais produção" em qualquer produtor |
 
 ## Perguntas em aberto
 

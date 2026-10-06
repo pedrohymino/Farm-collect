@@ -63,3 +63,20 @@ DEV_BADGE,DEV ×%d,DEV ×%d
 DEV_DONE,Done,Feito
 DEV_FAILED,Failed (see log),Falhou (veja o log)
 DEV_FPS,%d FPS | %d draw calls,%d FPS | %d draw calls
+UNLOCK_CHICKEN,Chicken,Galinha
+UNLOCK_CHICKENS,2 chickens,2 galinhas
+UNLOCK_AREA_FIELD,Field,Campo
+UNLOCK_WHEAT_FIELD,Wheat field,Plantação de trigo
+UNLOCK_WHEAT_COUNTER,Wheat stand,Balcão de trigo
+UNLOCK_WHEAT_BEDS,More beds,Mais canteiros
+UNLOCK_AREA_PASTURE,Pasture,Pasto
+UNLOCK_BARN,Barn + cow,Curral + vaca
+UNLOCK_MILK_COUNTER,Milk stand,Balcão de leite
+UNLOCK_COW,Cow,Vaca
+DEV_TAB_PROGRESSION,Progression,Progressão
+DEV_UNLOCK_NEXT,Unlock next,Desbloquear o próximo
+DEV_UNLOCK_ALL,Unlock all,Desbloquear tudo
+DEV_RESET_UNLOCKS,Reset unlocks (saves and reloads),Resetar desbloqueios (salva e recarrega)
+DEV_SKIP_TUTORIAL,Skip onboarding,Pular onboarding
+DEV_RIPEN_FIELDS,Ripen crop fields,Amadurecer plantações
+DEV_UNLOCKED_COUNT,Unlocked: %d / %d,Desbloqueados: %d / %d

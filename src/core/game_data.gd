@@ -13,6 +13,8 @@ var passive_nodes: Dictionary = {}  # StringName -> true
 var farm_level: int = DEFAULT_FARM_LEVEL
 var farm_xp: float = 0.0
 var locations: Dictionary = {}  # StringName -> Dictionary owned by that location
+## Index of the next onboarding step (GuideArrow); past the last step = onboarding done.
+var tutorial_step: int = 0
 
 
 func is_unlocked(unlock_id: StringName) -> bool:
@@ -34,6 +36,7 @@ func to_dict() -> Dictionary:
 		"farm_level": farm_level,
 		"farm_xp": farm_xp,
 		"locations": _keys_to_strings(locations),
+		"tutorial_step": tutorial_step,
 	}
 
 
@@ -46,6 +49,7 @@ static func from_dict(raw: Dictionary) -> GameData:
 	data.upgrade_levels = _number_map(raw.get("upgrade_levels"), true)
 	data.farm_level = maxi(_int_or(raw.get("farm_level"), DEFAULT_FARM_LEVEL), DEFAULT_FARM_LEVEL)
 	data.farm_xp = maxf(_float_or(raw.get("farm_xp"), 0.0), 0.0)
+	data.tutorial_step = maxi(_int_or(raw.get("tutorial_step"), 0), 0)
 	var raw_locations := _dict_or_empty(raw.get("locations"))
 	for location_id: String in raw_locations:
 		data.locations[StringName(location_id)] = _dict_or_empty(raw_locations[location_id])

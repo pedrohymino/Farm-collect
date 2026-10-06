@@ -1,0 +1,120 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/stations/producer.gd" id="1_producer"]
+[ext_resource type="Script" path="res://src/gameplay/items/stack_visual.gd" id="2_stack"]
+[ext_resource type="Script" path="res://src/gameplay/stations/transfer_zone.gd" id="3_zone"]
+[ext_resource type="Script" path="res://src/gameplay/stations/zone_marker.gd" id="4_marker"]
+[ext_resource type="Script" path="res://src/gameplay/world/fence_line.gd" id="5_fence"]
+[ext_resource type="PackedScene" path="res://assets/models/animals/cow.tscn" id="6_cow"]
+
+[sub_resource type="PlaneMesh" id="Mesh_hay"]
+size = Vector2(4.8, 3.2)
+
+[sub_resource type="StandardMaterial3D" id="Mat_hay"]
+albedo_color = Color(0.82, 0.72, 0.4, 1)
+
+[sub_resource type="BoxMesh" id="Mesh_house"]
+size = Vector3(3, 1.8, 1.6)
+
+[sub_resource type="StandardMaterial3D" id="Mat_house"]
+albedo_color = Color(0.78, 0.22, 0.2, 1)
+
+[sub_resource type="PrismMesh" id="Mesh_roof"]
+size = Vector3(3.4, 1, 1.8)
+
+[sub_resource type="StandardMaterial3D" id="Mat_roof"]
+albedo_color = Color(0.4, 0.26, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="Mesh_door"]
+size = Vector3(1, 1.2, 0.06)
+
+[sub_resource type="StandardMaterial3D" id="Mat_trim"]
+albedo_color = Color(0.97, 0.95, 0.9, 1)
+
+[sub_resource type="BoxShape3D" id="Shape_house"]
+size = Vector3(3, 2, 1.6)
+
+[sub_resource type="BoxMesh" id="Mesh_pallet"]
+size = Vector3(1.2, 0.1, 1.1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_wood"]
+albedo_color = Color(0.71, 0.44, 0.23, 1)
+
+[sub_resource type="BoxShape3D" id="Shape_zone"]
+size = Vector3(1.8, 1, 1.8)
+
+[sub_resource type="PlaneMesh" id="Mesh_zone"]
+size = Vector2(1.6, 1.6)
+
+[sub_resource type="StandardMaterial3D" id="Mat_zone"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.25, 0.83, 0.95, 0.45)
+
+[node name="Barn" type="Node3D"]
+script = ExtResource("1_producer")
+producer_id = &"barn"
+persist_id = &"barn"
+unit_scene = ExtResource("6_cow")
+pen_half_extents = Vector2(1.8, 1)
+
+[node name="Hay" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.01, 0)
+mesh = SubResource("Mesh_hay")
+surface_material_override/0 = SubResource("Mat_hay")
+
+[node name="Pen" type="Node3D" parent="."]
+script = ExtResource("5_fence")
+points = PackedVector2Array(-2.4, -1.6, 2.4, -1.6, 2.4, 1.6, -2.4, 1.6)
+closed = true
+
+[node name="House" type="StaticBody3D" parent="."]
+position = Vector3(0, 0, -2.6)
+
+[node name="Walls" type="MeshInstance3D" parent="House"]
+position = Vector3(0, 0.9, 0)
+mesh = SubResource("Mesh_house")
+surface_material_override/0 = SubResource("Mat_house")
+
+[node name="Roof" type="MeshInstance3D" parent="House"]
+position = Vector3(0, 2.3, 0)
+mesh = SubResource("Mesh_roof")
+surface_material_override/0 = SubResource("Mat_roof")
+
+[node name="Door" type="MeshInstance3D" parent="House"]
+position = Vector3(0, 0.6, 0.82)
+mesh = SubResource("Mesh_door")
+surface_material_override/0 = SubResource("Mat_trim")
+
+[node name="Collision" type="CollisionShape3D" parent="House"]
+position = Vector3(0, 1, 0)
+shape = SubResource("Shape_house")
+
+[node name="Units" type="Node3D" parent="."]
+
+[node name="Pallet" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.05, 2.6)
+mesh = SubResource("Mesh_pallet")
+surface_material_override/0 = SubResource("Mat_wood")
+
+[node name="OutputVisual" type="Node3D" parent="."]
+position = Vector3(0, 0.1, 2.6)
+script = ExtResource("2_stack")
+columns = 3
+rows = 3
+
+[node name="PickupZone" type="Area3D" parent="." node_paths=PackedStringArray("station_visual", "marker")]
+position = Vector3(0, 0, 2.6)
+script = ExtResource("3_zone")
+station_visual = NodePath("../OutputVisual")
+marker = NodePath("Marker")
+
+[node name="Shape" type="CollisionShape3D" parent="PickupZone"]
+position = Vector3(0, 0.5, 0)
+shape = SubResource("Shape_zone")
+
+[node name="Marker" type="MeshInstance3D" parent="PickupZone"]
+position = Vector3(0, 0.02, 0)
+mesh = SubResource("Mesh_zone")
+surface_material_override/0 = SubResource("Mat_zone")
+script = ExtResource("4_marker")

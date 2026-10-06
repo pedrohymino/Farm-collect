@@ -9,6 +9,9 @@ extends Camera3D
 @export var distance: float = 15.0
 @export var follow_sharpness: float = 6.0
 
+var _focus_position: Vector3
+var _focus_time_left: float = 0.0
+
 
 func _ready() -> void:
 	rotation = Vector3(deg_to_rad(-pitch_degrees), deg_to_rad(yaw_degrees), 0.0)
@@ -18,16 +21,24 @@ func _ready() -> void:
 		global_position = _desired_position()
 
 
+## Glances at a world position for `seconds` (e.g. a newly unlocked area), then follows again.
+func focus_on(world_position: Vector3, seconds: float) -> void:
+	_focus_position = world_position
+	_focus_time_left = seconds
+
+
 func _process(delta: float) -> void:
 	if target == null:
 		return
+	_focus_time_left = maxf(_focus_time_left - delta, 0.0)
 	global_position = global_position.lerp(
 		_desired_position(), 1.0 - exp(-follow_sharpness * delta)
 	)
 
 
 func _desired_position() -> Vector3:
-	return target.global_position + global_basis.z * distance
+	var center := _focus_position if _focus_time_left > 0.0 else target.global_position
+	return center + global_basis.z * distance
 
 
 func _update_aspect() -> void:

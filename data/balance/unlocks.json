@@ -1,0 +1,13 @@
+{
+  "chicken_3": { "cost": 15, "requires": [], "units": { "coop": 1 } },
+  "chicken_4": { "cost": 60, "requires": ["chicken_3"], "units": { "coop": 1 } },
+  "area_field": { "cost": 120, "requires": ["chicken_3"] },
+  "wheat_field": { "cost": 80, "requires": ["area_field"] },
+  "wheat_counter": { "cost": 100, "requires": ["wheat_field"] },
+  "chickens_5_6": { "cost": 250, "requires": ["chicken_4"], "units": { "coop": 2 } },
+  "wheat_beds_2": { "cost": 300, "requires": ["wheat_counter"], "units": { "field": 6 } },
+  "area_pasture": { "cost": 600, "requires": ["wheat_counter"] },
+  "barn": { "cost": 400, "requires": ["area_pasture"] },
+  "milk_counter": { "cost": 450, "requires": ["barn"] },
+  "cow_2": { "cost": 900, "requires": ["barn"], "units": { "barn": 1 } }
+}

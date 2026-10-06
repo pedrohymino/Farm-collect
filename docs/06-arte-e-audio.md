@@ -36,6 +36,12 @@
 
 ## 3. Fontes de modelos
 
+> **Atualização (decisão D24):** a arte usa os pacotes **Kenney (CC0)**. A tabela abaixo é o plano original; vale o que está em
+> `CREDITS.md`. Fluxo: baixar o pacote em `art/downloads/` (fora do git) → `python tools/sync_models.py` → importar no Godot →
+> `python tools/sync_models.py` → importar de novo. Ferramentas de apoio: `tools/showcase_models.gd` (vitrine para julgar escala),
+> `tools/inspect_models.gd` e `tools/inspect_animations.gd`. Escalas usadas: personagens ×2 (~1,4 m), vaca ×0,7, galinha ×0,5.
+
+
 | Fonte | Para quê | Licença |
 |---|---|---|
 | **Procedural no Godot** (primitivas) | Placeholders de M2 (graybox) | — |
@@ -47,6 +53,10 @@ Animação de personagem humano (andar, idle, carregar) é a parte mais difícil
 Todo asset de terceiros é registrado em `CREDITS.md` com origem e licença, mesmo sendo CC0.
 
 ### Pipeline
+0. **Kit:** `art/blender/scripts/lowpoly_kit.py` (primitivas com UV apontando para um quadrado da paleta; cada modelo vira 1 malha + 1 material)
+   e `models.py` (um `build_*` por modelo). Rodar no Blender: `build_all()` exporta todos os `.glb`. O `.glb` sai **sem imagem**; o Godot aplica
+   `assets/materials/palette.tres` (configurado em `_subresources` de cada `.glb.import`). Novo modelo = nova função + linha em `MODELS`
+   + copiar o bloco `_subresources` de outro `.glb.import`.
 1. Modelo criado no Blender (script ou à mão) ou importado de pacote.
 2. Ajuste: escala em metros, origem na base, UV para a paleta, nome padronizado.
 3. Exporta `.glb` em `assets/models/<categoria>/<nome>.glb` (ex.: `animals/chicken.glb`).

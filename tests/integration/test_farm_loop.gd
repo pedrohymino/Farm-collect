@@ -67,7 +67,7 @@ func test_full_loop_earns_money() -> void:
 	farm.add_child(customer)
 	customer.global_position = counter.queue_slot_global(0)
 	var exit: Array[Vector3] = [Vector3(30, 0, 30)]
-	customer.setup(CustomerOrder.new(&"egg", 2, 60.0), Color.WHITE, exit)
+	customer.setup(CustomerOrder.new(&"egg", 2, 60.0), null, exit)
 	assert_true(counter.enqueue(customer))
 
 	await _move_player_to(^"CashierSpot", counter)

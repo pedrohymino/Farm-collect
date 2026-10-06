@@ -73,7 +73,6 @@ func _reset_unlocks() -> void:
 func _skip_tutorial() -> void:
 	GameState.data.tutorial_step = GuideArrow.STEPS.size()
 	EventBus.tutorial_step_changed.emit(GameState.data.tutorial_step)
-	get_tree().call_group(&"guide_arrow", &"queue_free")
 	_report.call(tr("DEV_DONE"))
 
 

@@ -11,23 +11,24 @@ const ARRIVE_DISTANCE: float = 0.15
 const CARRIER_IDLE_SEC: float = 1.5
 const COLLECTOR_IDLE_SEC: float = 0.4
 const TURN_SHARPNESS: float = 10.0
-const BOB_FREQUENCY: float = 13.0
-const BOB_HEIGHT: float = 0.05
 
 @export var role: Role = Role.CASHIER
 ## Route nodes (zones, piles or plain markers); positions are read every frame.
 @export var stops: Array[NodePath] = []
+## Character model this helper wears (a Kenney .glb scene).
+@export var character: PackedScene
 
 var _brain: WorkerBrain
 var _last_count: int = 0
-var _walk_time: float = 0.0
 
 @onready var carry_visual: StackVisual = $Body/CarryVisual
 @onready var _body: Node3D = $Body
-@onready var _model: Node3D = $Body/Model
+@onready var _model: CharacterModel = $Body/Model
 
 
 func _ready() -> void:
+	if character != null:
+		_model.set_model(character)
 	collision_layer = PhysicsLayers.WORKERS
 	collision_mask = 0
 	match role:
@@ -80,15 +81,15 @@ func _walk_to(target: Vector3, delta: float) -> bool:
 	var to_target := target - global_position
 	to_target.y = 0.0
 	var step := Stats.get_value(&"worker.move_speed") * delta
+	var carrying := not carry_visual.container.is_empty()
 	if to_target.length() <= maxf(step, ARRIVE_DISTANCE):
 		global_position = Vector3(target.x, global_position.y, target.z)
-		_model.position.y = 0.0
+		_model.set_motion(0.0, carrying)
 		return true
 	global_position += to_target.normalized() * step
 	var yaw := atan2(to_target.x, to_target.z)
 	_body.rotation.y = lerp_angle(_body.rotation.y, yaw, 1.0 - exp(-TURN_SHARPNESS * delta))
-	_walk_time += delta
-	_model.position.y = absf(sin(_walk_time * BOB_FREQUENCY)) * BOB_HEIGHT
+	_model.set_motion(Stats.get_value(&"worker.move_speed"), carrying)
 	return false
 
 

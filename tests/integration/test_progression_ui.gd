@@ -57,3 +57,20 @@ func test_selecting_and_buying_a_node() -> void:
 func test_key_nodes_have_names() -> void:
 	assert_ne(tree.passive_name(&"farmer_key"), "PASSIVE_FARMER_KEY")
 	assert_string_contains(tree.passive_name(&"farmer_2"), "II")
+
+
+func test_locked_branch_root_explains_it_needs_the_first_helper() -> void:
+	var previous_locale := TranslationServer.get_locale()
+	TranslationServer.set_locale("pt_BR")
+	assert_string_contains(tree.lock_text(&"automation_1"), "Caixa")
+	TranslationServer.set_locale(previous_locale)
+	assert_eq(tree.lock_text(&"farmer_1"), "")
+	assert_ne(tree.lock_text(&"farmer_2"), "")
+
+
+func test_branch_opens_after_the_first_helper() -> void:
+	Economy.earn(Wallet.STARS, 5.0)
+	assert_false(Progression.can_buy_passive(&"automation_1"))
+	Unlocks.complete(&"cashier_egg")
+	assert_true(Progression.can_buy_passive(&"automation_1"))
+	assert_eq(tree.lock_text(&"automation_1"), "")

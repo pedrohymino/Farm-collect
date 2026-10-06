@@ -5,8 +5,6 @@ extends Node3D
 
 const ARRIVE_DISTANCE: float = 0.05
 const TURN_SHARPNESS: float = 10.0
-const BOB_FREQUENCY: float = 14.0
-const BOB_HEIGHT: float = 0.05
 const MOOD_HAPPY: Color = Color("5ee06b")
 const MOOD_SAD: Color = Color("e5483b")
 const MOOD_POP_TIME: float = 0.25
@@ -17,20 +15,19 @@ var _target: Vector3
 var _is_front: bool = false
 var _leaving: bool = false
 var _exit_path: Array[Vector3] = []
-var _walk_time: float = 0.0
 
 @onready var _body: Node3D = $Body
-@onready var _shirt: MeshInstance3D = $Body/Torso
+@onready var _model: CharacterModel = $Body/Model
 @onready var _mood: MeshInstance3D = $Mood
 
 
-func setup(p_order: CustomerOrder, shirt_color: Color, exit_path: Array[Vector3]) -> void:
+## `variant` is the character model to wear (a Kenney .glb scene); null keeps the default one.
+func setup(p_order: CustomerOrder, variant: PackedScene, exit_path: Array[Vector3]) -> void:
 	order = p_order
 	_exit_path = exit_path.duplicate()
 	_target = global_position
-	var material := StandardMaterial3D.new()
-	material.albedo_color = shirt_color
-	_shirt.set_surface_override_material(0, material)
+	if variant != null:
+		_model.set_model(variant)
 
 
 func set_queue_target(target: Vector3, is_front: bool) -> void:
@@ -54,12 +51,10 @@ func _process(delta: float) -> void:
 	var arrived := to_target.length() <= maxf(step, ARRIVE_DISTANCE)
 	if arrived:
 		global_position = Vector3(_target.x, global_position.y, _target.z)
-		_body.position.y = 0.0
 	else:
 		global_position += to_target.normalized() * step
 		_face(to_target, delta)
-		_walk_time += delta
-		_body.position.y = absf(sin(_walk_time * BOB_FREQUENCY)) * BOB_HEIGHT
+	_model.set_motion(0.0 if arrived else Stats.get_value(&"customer.move_speed"), false)
 
 	if not _leaving:
 		order.is_ready = _is_front and arrived

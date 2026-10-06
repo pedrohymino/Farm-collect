@@ -1,7 +1,9 @@
 class_name GuideArrow
 extends Node3D
 ## Onboarding without text: an arrow on the ground next to the player and a bouncing marker
-## over the next objective, for each first-time action. Progress is saved (tutorial_step).
+## over the next objective, for each first-time action (progress is saved in tutorial_step).
+## After the tutorial it keeps pointing at the next unlock pad (the cheapest one on offer),
+## so the player always knows what to do next.
 
 ## Each step is done when this EventBus signal fires once; value = the signal's argument count.
 const STEPS: Array[Dictionary] = [
@@ -12,6 +14,8 @@ const STEPS: Array[Dictionary] = [
 	{"signal": &"unlock_completed", "args": 1},
 ]
 const HIDE_DISTANCE: float = 1.8
+## In next-goal mode the ground arrow only shows when the pad is far away.
+const GOAL_ARROW_MIN_DISTANCE: float = 7.0
 const GROUND_OFFSET: float = 1.2
 const GROUND_HEIGHT: float = 0.05
 const MARKER_HEIGHT: float = 2.4
@@ -31,7 +35,6 @@ var _time: float = 0.0
 func _ready() -> void:
 	add_to_group(&"guide_arrow")
 	if current_step() >= STEPS.size():
-		queue_free()
 		return
 	for index in STEPS.size():
 		var step: Dictionary = STEPS[index]
@@ -40,6 +43,10 @@ func _ready() -> void:
 
 func current_step() -> int:
 	return GameState.data.tutorial_step
+
+
+func is_goal_mode() -> bool:
+	return current_step() >= STEPS.size()
 
 
 func _process(delta: float) -> void:
@@ -51,7 +58,8 @@ func _process(delta: float) -> void:
 	_time += delta
 	var to_target := target.global_position - player.global_position
 	to_target.y = 0.0
-	_ground_arrow.visible = to_target.length() > HIDE_DISTANCE
+	var arrow_distance := GOAL_ARROW_MIN_DISTANCE if is_goal_mode() else HIDE_DISTANCE
+	_ground_arrow.visible = to_target.length() > arrow_distance
 	if _ground_arrow.visible:
 		var direction := to_target.normalized()
 		_ground_arrow.global_position = (
@@ -67,9 +75,26 @@ func _process(delta: float) -> void:
 
 func _current_target() -> Node3D:
 	var step := current_step()
+	if is_goal_mode():
+		return next_goal_pad()
 	if step >= step_targets.size():
 		return null
 	return get_node_or_null(step_targets[step]) as Node3D
+
+
+## The visible unlock pad with the least money still to pay, or null when none is on offer.
+func next_goal_pad() -> UnlockPad:
+	var best: UnlockPad = null
+	var best_remaining := INF
+	for node in get_tree().get_nodes_in_group(&"unlock_pad"):
+		var pad := node as UnlockPad
+		if pad == null or not pad.visible:
+			continue
+		var remaining := Unlocks.remaining(pad.unlock_id)
+		if remaining < best_remaining:
+			best = pad
+			best_remaining = remaining
+	return best
 
 
 func _on_step_signal(index: int) -> void:
@@ -77,5 +102,3 @@ func _on_step_signal(index: int) -> void:
 		return
 	GameState.data.tutorial_step = index + 1
 	EventBus.tutorial_step_changed.emit(GameState.data.tutorial_step)
-	if GameState.data.tutorial_step >= STEPS.size():
-		queue_free()

@@ -65,3 +65,19 @@ func test_sales_give_xp_and_level_up_gives_stars() -> void:
 	assert_eq(GameState.data.farm_level, 2)
 	assert_eq(Economy.balance(Wallet.STARS), 1.0)
 	assert_signal_emitted_with_parameters(EventBus, "level_up", [2])
+
+
+func test_boots_cap_at_double_speed_even_with_passives() -> void:
+	Progression.set_upgrade_level(&"boots", 20)
+	assert_almost_eq(Stats.get_value(&"player.move_speed"), 8.0, 0.0001)
+	GameState.data.passive_nodes[&"farmer_1"] = true
+	Progression.apply_all()
+	assert_almost_eq(Stats.get_value(&"player.move_speed"), 8.0, 0.0001)
+
+
+func test_boots_step_is_five_percent_and_stop_at_level_twenty() -> void:
+	Progression.set_upgrade_level(&"boots", 1)
+	assert_almost_eq(Stats.get_value(&"player.move_speed"), 4.0 * 1.05, 0.0001)
+	Progression.set_upgrade_level(&"boots", 20)
+	Economy.earn(Wallet.MONEY, 1e15)
+	assert_false(Progression.buy_upgrade(&"boots"))

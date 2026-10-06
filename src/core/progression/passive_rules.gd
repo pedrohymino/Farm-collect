@@ -6,6 +6,7 @@ extends RefCounted
 ## Def shape: {"branch", "cost", "requires": [ids], "requires_unlock"?, "key"?, "effects": [...]}
 
 enum NodeState { LOCKED, AVAILABLE, OWNED }
+enum LockReason { NONE, NEEDS_UNLOCK, NEEDS_PARENT }
 
 const SOURCE_PREFIX: String = "passive:"
 
@@ -92,6 +93,23 @@ func can_unlock(node_id: StringName, data: GameData) -> bool:
 		if data.passive_nodes.has(parent):
 			return true
 	return false
+
+
+## The unlock (e.g. the first helper) a branch root still waits for, or "" if none.
+func missing_unlock(node_id: StringName, data: GameData) -> StringName:
+	var required := StringName(_def(node_id).get("requires_unlock", ""))
+	if required.is_empty() or data.is_unlocked(required):
+		return &""
+	return required
+
+
+## Why a node cannot be bought yet (NONE when it is owned or available).
+func lock_reason(node_id: StringName, data: GameData) -> LockReason:
+	if not has(node_id) or data.passive_nodes.has(node_id):
+		return LockReason.NONE
+	if not missing_unlock(node_id, data).is_empty():
+		return LockReason.NEEDS_UNLOCK
+	return LockReason.NONE if can_unlock(node_id, data) else LockReason.NEEDS_PARENT
 
 
 func state(node_id: StringName, data: GameData) -> NodeState:

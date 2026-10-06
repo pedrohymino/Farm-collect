@@ -8,9 +8,8 @@ const FIRST_SPAWN_RATIO: float = 0.8
 @export var customer_scene: PackedScene
 ## Customers walk through these nodes' positions, in order, after leaving the counter.
 @export var exit_paths: Array[NodePath] = []
-@export var shirt_colors: PackedColorArray = PackedColorArray(
-	[Color("e5483b"), Color("f7c531"), Color("3fa7f2"), Color("b06be0"), Color("ff8f3f")]
-)
+## Character models customers can wear; one is picked at random per customer.
+@export var variants: Array[PackedScene] = []
 
 var _cycle: ProductionCycle
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -56,6 +55,10 @@ func _try_spawn() -> bool:
 	var exit_path: Array[Vector3] = []
 	for path in exit_paths:
 		exit_path.append((get_node(path) as Node3D).global_position)
-	customer.setup(order, shirt_colors[_rng.randi() % shirt_colors.size()], exit_path)
+	customer.setup(
+		order,
+		variants[_rng.randi() % variants.size()] if not variants.is_empty() else null,
+		exit_path
+	)
 	counter.enqueue(customer)
 	return true

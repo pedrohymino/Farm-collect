@@ -1,5 +1,5 @@
 {
-  "player.move_speed": { "base": 4.0, "min": 1.0 },
+  "player.move_speed": { "base": 4.0, "min": 1.0, "max": 8.0 },
   "player.carry_capacity": { "base": 8, "min": 1, "integer": true },
   "player.pickup_rate": { "base": 8.0, "min": 1.0 },
   "player.drop_rate": { "base": 10.0, "min": 1.0 },
@@ -34,7 +34,7 @@
   "customer.patience": { "base": 25.0, "min": 5.0 },
   "customer.move_speed": { "base": 2.5, "min": 0.5 },
 
-  "worker.move_speed": { "base": 3.0, "min": 1.0 },
+  "worker.move_speed": { "base": 3.0, "min": 1.0, "max": 6.0 },
   "worker.carry_capacity": { "base": 6, "min": 1, "integer": true },
 
   "machine.speed": { "base": 1.0, "min": 0.1 },

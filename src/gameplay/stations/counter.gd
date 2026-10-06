@@ -12,6 +12,8 @@ const VIP_TEXT_COLOR: Color = Color("ffd166")
 ## Customers line up from QueueStart along this direction.
 @export var queue_direction: Vector3 = Vector3(0.0, 0.0, 1.0)
 @export var queue_spacing: float = 1.0
+## Building shown instead of the plain table (a KayKit market in the item's color).
+@export var storefront: PackedScene
 
 var stock: ItemContainer
 var service: CounterService
@@ -29,6 +31,7 @@ var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 
 func _ready() -> void:
+	_install_storefront()
 	add_to_group(&"persistent_station")
 	add_to_group(&"counter")
 	_rng.randomize()
@@ -38,6 +41,16 @@ func _ready() -> void:
 	_cashier_spot.collision_mask |= PhysicsLayers.WORKERS
 	_cashier_spot.body_entered.connect(_on_cashier_entered)
 	_cashier_spot.body_exited.connect(_on_cashier_exited)
+
+
+func _install_storefront() -> void:
+	if storefront == null:
+		return
+	var slot := $Table/Model as Node3D
+	var building := storefront.instantiate() as Node3D
+	building.transform = slot.transform
+	slot.get_parent().add_child(building)
+	slot.queue_free()
 
 
 ## False while the counter is still locked (disabled by its Location).

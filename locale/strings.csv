@@ -150,3 +150,6 @@ DEV_SPAWN_TRUCK,Truck now,Caminhão agora
 DEV_OFFLINE,Offline earnings,Ganhos offline
 DEV_SIMULATE_OFFLINE,Simulate %sh away,Simular %sh fora
 DEV_OFFLINE_NONE,No automated income yet,Ainda não há renda automática
+TREE_LOCKED_UNLOCK,Locked: first buy %s on the farm,Travado: antes compre %s na fazenda
+TREE_LOCKED_PARENT,Locked: buy the previous skill first,Travado: compre antes a passiva anterior
+UNLOCK_NAME_CASHIER_EGG,the Cashier (egg stand),o Caixa (balcão de ovos)

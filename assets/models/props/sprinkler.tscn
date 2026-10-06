@@ -1,31 +1,12 @@
 [gd_scene format=3]
 
-[sub_resource type="CylinderMesh" id="Mesh_pipe"]
-top_radius = 0.05
-bottom_radius = 0.05
-height = 0.9
-radial_segments = 8
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/building_well_red.gltf" id="1_well"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/bucket_water.gltf" id="2_bucket"]
 
-[sub_resource type="StandardMaterial3D" id="Mat_metal"]
-albedo_color = Color(0.55, 0.6, 0.66, 1)
+[node name="IrrigationWell" type="Node3D"]
 
-[sub_resource type="CylinderMesh" id="Mesh_head"]
-top_radius = 0.16
-bottom_radius = 0.08
-height = 0.14
-radial_segments = 10
+[node name="Well" parent="." instance=ExtResource("1_well")]
+transform = Transform3D(2.0, 0, 0, 0, 2.0, 0, 0, 0, 2.0, 0, 0, 0)
 
-[sub_resource type="StandardMaterial3D" id="Mat_head"]
-albedo_color = Color(0.25, 0.6, 0.9, 1)
-
-[node name="Sprinkler" type="Node3D"]
-
-[node name="Pipe" type="MeshInstance3D" parent="."]
-position = Vector3(0, 0.45, 0)
-mesh = SubResource("Mesh_pipe")
-surface_material_override/0 = SubResource("Mat_metal")
-
-[node name="Head" type="MeshInstance3D" parent="."]
-position = Vector3(0, 0.95, 0)
-mesh = SubResource("Mesh_head")
-surface_material_override/0 = SubResource("Mat_head")
+[node name="Bucket" parent="." instance=ExtResource("2_bucket")]
+transform = Transform3D(3.0, 0, 0, 0, 3.0, 0, 0, 0, 3.0, 0.9, 0, 0.6)

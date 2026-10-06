@@ -31,6 +31,7 @@ var _shown_at_frame: int = 0
 
 
 func _ready() -> void:
+	add_to_group(&"unlock_pad")
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 	EventBus.unlock_completed.connect(_on_unlock_completed)

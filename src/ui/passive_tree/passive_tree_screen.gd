@@ -25,6 +25,7 @@ var _buttons: Dictionary = {}  # StringName -> Button
 var _stars_label: Label
 var _detail_title: Label
 var _detail_effect: Label
+var _detail_lock: Label
 var _buy_button: Button
 var _selected: StringName = &""
 var _time: float = 0.0
@@ -141,6 +142,9 @@ func _build_detail() -> void:
 	_buy_button = UiKit.button("", UiKit.GREEN, func() -> void: buy_selected())
 	box.add_child(_detail_title)
 	box.add_child(_detail_effect)
+	_detail_lock = UiKit.label("", UiKit.SMALL_SIZE, UiKit.RED)
+	_detail_lock.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	box.add_child(_detail_lock)
 	box.add_child(_buy_button)
 	panel.add_child(box)
 	_root.add_child(panel)
@@ -173,14 +177,28 @@ func _refresh_detail() -> void:
 	if _selected.is_empty():
 		_detail_title.text = tr("TREE_HINT")
 		_detail_effect.text = ""
+		_detail_lock.text = ""
 		_buy_button.visible = false
 		return
 	_detail_title.text = passive_name(_selected)
 	_detail_effect.text = EffectText.describe(rules.effects(_selected), tr)
+	_detail_lock.text = lock_text(_selected)
 	var state := Progression.passive_state(_selected)
 	_buy_button.visible = state != PassiveRules.NodeState.OWNED
 	_buy_button.text = tr("TREE_BUY") % rules.cost(_selected)
 	_buy_button.disabled = not Progression.can_buy_passive(_selected)
+
+
+## Why the node cannot be bought yet ("" when it can, or already owned).
+func lock_text(node_id: StringName) -> String:
+	var rules := Progression.passives
+	match rules.lock_reason(node_id, GameState.data):
+		PassiveRules.LockReason.NEEDS_UNLOCK:
+			var required := rules.missing_unlock(node_id, GameState.data)
+			return tr("TREE_LOCKED_UNLOCK") % tr("UNLOCK_NAME_" + String(required).to_upper())
+		PassiveRules.LockReason.NEEDS_PARENT:
+			return tr("TREE_LOCKED_PARENT")
+	return ""
 
 
 func passive_name(node_id: StringName) -> String:

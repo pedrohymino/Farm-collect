@@ -109,11 +109,25 @@ e o save reconstrói a fazenda corretamente.
 
 **Aceite:** com caixas + carregadores a fazenda gera dinheiro sem o jogador; fechar e reabrir o jogo mostra ganho offline coerente.
 
-## M7 — Arte, animação e áudio · G
-- [ ] Textura-paleta e material único.
+## M7 — Arte, animação e áudio · G · 🔶 em andamento
+- [x] Textura-paleta (`assets/textures/palette.png`, gerada por `art/textures/generate_palette.py`, 64 cores).
+- [x] Barramentos de áudio Music/SFX (`default_bus_layout.tres`), música cozy em loop (placeholder sintetizado).
+- [x] Vibração no celular (`Haptics`), poeira ao correr (`DustTrail`), brilho nas pilhas de dinheiro (`Sparkle`).
+- [x] **Direção de arte: Kenney (CC0)** — Mini Characters, Cube Pets, Food Kit, Mini Forest/Dungeon/Arena (decisão D24).
+      `tools/sync_models.py` copia só o que o jogo usa, cria um material compartilhado por pacote (`assets/materials/kenney_*.tres`)
+      e aponta o import de cada `.glb` para ele (nearest, sem compressão com perda).
+- [x] Personagens (jogador, 3 tipos de ajudante, 8 clientes) com animação por velocidade (idle/walk/sprint) e versão "carregando"
+      (pernas do andar + braços do `holding-both`): `CharacterModel`, `LocomotionRules`, `CarryPose`.
+- [x] Animais (galinha, vaca) com idle/walk/eat; galinheiro = tenda; curral = abrigo de telhado azul; balcão = mesa; árvores; cerca
+      em um único MultiMesh (`FenceLine`).
+- [x] Ovo e leite do Food Kit. Trigo e caminhão continuam modelados por nós (`art/blender/scripts/models.py`).
+- [x] Fonte Fredoka (OFL) em todo o jogo.
+- [x] **KayKit (CC0)** para construções e cenário: mercados nas 3 cores como balcões (pilha de itens na frente da loja), moinho, poço,
+      casas, andaime como teaser da fábrica, poço da irrigação, estação de ordenha, arbustos, pedras e caixotes. Personagens ~1,05 m.
+- [ ] Ainda provisórios: canteiros do trigo, esteira, estrada/chão liso (tiles hexagonais do KayKit são uma opção), caminhão e trigo (nossos).
 - [ ] Modelos finais (Blender MCP + pacotes CC0) substituindo placeholders.
 - [ ] Personagens animados (jogador, clientes, ajudantes) e animais.
-- [ ] VFX completos, SFX, música, vibração no mobile.
+- [ ] VFX restantes; SFX e música finais (substituir os sintetizados).
 - [ ] UI final (fonte, ícones, botões).
 - [ ] `CREDITS.md`.
 

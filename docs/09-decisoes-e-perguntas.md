@@ -26,6 +26,14 @@
 | D21 | 2026-10-05 | **Máquinas de bônus são desbloqueios com `effects`** (irrigação, ordenhadeira) | Mesmo mecanismo de upgrades/passivas, zero código novo por máquina |
 | D22 | 2026-10-05 | **Doca de carga como faixa ao norte; caminhão espera o pedido sem prazo** | Mantém o jogador dentro da cerca; "sem punição" do doc 02 |
 | D23 | 2026-10-05 | **Offline conta só vendas feitas sem o jogador no caixa**; Automação/Descanso exigem o 1º ajudante | Sem automação não há renda offline (Q5 resolvida) |
+| D24 | 2026-10-05 | **Direção de arte = pacotes Kenney (CC0)**: Mini Characters, Cube Pets, Food Kit, Mini Forest/Dungeon/Arena (substitui D9) | Estilo minimalista/poly pedido pelo usuário; personagens e animais já vêm animados. Modelos realistas da Quaternius foram descartados |
+| D25 | 2026-10-05 | **Um material por pacote Kenney** (cada pacote tem a sua `colormap.png`), mais `palette.tres` para o que modelamos | Mantém poucos materiais sem editar texturas de terceiros |
+| D26 | 2026-10-05 | **Animação de personagem por velocidade real** (idle/walk/sprint) com variante "-carry" montada em código | Os pacotes não trazem andar carregando; combinamos pernas do andar + braços do `holding-both` |
+| D27 | 2026-10-05 | **KayKit (CC0) para construções e cenário** (mercados como balcões, moinho, poço, casas, andaime), Kenney para personagens/animais/itens | Mais personalidade nos prédios, mantendo os personagens minimalistas e já animados. KayKit Adventurers descartados por ora (sem animação embutida) |
+| D28 | 2026-10-05 | **Velocidade de movimento com teto de 2× a base** (botas +5%/nível até o 20; teto no próprio status, vale para o total) | Bug reportado: gastar muito dinheiro deixava o personagem rápido demais para controlar |
+| D29 | 2026-10-05 | **Cercados sempre com portão e nenhum pad dentro de cerca fechada** (teste de layout) | Bug reportado: jogador preso ao desbloquear o curral estando dentro da área |
+| D30 | 2026-10-05 | **Marcador "próximo objetivo" depois do tutorial**: aponta o pad disponível mais barato | Automação e novas áreas não eram descobertas |
+| D31 | 2026-10-05 | **Primeiro ajudante (Caixa) logo após o 2º balcão** (antes: após o 3º) e a árvore explica por que um ramo está travado | Os ramos Automação/Descanso pareciam impossíveis de liberar |
 | D16 | 2026-10-05 | **Plantações e curral usam `producers.json`** (unidades = canteiros/animais) e desbloqueios dão unidades extras | Um único modelo para "mais produção" em qualquer produtor |
 
 ## Perguntas em aberto

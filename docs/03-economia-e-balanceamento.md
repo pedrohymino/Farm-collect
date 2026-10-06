@@ -31,7 +31,7 @@ se dev override ativo:  final = override_absoluto  OU  final × override_multipl
 
 | ID do status | Base | Unidade | Mín | Observação |
 |---|---|---|---|---|
-| `player.move_speed` | 4.0 | m/s | 1 | |
+| `player.move_speed` | 4.0 | m/s | 1 | **máx 8.0** (2×): botas + passivas nunca passam disso |
 | `player.carry_capacity` | 8 | itens | 1 | "stack carry" |
 | `player.pickup_rate` | 8 | itens/s | 1 | coleta de pilhas |
 | `player.drop_rate` | 10 | itens/s | 1 | entrega no balcão |
@@ -56,7 +56,7 @@ se dev override ativo:  final = override_absoluto  OU  final × override_multipl
 | `customer.buy_min` / `customer.buy_max` | 1 / 3 | itens | 1 | |
 | `customer.patience` | 25 | s | 5 | |
 | `customer.move_speed` | 2.5 | m/s | 0.5 | |
-| `worker.move_speed` | 3.0 | m/s | 1 | |
+| `worker.move_speed` | 3.0 | m/s | 1 | máx 6.0 (2×) |
 | `worker.carry_capacity` | 6 | itens | 1 | |
 | `machine.speed` | 1.0 | × | 0.1 | |
 | `machine.conveyor_rate` | 2 | itens/s | 0.1 | esteira (× `machine.speed`) |
@@ -91,7 +91,7 @@ xp_para_próximo(nível) = 50 × 1.35^(nível − 1)
 
 | Upgrade | Base | Crescimento | Efeito/nível |
 |---|---|---|---|
-| Botas | $25 | 1.55 | +6% `player.move_speed` (percent) |
+| Botas | $25 | 1.55 | +5% `player.move_speed` por nível, **máx. nível 20 (+100%)** |
 | Mochila | $30 | 1.60 | +2 `player.carry_capacity` (flat) |
 | Mãos rápidas | $35 | 1.55 | +10% pickup e drop rate |
 | Preço justo | $50 | 1.65 | +10% `sell.price` |
@@ -125,7 +125,7 @@ Fonte da verdade: `data/balance/unlocks.json` (custos × status `unlock.cost`). 
 | 10 | `milk_counter` | Balcão de leite | $450 | A3 | 9 | |
 | 11 | `cow_2` | Vaca #2 | $900 | A3 | 9 | barn +1 |
 | 1b | `upgrade_board` | Mesa de Upgrades | $40 | A1 | 1 | abre o menu de upgrades (M5) |
-| 12 | `cashier_egg` | Caixa (ovos) | $700 | A1 | 10 | ajudante no balcão de ovos |
+| 12 | `cashier_egg` | Caixa (ovos) | $700 | A1 | 5 (balcão de trigo) | ajudante no balcão de ovos; libera os ramos Automação/Descanso e o upgrade Treinamento |
 | 13 | `carrier_egg` | Carregador (ovos) | $1.2K | A1 | 12 | galinheiro → balcão |
 | 14 | `irrigation` | Irrigação | $1.5K | A2 | 7 | +40% `production.rate.wheat` |
 | 15 | `egg_conveyor` | Esteira de ovos | $2.5K | A1 | 13 | máquina |

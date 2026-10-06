@@ -14,7 +14,8 @@ e registrar decisões novas no 09.
 - Executáveis: `C:\Program Files\Godot\Godot_v4.7.2-stable_win64.exe` (editor) e
   `C:\Program Files\Godot\Godot_v4.7.2-stable_win64_console.exe` (headless/testes).
 - Testes: GUT em `tests/` · Formatação/lint: `gdformat` e `gdlint` (gdtoolkit).
-- Arte: Blender via MCP (scripts em `art/blender/scripts/`), personagens animados de pacotes CC0. Exportar `.glb`.
+- Arte: pacotes **Kenney CC0** (personagens, animais, itens) e **KayKit CC0** (construções, cenário; ver `CREDITS.md`) + Blender via MCP só para o que falta
+  (`art/blender/scripts/`: trigo, caminhão). Novos modelos: `tools/sync_models.py` (material compartilhado por pacote).
 
 ## Comandos
 

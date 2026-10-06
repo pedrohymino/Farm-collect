@@ -1,5 +1,7 @@
 [gd_scene format=3]
 
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/building_scaffolding.gltf" id="1_scaffolding"]
+
 [sub_resource type="BoxMesh" id="Mesh_post"]
 size = Vector3(0.14, 1.8, 0.14)
 
@@ -13,6 +15,9 @@ size = Vector3(2.4, 1, 0.1)
 albedo_color = Color(0.97, 0.95, 0.88, 1)
 
 [node name="TeaserSign" type="Node3D"]
+
+[node name="Scaffolding" parent="." instance=ExtResource("1_scaffolding")]
+transform = Transform3D(1.7, 0, 0, 0, 1.7, 0, 0, 0, 1.7, 3.2, 0, -0.4)
 
 [node name="PostLeft" type="MeshInstance3D" parent="."]
 position = Vector3(-1, 0.9, 0)

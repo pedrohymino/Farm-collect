@@ -1,18 +1,8 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3]
 
-[sub_resource type="SphereMesh" id="SphereMesh_egg"]
-radius = 0.11
-height = 0.28
-radial_segments = 12
-rings = 6
-
-[sub_resource type="StandardMaterial3D" id="Mat_egg"]
-albedo_color = Color(0.965, 0.945, 0.894, 1)
-roughness = 0.6
+[ext_resource type="PackedScene" path="res://assets/models/kenney/food-kit/egg.glb" id="1_model"]
 
 [node name="Egg" type="Node3D"]
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14, 0)
-mesh = SubResource("SphereMesh_egg")
-surface_material_override/0 = SubResource("Mat_egg")
+[node name="Model" parent="." instance=ExtResource("1_model")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)

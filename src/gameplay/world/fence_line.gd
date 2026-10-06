@@ -1,13 +1,12 @@
 @tool
 class_name FenceLine
 extends Node3D
-## Low-poly fence (posts + rails + optional collision) along local XZ points.
-## Built at runtime and in the editor; generated nodes are never saved into the scene.
+## Fence along local XZ points, built from the Kenney fence piece in ONE MultiMesh (1 draw call),
+## with optional collision. Generated nodes are never saved into the scene.
 
-const POST_SIZE: Vector3 = Vector3(0.14, 0.75, 0.14)
-const POST_SPACING: float = 1.0
-const RAIL_HEIGHTS: Array[float] = [0.28, 0.55]
-const RAIL_SIZE: Vector2 = Vector2(0.06, 0.09)
+const PIECE_SCENE: PackedScene = preload("res://assets/models/kenney/mini-forest/fence.glb")
+## Kenney fence pieces are ~1.1 long; this makes them chunkier and ~0.8 m tall.
+const PIECE_SCALE: float = 1.6
 const COLLISION_HEIGHT: float = 1.2
 const COLLISION_THICKNESS: float = 0.3
 
@@ -23,16 +22,20 @@ const COLLISION_THICKNESS: float = 0.3
 	set(value):
 		has_collision = value
 		_rebuild()
-@export var color: Color = Color("b5713a"):
-	set(value):
-		color = value
-		_rebuild()
 
 var _generated: Array[Node] = []
+var _piece_mesh: Mesh
+var _piece_local: Transform3D = Transform3D.IDENTITY
 
 
 func _ready() -> void:
 	_rebuild()
+
+
+## Pieces needed to span `length`. Neighbors overlap by one post (`post_width`) so every
+## joint shows a single post. At least one piece.
+static func piece_count(length: float, piece_length: float, post_width: float) -> int:
+	return maxi(roundi(length / maxf(piece_length - post_width, 0.01)), 1)
 
 
 func _rebuild() -> void:
@@ -43,54 +46,58 @@ func _rebuild() -> void:
 	_generated.clear()
 	if points.size() < 2:
 		return
-
-	var material := StandardMaterial3D.new()
-	material.albedo_color = color
-	var post_transforms: Array[Transform3D] = []
+	_load_piece()
+	var transforms: Array[Transform3D] = []
 	var body := StaticBody3D.new() if has_collision else null
 	if body != null:
 		_add_generated(body)
-
+	var model_length := _piece_mesh.get_aabb().size.x
+	var post_width := _piece_mesh.get_aabb().size.z * PIECE_SCALE
+	var piece_length := model_length * PIECE_SCALE
 	for segment in _segments():
 		var start: Vector2 = segment[0]
 		var end: Vector2 = segment[1]
 		var length := start.distance_to(end)
-		var steps := maxi(ceili(length / POST_SPACING), 1)
-		for i in steps + 1:
-			var p := start.lerp(end, i / float(steps))
-			post_transforms.append(Transform3D(Basis(), Vector3(p.x, POST_SIZE.y * 0.5, p.y)))
-		var center := (start + end) * 0.5
-		var yaw := atan2(end.x - start.x, end.y - start.y)
-		for height in RAIL_HEIGHTS:
-			var rail := MeshInstance3D.new()
-			var rail_mesh := BoxMesh.new()
-			rail_mesh.size = Vector3(RAIL_SIZE.x, RAIL_SIZE.y, length)
-			rail_mesh.material = material
-			rail.mesh = rail_mesh
-			rail.position = Vector3(center.x, height, center.y)
-			rail.rotation.y = yaw
-			_add_generated(rail)
+		var count := piece_count(length, piece_length, post_width)
+		var direction := (end - start) / maxf(length, 0.001)
+		var yaw := atan2(-direction.y, direction.x)
+		var pitch := length / count
+		# Each piece spans pitch + post_width, so its end posts coincide with its neighbors'.
+		var stretch := (pitch + post_width) / model_length
+		for i in count:
+			var center := start + direction * pitch * (i + 0.5)
+			var basis := Basis(Vector3.UP, yaw).scaled(Vector3(stretch, PIECE_SCALE, PIECE_SCALE))
+			transforms.append(Transform3D(basis, Vector3(center.x, 0.0, center.y)) * _piece_local)
 		if body != null:
 			var shape := CollisionShape3D.new()
 			var box := BoxShape3D.new()
-			box.size = Vector3(COLLISION_THICKNESS, COLLISION_HEIGHT, length)
+			box.size = Vector3(length, COLLISION_HEIGHT, COLLISION_THICKNESS)
 			shape.shape = box
-			shape.position = Vector3(center.x, COLLISION_HEIGHT * 0.5, center.y)
+			var middle := (start + end) * 0.5
+			shape.position = Vector3(middle.x, COLLISION_HEIGHT * 0.5, middle.y)
 			shape.rotation.y = yaw
 			body.add_child(shape)
-
-	var posts := MultiMeshInstance3D.new()
+	var instances := MultiMeshInstance3D.new()
 	var multimesh := MultiMesh.new()
 	multimesh.transform_format = MultiMesh.TRANSFORM_3D
-	var post_mesh := BoxMesh.new()
-	post_mesh.size = POST_SIZE
-	post_mesh.material = material
-	multimesh.mesh = post_mesh
-	multimesh.instance_count = post_transforms.size()
-	for i in post_transforms.size():
-		multimesh.set_instance_transform(i, post_transforms[i])
-	posts.multimesh = multimesh
-	_add_generated(posts)
+	multimesh.mesh = _piece_mesh
+	multimesh.instance_count = transforms.size()
+	for i in transforms.size():
+		multimesh.set_instance_transform(i, transforms[i])
+	instances.multimesh = multimesh
+	_add_generated(instances)
+
+
+## Takes the mesh of the fence glb and centers it on X/Z so pieces tile around their origin.
+func _load_piece() -> void:
+	if _piece_mesh != null:
+		return
+	var root := PIECE_SCENE.instantiate() as Node3D
+	var mesh_instance := root.find_children("*", "MeshInstance3D", true, false)[0] as MeshInstance3D
+	_piece_mesh = mesh_instance.mesh
+	var center := _piece_mesh.get_aabb().get_center()
+	_piece_local = Transform3D(Basis.IDENTITY, Vector3(-center.x, 0.0, -center.z))
+	root.free()
 
 
 func _segments() -> Array:

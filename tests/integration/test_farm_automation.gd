@@ -44,7 +44,7 @@ func _add_customer(counter: Counter, count: int) -> void:
 	farm.add_child(customer)
 	customer.global_position = counter.queue_slot_global(0)
 	var exit: Array[Vector3] = [Vector3(30, 0, 30)]
-	customer.setup(CustomerOrder.new(counter.item_id, count, 60.0), Color.WHITE, exit)
+	customer.setup(CustomerOrder.new(counter.item_id, count, 60.0), null, exit)
 	counter.enqueue(customer)
 
 

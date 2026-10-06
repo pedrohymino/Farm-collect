@@ -16,10 +16,13 @@ var stash: MoneyStash = MoneyStash.new()
 
 var _bills: Array[MeshInstance3D] = []
 var _collector: Node3D = null
+var _sparkle: Sparkle
 
 
 func _ready() -> void:
 	collision_mask |= PhysicsLayers.WORKERS
+	_sparkle = Sparkle.new()
+	add_child(_sparkle)
 	stash.changed.connect(_refresh_bills)
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
@@ -55,6 +58,7 @@ func _fly_bill(start: Vector3) -> void:
 
 
 func _refresh_bills(value: float) -> void:
+	_sparkle.emitting = value > 0.0
 	var wanted := mini(ceili(value / BILL_VALUE), MAX_VISIBLE_BILLS)
 	while _bills.size() > wanted:
 		_bills.pop_back().queue_free()

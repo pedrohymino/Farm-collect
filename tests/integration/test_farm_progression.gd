@@ -43,7 +43,7 @@ func test_vip_customer_pays_multiplied() -> void:
 	farm.add_child(customer)
 	customer.global_position = counter.queue_slot_global(0)
 	var exit: Array[Vector3] = [Vector3(30, 0, 30)]
-	customer.setup(CustomerOrder.new(&"egg", 1, 60.0), Color.WHITE, exit)
+	customer.setup(CustomerOrder.new(&"egg", 1, 60.0), null, exit)
 	counter.enqueue(customer)
 	player.global_position = (counter.get_node("CashierSpot") as Node3D).global_position
 	await wait_seconds(Stats.get_value(&"counter.serve_time") + 0.4)

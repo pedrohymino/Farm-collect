@@ -82,3 +82,31 @@ func test_root_can_require_an_unlock() -> void:
 	assert_false(gated.can_unlock(&"a1", data))
 	data.unlock(&"cashier")
 	assert_true(gated.can_unlock(&"a1", data))
+
+
+func test_lock_reason_explains_what_is_missing() -> void:
+	var gated := (
+		PassiveRules
+		. new(
+			{
+				"a1":
+				{
+					"branch": "a",
+					"cost": 1,
+					"requires": [],
+					"requires_unlock": "cashier",
+					"effects": []
+				},
+				"a2": {"branch": "a", "cost": 1, "requires": ["a1"], "effects": []},
+			}
+		)
+	)
+	assert_eq(gated.lock_reason(&"a1", data), PassiveRules.LockReason.NEEDS_UNLOCK)
+	assert_eq(gated.missing_unlock(&"a1", data), &"cashier")
+	assert_eq(gated.lock_reason(&"a2", data), PassiveRules.LockReason.NEEDS_PARENT)
+	data.unlock(&"cashier")
+	assert_eq(gated.lock_reason(&"a1", data), PassiveRules.LockReason.NONE)
+	assert_eq(gated.lock_reason(&"a2", data), PassiveRules.LockReason.NEEDS_PARENT)
+	data.passive_nodes[&"a1"] = true
+	assert_eq(gated.lock_reason(&"a2", data), PassiveRules.LockReason.NONE)
+	assert_eq(gated.lock_reason(&"a1", data), PassiveRules.LockReason.NONE)

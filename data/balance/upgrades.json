@@ -1,7 +1,7 @@
 {
   "boots": {
-    "base_cost": 25, "growth": 1.55,
-    "effects": [{ "stat": "player.move_speed", "type": "percent", "value": 0.06 }]
+    "base_cost": 25, "growth": 1.55, "max_level": 20,
+    "effects": [{ "stat": "player.move_speed", "type": "percent", "value": 0.05 }]
   },
   "backpack": {
     "base_cost": 30, "growth": 1.6,

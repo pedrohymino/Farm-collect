@@ -19,3 +19,6 @@ Thumbs.db
 
 # Local Godot project-setting overrides (used for portrait test recordings)
 override.cfg
+
+# Raw third-party downloads (original zips + extracted packs); only what the game uses is copied to assets/
+/art/downloads/

@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://src/gameplay/stations/zone_marker.gd" id="4_marker"]
 [ext_resource type="Script" path="res://src/gameplay/stations/money_pile.gd" id="5_money"]
 
+[ext_resource type="PackedScene" path="res://assets/models/kenney/mini-dungeon/table.glb" id="6_table"]
+
 [sub_resource type="BoxMesh" id="Mesh_base"]
 size = Vector3(2.3, 0.85, 0.8)
 
@@ -25,7 +27,7 @@ size = Vector3(0.4, 0.3, 0.35)
 albedo_color = Color(0.55, 0.58, 0.62, 1)
 
 [sub_resource type="BoxShape3D" id="Shape_table"]
-size = Vector3(2.5, 1.2, 0.95)
+size = Vector3(2.5, 1.6, 1.8)
 
 [sub_resource type="BoxShape3D" id="Shape_zone"]
 size = Vector3(1.4, 1, 1.4)
@@ -51,27 +53,15 @@ script = ExtResource("1_counter")
 
 [node name="Table" type="StaticBody3D" parent="."]
 
-[node name="Base" type="MeshInstance3D" parent="Table"]
-position = Vector3(0, 0.425, 0)
-mesh = SubResource("Mesh_base")
-surface_material_override/0 = SubResource("Mat_wood")
-
-[node name="Top" type="MeshInstance3D" parent="Table"]
-position = Vector3(0, 0.925, 0)
-mesh = SubResource("Mesh_top")
-surface_material_override/0 = SubResource("Mat_red")
-
-[node name="Register" type="MeshInstance3D" parent="Table"]
-position = Vector3(0.95, 1.15, 0)
-mesh = SubResource("Mesh_register")
-surface_material_override/0 = SubResource("Mat_register")
+[node name="Model" parent="Table" instance=ExtResource("6_table")]
+transform = Transform3D(1.35, 0, 0, 0, 1.35, 0, 0, 0, 1.35, 0, 0, 0)
 
 [node name="Collision" type="CollisionShape3D" parent="Table"]
-position = Vector3(0, 0.6, 0)
+position = Vector3(0, 0.8, 0)
 shape = SubResource("Shape_table")
 
 [node name="StockVisual" type="Node3D" parent="."]
-position = Vector3(-0.2, 1, 0)
+position = Vector3(0, 0.08, 1.2)
 script = ExtResource("2_stack")
 columns = 6
 rows = 2
@@ -131,4 +121,4 @@ mesh = SubResource("Mesh_zone")
 surface_material_override/0 = SubResource("Mat_money_zone")
 
 [node name="QueueStart" type="Marker3D" parent="."]
-position = Vector3(0, 0, 1.2)
+position = Vector3(0, 0, 2.3)

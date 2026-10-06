@@ -1,86 +1,10 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://src/gameplay/npcs/animal_wander.gd" id="1_wander"]
-
-[sub_resource type="BoxMesh" id="Mesh_body"]
-size = Vector3(0.7, 0.55, 1.1)
-
-[sub_resource type="StandardMaterial3D" id="Mat_white"]
-albedo_color = Color(0.96, 0.95, 0.92, 1)
-
-[sub_resource type="BoxMesh" id="Mesh_spot"]
-size = Vector3(0.72, 0.3, 0.35)
-
-[sub_resource type="StandardMaterial3D" id="Mat_black"]
-albedo_color = Color(0.15, 0.15, 0.17, 1)
-
-[sub_resource type="BoxMesh" id="Mesh_head"]
-size = Vector3(0.42, 0.4, 0.42)
-
-[sub_resource type="BoxMesh" id="Mesh_nose"]
-size = Vector3(0.34, 0.18, 0.1)
-
-[sub_resource type="StandardMaterial3D" id="Mat_pink"]
-albedo_color = Color(0.95, 0.65, 0.68, 1)
-
-[sub_resource type="BoxMesh" id="Mesh_leg"]
-size = Vector3(0.14, 0.4, 0.14)
-
-[sub_resource type="BoxMesh" id="Mesh_horn"]
-size = Vector3(0.06, 0.12, 0.06)
-
-[sub_resource type="StandardMaterial3D" id="Mat_horn"]
-albedo_color = Color(0.95, 0.88, 0.7, 1)
+[ext_resource type="PackedScene" path="res://assets/models/kenney/cube-pets/animal-cow.glb" id="2_model"]
 
 [node name="Cow" type="Node3D"]
 script = ExtResource("1_wander")
 
-[node name="Body" type="MeshInstance3D" parent="."]
-position = Vector3(0, 0.67, 0)
-mesh = SubResource("Mesh_body")
-surface_material_override/0 = SubResource("Mat_white")
-
-[node name="Spot" type="MeshInstance3D" parent="."]
-position = Vector3(0, 0.75, -0.15)
-mesh = SubResource("Mesh_spot")
-surface_material_override/0 = SubResource("Mat_black")
-
-[node name="Head" type="MeshInstance3D" parent="."]
-position = Vector3(0, 0.95, 0.65)
-mesh = SubResource("Mesh_head")
-surface_material_override/0 = SubResource("Mat_white")
-
-[node name="Nose" type="MeshInstance3D" parent="."]
-position = Vector3(0, 0.86, 0.88)
-mesh = SubResource("Mesh_nose")
-surface_material_override/0 = SubResource("Mat_pink")
-
-[node name="HornLeft" type="MeshInstance3D" parent="."]
-position = Vector3(-0.15, 1.2, 0.62)
-mesh = SubResource("Mesh_horn")
-surface_material_override/0 = SubResource("Mat_horn")
-
-[node name="HornRight" type="MeshInstance3D" parent="."]
-position = Vector3(0.15, 1.2, 0.62)
-mesh = SubResource("Mesh_horn")
-surface_material_override/0 = SubResource("Mat_horn")
-
-[node name="LegFL" type="MeshInstance3D" parent="."]
-position = Vector3(-0.22, 0.2, 0.4)
-mesh = SubResource("Mesh_leg")
-surface_material_override/0 = SubResource("Mat_white")
-
-[node name="LegFR" type="MeshInstance3D" parent="."]
-position = Vector3(0.22, 0.2, 0.4)
-mesh = SubResource("Mesh_leg")
-surface_material_override/0 = SubResource("Mat_white")
-
-[node name="LegBL" type="MeshInstance3D" parent="."]
-position = Vector3(-0.22, 0.2, -0.4)
-mesh = SubResource("Mesh_leg")
-surface_material_override/0 = SubResource("Mat_white")
-
-[node name="LegBR" type="MeshInstance3D" parent="."]
-position = Vector3(0.22, 0.2, -0.4)
-mesh = SubResource("Mesh_leg")
-surface_material_override/0 = SubResource("Mat_white")
+[node name="Model" parent="." instance=ExtResource("2_model")]
+transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 0, 0, 0)

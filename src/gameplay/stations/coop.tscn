@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://src/gameplay/world/fence_line.gd" id="5_fence"]
 [ext_resource type="PackedScene" path="res://assets/models/animals/chicken.tscn" id="6_chicken"]
 
+[ext_resource type="PackedScene" path="res://assets/models/kenney/mini-forest/tent.glb" id="7_house"]
+
 [sub_resource type="PlaneMesh" id="Mesh_straw"]
 size = Vector2(3.6, 2.8)
 
@@ -26,7 +28,7 @@ size = Vector3(2.1, 0.7, 1.4)
 albedo_color = Color(0.55, 0.32, 0.2, 1)
 
 [sub_resource type="BoxShape3D" id="Shape_house"]
-size = Vector3(1.8, 1.4, 1.2)
+size = Vector3(2.3, 1.8, 1.9)
 
 [sub_resource type="BoxMesh" id="Mesh_pallet"]
 size = Vector3(1.4, 0.1, 1.1)
@@ -59,24 +61,16 @@ surface_material_override/0 = SubResource("Mat_straw")
 
 [node name="Pen" type="Node3D" parent="."]
 script = ExtResource("5_fence")
-points = PackedVector2Array(-1.8, -1.4, 1.8, -1.4, 1.8, 1.4, -1.8, 1.4)
-closed = true
+points = PackedVector2Array(-0.8, 1.4, -1.8, 1.4, -1.8, -1.4, 1.8, -1.4, 1.8, 1.4, 0.8, 1.4)
 
 [node name="House" type="StaticBody3D" parent="."]
 position = Vector3(0, 0, -2.2)
 
-[node name="Walls" type="MeshInstance3D" parent="House"]
-position = Vector3(0, 0.6, 0)
-mesh = SubResource("Mesh_house")
-surface_material_override/0 = SubResource("Mat_house")
-
-[node name="Roof" type="MeshInstance3D" parent="House"]
-position = Vector3(0, 1.55, 0)
-mesh = SubResource("Mesh_roof")
-surface_material_override/0 = SubResource("Mat_roof")
+[node name="Model" parent="House" instance=ExtResource("7_house")]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 0, 0, 0)
 
 [node name="Collision" type="CollisionShape3D" parent="House"]
-position = Vector3(0, 0.7, 0)
+position = Vector3(0, 0.9, 0)
 shape = SubResource("Shape_house")
 
 [node name="Units" type="Node3D" parent="."]

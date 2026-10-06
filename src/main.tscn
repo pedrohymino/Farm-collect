@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://src/ui/upgrade_menu/upgrade_menu.gd" id="4_upgrades"]
 [ext_resource type="Script" path="res://src/ui/passive_tree/passive_tree_screen.gd" id="5_tree"]
 [ext_resource type="Script" path="res://src/ui/offline_popup/offline_popup.gd" id="6_offline"]
+[ext_resource type="Script" path="res://src/gameplay/audio/haptics.gd" id="7_haptics"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_main")
@@ -23,3 +24,6 @@ script = ExtResource("5_tree")
 
 [node name="OfflinePopup" type="CanvasLayer" parent="."]
 script = ExtResource("6_offline")
+
+[node name="Haptics" type="Node" parent="."]
+script = ExtResource("7_haptics")

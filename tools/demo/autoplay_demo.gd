@@ -10,7 +10,7 @@ const FARM_SCENE: PackedScene = preload("res://src/gameplay/locations/farm/farm.
 const ARRIVE_DISTANCE: float = 0.3
 const WAIT_AT_CASHIER_SEC: float = 4.0
 const WAIT_AT_PICKUP_SEC: float = 2.0
-const OVERVIEW_DISTANCE: float = 42.0
+const OVERVIEW_DISTANCE: float = 60.0
 const SHOWCASE_MONEY: float = 500.0
 const SHOWCASE_STARS: float = 6.0
 

@@ -20,6 +20,42 @@
 [ext_resource type="PackedScene" path="res://assets/models/props/sprinkler.tscn" id="18_sprinkler"]
 [ext_resource type="PackedScene" path="res://assets/models/props/milking_machine.tscn" id="19_milking"]
 [ext_resource type="PackedScene" path="res://assets/models/props/teaser_sign.tscn" id="20_teaser"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/building_market_red.gltf" id="sf_market_red"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/building_market_yellow.gltf" id="sf_market_yellow"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/building_market_blue.gltf" id="sf_market_blue"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/building_windmill_red.gltf" id="d_windmill"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/building_well_red.gltf" id="d_well"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/building_home_A_blue.gltf" id="d_home_a"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/building_home_B_green.gltf" id="d_home_b"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/wheelbarrow.gltf" id="d_wheelbarrow"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/sack.gltf" id="d_sack"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/crate_A_big.gltf" id="d_crate_big"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/crate_A_small.gltf" id="d_crate_small"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/barrel.gltf" id="d_barrel"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/resource_lumber.gltf" id="d_lumber"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/resource_stone.gltf" id="d_stone"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/flag_red.gltf" id="d_flag"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/rock_single_A.gltf" id="d_rock_a"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/rock_single_B.gltf" id="d_rock_b"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/rock_single_C.gltf" id="d_rock_c"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/hexagon/building_grain.gltf" id="d_grain"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/forest/Bush_1_A_Color1.gltf" id="f_bush1"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/forest/Bush_2_A_Color1.gltf" id="f_bush2"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/forest/Bush_3_A_Color1.gltf" id="f_bush3"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/forest/Bush_4_A_Color1.gltf" id="f_bush4"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/forest/Rock_1_A_Color1.gltf" id="f_frock1"]
+[ext_resource type="PackedScene" path="res://assets/models/kaykit/forest/Rock_2_A_Color1.gltf" id="f_frock2"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney/mini-characters/character-female-a.glb" id="c_female-a"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney/mini-characters/character-female-b.glb" id="c_female-b"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney/mini-characters/character-female-c.glb" id="c_female-c"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney/mini-characters/character-female-d.glb" id="c_female-d"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney/mini-characters/character-female-e.glb" id="c_female-e"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney/mini-characters/character-male-a.glb" id="c_male-a"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney/mini-characters/character-male-e.glb" id="c_male-e"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney/mini-characters/character-male-f.glb" id="c_male-f"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney/mini-characters/character-male-b.glb" id="c_male-b"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney/mini-characters/character-male-c.glb" id="c_male-c"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney/mini-characters/character-male-d.glb" id="c_male-d"]
 
 [sub_resource type="Environment" id="Env"]
 background_mode = 1
@@ -190,6 +226,7 @@ position = Vector3(-4, 0, -3.8)
 position = Vector3(2, 0, 6)
 item_id = &"egg"
 persist_id = &"egg_counter"
+storefront = ExtResource("sf_market_red")
 
 [node name="UpgradeStation" parent="." groups=["unlock:upgrade_board"] instance=ExtResource("14_board")]
 position = Vector3(3.5, 0, -5.5)
@@ -201,6 +238,7 @@ position = Vector3(14, 0, -4.2)
 position = Vector3(12, 0, 6)
 item_id = &"wheat"
 persist_id = &"wheat_counter"
+storefront = ExtResource("sf_market_yellow")
 
 [node name="Barn" parent="." groups=["unlock:barn"] instance=ExtResource("12_barn")]
 position = Vector3(-14, 0, -2.8)
@@ -209,6 +247,7 @@ position = Vector3(-14, 0, -2.8)
 position = Vector3(-14, 0, 6)
 item_id = &"milk"
 persist_id = &"milk_counter"
+storefront = ExtResource("sf_market_blue")
 
 [node name="TruckBay" parent="." groups=["unlock:truck_bay"] instance=ExtResource("17_truck_bay")]
 position = Vector3(0, 0, -8.6)
@@ -228,11 +267,8 @@ position = Vector3(0.9, 1, 5.5)
 
 [node name="Irrigation" type="Node3D" parent="." groups=["unlock:irrigation"]]
 
-[node name="SprinklerA" parent="Irrigation" instance=ExtResource("18_sprinkler")]
-position = Vector3(12.2, 0, -4.6)
-
-[node name="SprinklerB" parent="Irrigation" instance=ExtResource("18_sprinkler")]
-position = Vector3(15.8, 0, -1)
+[node name="Well" parent="Irrigation" instance=ExtResource("18_sprinkler")]
+position = Vector3(11.4, 0, -5.4)
 
 [node name="MilkingMachine" parent="." groups=["unlock:milking_machine"] instance=ExtResource("19_milking")]
 position = Vector3(-10.6, 0, -4.4)
@@ -248,26 +284,31 @@ position = Vector3(0, 0, 1)
 [node name="CashierEgg" parent="Workers" groups=["unlock:cashier_egg"] instance=ExtResource("15_worker")]
 position = Vector3(2.75, 0, 4.7)
 role = 0
+character = ExtResource("c_male-d")
 stops = Array[NodePath]([NodePath("../../EggCounter/CashierSpot")])
 
 [node name="CashierWheat" parent="Workers" groups=["unlock:cashier_wheat"] instance=ExtResource("15_worker")]
 position = Vector3(12.75, 0, 4.7)
 role = 0
+character = ExtResource("c_male-d")
 stops = Array[NodePath]([NodePath("../../WheatCounter/CashierSpot")])
 
 [node name="CashierMilk" parent="Workers" groups=["unlock:cashier_milk"] instance=ExtResource("15_worker")]
 position = Vector3(-13.25, 0, 4.7)
 role = 0
+character = ExtResource("c_male-d")
 stops = Array[NodePath]([NodePath("../../MilkCounter/CashierSpot")])
 
 [node name="CarrierEgg" parent="Workers" groups=["unlock:carrier_egg"] instance=ExtResource("15_worker")]
 position = Vector3(-2, 0, 0)
 role = 1
+character = ExtResource("c_male-b")
 stops = Array[NodePath]([NodePath("../../Coop/PickupZone"), NodePath("../../EggCounter/DropZone")])
 
 [node name="MoneyCollector" parent="Workers" groups=["unlock:money_collector"] instance=ExtResource("15_worker")]
 position = Vector3(4.2, 0, 3)
 role = 2
+character = ExtResource("c_male-c")
 stops = Array[NodePath]([NodePath("../../EggCounter/MoneyPile"), NodePath("../../WheatCounter/MoneyPile"), NodePath("../../TruckBay/MoneyPile"), NodePath("../../YardWaypoint"), NodePath("../../MilkCounter/MoneyPile"), NodePath("../../YardWaypoint")])
 
 [node name="Pads" type="Node3D" parent="."]
@@ -376,7 +417,7 @@ name_key = "UNLOCK_AREA_PASTURE"
 camera_focus = NodePath("../../PastureFocus")
 
 [node name="Barn" parent="Pads" instance=ExtResource("10_pad")]
-position = Vector3(-14, 0, -2.4)
+position = Vector3(-9.4, 0, -2.8)
 unlock_id = &"barn"
 name_key = "UNLOCK_BARN"
 
@@ -413,10 +454,100 @@ step_targets = Array[NodePath]([NodePath("../Coop/PickupZone"), NodePath("../Egg
 position = Vector3(-30, 0, 11)
 script = ExtResource("7_spawner")
 customer_scene = ExtResource("8_customer")
+variants = Array[PackedScene]([ExtResource("c_female-a"), ExtResource("c_female-b"), ExtResource("c_female-c"), ExtResource("c_female-d"), ExtResource("c_female-e"), ExtResource("c_male-a"), ExtResource("c_male-e"), ExtResource("c_male-f")])
 exit_paths = Array[NodePath]([NodePath("../Exit")])
 
 [node name="Exit" type="Marker3D" parent="."]
 position = Vector3(30, 0, 11)
+
+[node name="Decor" type="Node3D" parent="."]
+
+[node name="Windmill" parent="Decor" instance=ExtResource("d_windmill")]
+transform = Transform3D(2.8191, 0, -1.0261, 0, 3.0, 0, 1.0261, 0, 2.8191, -17.5, 0, -13.5)
+
+[node name="HomeA" parent="Decor" instance=ExtResource("d_home_a")]
+transform = Transform3D(1.9000, 0, -0.0000, 0, 1.9, 0, 0.0000, 0, 1.9000, -6.9, 0, -6.2)
+
+[node name="HomeB" parent="Decor" instance=ExtResource("d_home_b")]
+transform = Transform3D(1.9000, 0, -0.0000, 0, 1.9, 0, 0.0000, 0, 1.9000, 7.0, 0, -6.3)
+
+[node name="WellDecor" parent="Decor" instance=ExtResource("d_well")]
+transform = Transform3D(1.7000, 0, -0.0000, 0, 1.7, 0, 0.0000, 0, 1.7000, -6.6, 0, 3.6)
+
+[node name="Wheelbarrow" parent="Decor" instance=ExtResource("d_wheelbarrow")]
+transform = Transform3D(2.4575, 0, -1.7207, 0, 3.0, 0, 1.7207, 0, 2.4575, -2.4, 0, -0.6)
+
+[node name="SackA" parent="Decor" instance=ExtResource("d_sack")]
+transform = Transform3D(2.8191, 0, -1.0261, 0, 3.0, 0, 1.0261, 0, 2.8191, 4.9, 0, 4.6)
+
+[node name="SackB" parent="Decor" instance=ExtResource("d_sack")]
+transform = Transform3D(1.0261, 0, -2.8191, 0, 3.0, 0, 2.8191, 0, 1.0261, 5.4, 0, 5.0)
+
+[node name="CrateA" parent="Decor" instance=ExtResource("d_crate_big")]
+transform = Transform3D(3.1514, 0, -0.5557, 0, 3.2, 0, 0.5557, 0, 3.1514, 4.9, 0, 5.6)
+
+[node name="CrateB" parent="Decor" instance=ExtResource("d_crate_small")]
+transform = Transform3D(2.4513, 0, -2.0569, 0, 3.2, 0, 2.0569, 0, 2.4513, 5.5, 0, 4.2)
+
+[node name="BarrelA" parent="Decor" instance=ExtResource("d_barrel")]
+transform = Transform3D(3.4000, 0, -0.0000, 0, 3.4, 0, 0.0000, 0, 3.4000, -3.6, 0, 5.3)
+
+[node name="Lumber" parent="Decor" instance=ExtResource("d_lumber")]
+transform = Transform3D(2.4000, 0, -0.0000, 0, 2.4, 0, 0.0000, 0, 2.4000, 7.3, 0, 1.6)
+
+[node name="StoneStack" parent="Decor" instance=ExtResource("d_stone")]
+transform = Transform3D(2.4000, 0, -0.0000, 0, 2.4, 0, 0.0000, 0, 2.4000, -7.2, 0, -1.2)
+
+[node name="Flag" parent="Decor" instance=ExtResource("d_flag")]
+transform = Transform3D(3.0000, 0, -0.0000, 0, 3.0, 0, 0.0000, 0, 3.0000, 0.2, 0, 5.4)
+
+[node name="FieldHay" parent="Decor" groups=["unlock:area_field"] instance=ExtResource("d_grain")]
+transform = Transform3D(1.0000, 0, -0.0000, 0, 1.0, 0, 0.0000, 0, 1.0000, 19.0, 0, -8.4)
+
+[node name="BushRow0" parent="Decor" instance=ExtResource("f_bush1")]
+transform = Transform3D(2.4, 0.0, -0.0, 0.0, 2.4, 0.0, 0.0, 0.0, 2.4, -9.5, 0.0, -9.0)
+
+[node name="BushRow1" parent="Decor" instance=ExtResource("f_bush2")]
+transform = Transform3D(1.7186, 0.0, -1.843, 0.0, 2.52, 0.0, 1.843, 0.0, 1.7186, 9.5, 0.0, -9.2)
+
+[node name="BushRow2" parent="Decor" instance=ExtResource("f_bush3")]
+transform = Transform3D(-0.1507, 0.0, -2.1547, 0.0, 2.16, 0.0, 2.1547, 0.0, -0.1507, 12.5, 0.0, -9.0)
+
+[node name="BushRow3" parent="Decor" instance=ExtResource("f_bush4")]
+transform = Transform3D(-1.7719, 0.0, -1.4348, 0.0, 2.28, 0.0, 1.4348, 0.0, -1.7719, -12.0, 0.0, -9.2)
+
+[node name="BushRow4" parent="Decor" instance=ExtResource("f_bush1")]
+transform = Transform3D(-2.139, 0.0, 0.3006, 0.0, 2.16, 0.0, -0.3006, 0.0, -2.139, 16.5, 0.0, 5.2)
+
+[node name="BushRow5" parent="Decor" instance=ExtResource("f_bush2")]
+transform = Transform3D(-1.3078, 0.0, 1.8677, 0.0, 2.28, 0.0, -1.8677, 0.0, -1.3078, -17.5, 0.0, 5.4)
+
+[node name="BushRow6" parent="Decor" instance=ExtResource("f_bush3")]
+transform = Transform3D(0.4241, 0.0, 1.9954, 0.0, 2.04, 0.0, -1.9954, 0.0, 0.4241, -3.0, 0.0, -9.4)
+
+[node name="BushRow7" parent="Decor" instance=ExtResource("f_bush4")]
+transform = Transform3D(1.9543, 0.0, 1.1743, 0.0, 2.28, 0.0, -1.1743, 0.0, 1.9543, 3.2, 0.0, -9.5)
+
+[node name="Rock0" parent="Decor" instance=ExtResource("f_frock1")]
+transform = Transform3D(2.73, 0.0, -0.0, 0.0, 2.73, 0.0, 0.0, 0.0, 2.73, -20.5, 0.0, -8.0)
+
+[node name="Rock1" parent="Decor" instance=ExtResource("f_frock2")]
+transform = Transform3D(2.2287, 0.0, -1.3391, 0.0, 2.6, 0.0, 1.3391, 0.0, 2.2287, 20.8, 0.0, -7.0)
+
+[node name="Rock2" parent="Decor" instance=ExtResource("f_frock2")]
+transform = Transform3D(1.0986, 0.0, -2.0661, 0.0, 2.34, 0.0, 2.0661, 0.0, 1.0986, -20.0, 0.0, 7.5)
+
+[node name="Rock3" parent="Decor" instance=ExtResource("f_frock1")]
+transform = Transform3D(-0.1429, 0.0, -2.7262, 0.0, 2.73, 0.0, 2.7262, 0.0, -0.1429, 21.0, 0.0, 6.8)
+
+[node name="Rock4" parent="Decor" instance=ExtResource("d_rock_a")]
+transform = Transform3D(-1.2358, 0.0, -1.8322, 0.0, 2.21, 0.0, 1.8322, 0.0, -1.2358, -9.0, 0.0, 8.4)
+
+[node name="Rock5" parent="Decor" instance=ExtResource("d_rock_b")]
+transform = Transform3D(-1.8851, 0.0, -0.8791, 0.0, 2.08, 0.0, 0.8791, 0.0, -1.8851, 11.0, 0.0, 8.6)
+
+[node name="Rock6" parent="Decor" instance=ExtResource("d_rock_c")]
+transform = Transform3D(-1.4221, 0.0, 0.1495, 0.0, 1.43, 0.0, -0.1495, 0.0, -1.4221, 1.0, 0.0, -8.0)
 
 [node name="Trees" type="Node3D" parent="."]
 

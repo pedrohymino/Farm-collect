@@ -6,18 +6,17 @@ extends CharacterBody3D
 const ACCELERATION: float = 40.0
 const TURN_SHARPNESS: float = 14.0
 const FACE_MIN_SPEED: float = 0.1
-const BOB_FREQUENCY: float = 13.0
-const BOB_HEIGHT: float = 0.06
 const MAX_LABEL_TIME: float = 0.8
+const DUST_MIN_SPEED: float = 2.0
 
 @export var persist_id: StringName = &"player"
 
 var _max_label_timer: float = 0.0
-var _walk_time: float = 0.0
+var _dust: DustTrail
 
 @onready var carry_visual: StackVisual = $Body/CarryVisual
 @onready var _body: Node3D = $Body
-@onready var _model: Node3D = $Body/Model
+@onready var _model: CharacterModel = $Body/Model
 @onready var _max_label: Label3D = $MaxLabel
 
 
@@ -30,6 +29,8 @@ func _ready() -> void:
 		ItemContainer.new(ItemContainer.stat_capacity(Stats, &"player.carry_capacity"))
 	)
 	_max_label.visible = false
+	_dust = DustTrail.new()
+	add_child(_dust)
 
 
 func _physics_process(delta: float) -> void:
@@ -44,11 +45,9 @@ func _physics_process(delta: float) -> void:
 	if horizontal.length() > FACE_MIN_SPEED:
 		var facing := atan2(horizontal.x, horizontal.z)
 		_body.rotation.y = lerp_angle(_body.rotation.y, facing, 1.0 - exp(-TURN_SHARPNESS * delta))
-		_walk_time += delta
-		_model.position.y = absf(sin(_walk_time * BOB_FREQUENCY)) * BOB_HEIGHT
-	else:
-		_model.position.y = 0.0
+	_model.set_motion(horizontal.length(), not carry_visual.container.is_empty())
 	carry_visual.owner_velocity = velocity
+	_dust.emitting = horizontal.length() > DUST_MIN_SPEED
 	_update_max_label(delta)
 
 
@@ -80,3 +79,5 @@ func _update_max_label(delta: float) -> void:
 	_max_label_timer -= delta
 	if _max_label_timer <= 0.0:
 		_max_label.visible = false
+	_dust = DustTrail.new()
+	add_child(_dust)

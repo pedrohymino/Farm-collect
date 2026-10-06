@@ -1,32 +1,8 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene format=3]
 
-[sub_resource type="CylinderMesh" id="Mesh_bottle"]
-top_radius = 0.08
-bottom_radius = 0.1
-height = 0.26
-radial_segments = 10
-
-[sub_resource type="StandardMaterial3D" id="Mat_bottle"]
-albedo_color = Color(0.98, 0.98, 0.97, 1)
-roughness = 0.5
-
-[sub_resource type="CylinderMesh" id="Mesh_cap"]
-top_radius = 0.06
-bottom_radius = 0.06
-height = 0.06
-radial_segments = 10
-
-[sub_resource type="StandardMaterial3D" id="Mat_cap"]
-albedo_color = Color(0.25, 0.55, 0.9, 1)
+[ext_resource type="PackedScene" path="res://assets/models/kenney/food-kit/carton-small.glb" id="1_model"]
 
 [node name="Milk" type="Node3D"]
 
-[node name="Bottle" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13, 0)
-mesh = SubResource("Mesh_bottle")
-surface_material_override/0 = SubResource("Mat_bottle")
-
-[node name="Cap" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29, 0)
-mesh = SubResource("Mesh_cap")
-surface_material_override/0 = SubResource("Mat_cap")
+[node name="Model" parent="." instance=ExtResource("1_model")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)

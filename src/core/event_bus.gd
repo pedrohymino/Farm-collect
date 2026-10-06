@@ -34,4 +34,9 @@ signal truck_order_completed(reward: float)
 signal offline_earnings_ready(amount: float, away_seconds: float)
 ## Emitted right before the save payload is built, so systems can write their state.
 signal before_save
+
+signal pause_requested
+## What went wrong loading the save: &"restored_from_backup", &"corrupt_reset" or &"unreadable".
+signal save_problem(kind: StringName)
+signal save_failed
 @warning_ignore_restore("unused_signal")

@@ -3,6 +3,7 @@ extends GutTest
 
 const AUTOLOADS: Array[String] = [
 	"EventBus",
+	"Settings",
 	"ContentDB",
 	"Stats",
 	"GameState",

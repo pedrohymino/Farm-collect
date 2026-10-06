@@ -4,10 +4,12 @@ extends Node
 ## Drives the player through the real input actions, like a person would.
 ## User args (after `--`): --dev-panel (panel open), --all-unlocked (every unlock done),
 ## --overview (camera pulled back to show the whole farm), --show-upgrades (upgrade menu open),
-## --show-tree (passive tree open with a few skills bought).
+## --show-tree (passive tree open with a few skills bought), --pause, --settings,
+## --report (prints items sold and money earned every 30 s of game time, to calibrate PacingSim).
 
 const FARM_SCENE: PackedScene = preload("res://src/gameplay/locations/farm/farm.tscn")
 const ARRIVE_DISTANCE: float = 0.3
+const REPORT_INTERVAL_SEC: float = 30.0
 const WAIT_AT_CASHIER_SEC: float = 4.0
 const WAIT_AT_PICKUP_SEC: float = 2.0
 const OVERVIEW_DISTANCE: float = 60.0
@@ -18,11 +20,21 @@ var _player: Player
 var _route: Array[Dictionary] = []
 var _step: int = 0
 var _wait: float = 0.0
+var _report: bool = false
+var _elapsed: float = 0.0
+var _sold_items: int = 0
+var _sold_value: float = 0.0
 
 
 func _ready() -> void:
 	GameState.new_game()
 	var args := OS.get_cmdline_user_args()
+	_report = args.has("--report")
+	EventBus.item_sold.connect(_on_item_sold)
+	if args.has("--pause"):
+		get_node("PauseMenu").open.call_deferred()
+	if args.has("--settings"):
+		get_node("PauseMenu").open_settings.call_deferred()
 	if args.has("--all-unlocked"):
 		for unlock_id in Unlocks.rules.ids():
 			GameState.data.unlock(unlock_id)
@@ -57,6 +69,9 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	_elapsed += delta
+	if _report and fmod(_elapsed, REPORT_INTERVAL_SEC) < delta:
+		print("t=%3ds  items sold %d  money earned %.1f" % [_elapsed, _sold_items, _sold_value])
 	var target: Node3D = _route[_step]["node"]
 	var to_target := target.global_position - _player.global_position
 	to_target.y = 0.0
@@ -85,3 +100,8 @@ func _press(positive: StringName, negative: StringName, value: float) -> void:
 		Input.action_press(positive, value)
 	elif value < -0.01:
 		Input.action_press(negative, -value)
+
+
+func _on_item_sold(_item_id: StringName, count: int, value: float) -> void:
+	_sold_items += count
+	_sold_value += value

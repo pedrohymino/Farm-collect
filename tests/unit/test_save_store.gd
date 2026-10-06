@@ -71,6 +71,13 @@ func test_quarantine_moves_main_file_aside() -> void:
 	assert_true(FileAccess.file_exists(moved_to))
 
 
+func test_quarantine_also_moves_the_backup() -> void:
+	store.write({"schema_version": 1, "n": 1})
+	store.write({"schema_version": 1, "n": 2})
+	store.quarantine_main()
+	assert_false(store.exists(), "nothing left that looks like a continuable save")
+
+
 func test_delete_all_removes_every_slot_file() -> void:
 	store.write({"schema_version": 1, "n": 1})
 	store.write({"schema_version": 1, "n": 2})
@@ -78,3 +85,28 @@ func test_delete_all_removes_every_slot_file() -> void:
 	assert_false(FileAccess.file_exists(store.main_path()))
 	assert_false(FileAccess.file_exists(store.backup_path()))
 	assert_eq(store.read().status, SaveStore.ReadStatus.NONE)
+
+
+func test_exists_reports_main_or_backup() -> void:
+	assert_false(store.exists())
+	store.write({"schema_version": 1, "n": 1})
+	assert_true(store.exists())
+
+
+func test_corrupt_main_does_not_overwrite_good_backup() -> void:
+	store.write({"schema_version": 1, "n": 1})
+	store.write({"schema_version": 1, "n": 2})
+	_write_raw("slot_0.json", "{ broken")
+	store.write({"schema_version": 1, "n": 3})
+	assert_eq(store.read().payload["n"], 3.0)
+	_write_raw("slot_0.json", "{ broken again")
+	assert_eq(store.read().payload["n"], 1.0, "backup still holds the last good main file")
+
+
+func test_write_fails_cleanly_when_temp_file_cannot_be_created() -> void:
+	store.write({"schema_version": 1, "n": 1})
+	DirAccess.make_dir_recursive_absolute(store.temp_path())
+	assert_false(store.write({"schema_version": 1, "n": 2}))
+	assert_push_error("Cannot write save")
+	DirAccess.remove_absolute(store.temp_path())
+	assert_eq(store.read().payload["n"], 1.0, "previous save untouched")

@@ -42,10 +42,17 @@ func write(payload: Dictionary) -> bool:
 	if file == null:
 		push_error("Cannot write save %s: %s" % [temp_path(), FileAccess.get_open_error()])
 		return false
-	file.store_string(JSON.stringify(payload, "\t"))
+	var stored := file.store_string(JSON.stringify(payload, "\t"))
+	var flush_error := file.get_error()
 	file.close()
+	# A full disk can leave a truncated file: never promote a temp file that does not parse.
+	if not stored or flush_error != OK or _parse(temp_path()) == null:
+		push_error("Save write was incomplete (%s); keeping the previous save." % flush_error)
+		DirAccess.remove_absolute(temp_path())
+		return false
 
-	if FileAccess.file_exists(main_path()):
+	# Only a readable main file may replace the backup, so a good backup is never overwritten.
+	if _parse(main_path()) != null:
 		var copy_error := DirAccess.copy_absolute(main_path(), backup_path())
 		if copy_error != OK:
 			push_error("Cannot back up save %s: %s" % [main_path(), copy_error])
@@ -60,6 +67,10 @@ func write(payload: Dictionary) -> bool:
 		push_error("Cannot finalize save %s: %s" % [main_path(), rename_error])
 		return false
 	return true
+
+
+func exists() -> bool:
+	return FileAccess.file_exists(main_path()) or FileAccess.file_exists(backup_path())
 
 
 func read() -> ReadResult:
@@ -90,12 +101,16 @@ func delete_all() -> void:
 			DirAccess.remove_absolute(path)
 
 
-## Moves the main save aside (never deletes player data). Returns the new path.
+## Moves the main save and its backup aside (never deletes player data), so a new game does not
+## look like a continuable one. Returns the new path of the main file.
 func quarantine_main() -> String:
-	var target := _dir_path.path_join(
-		"%s.corrupt-%d.json" % [_slot, int(Time.get_unix_time_from_system())]
-	)
+	var stamp := int(Time.get_unix_time_from_system())
+	var target := _dir_path.path_join("%s.corrupt-%d.json" % [_slot, stamp])
 	DirAccess.rename_absolute(main_path(), target)
+	if FileAccess.file_exists(backup_path()):
+		DirAccess.rename_absolute(
+			backup_path(), _dir_path.path_join("%s.corrupt-%d.bak" % [_slot, stamp])
+		)
 	return target
 
 

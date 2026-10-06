@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://src/ui/passive_tree/passive_tree_screen.gd" id="5_tree"]
 [ext_resource type="Script" path="res://src/ui/offline_popup/offline_popup.gd" id="6_offline"]
 [ext_resource type="Script" path="res://src/gameplay/audio/haptics.gd" id="7_haptics"]
+[ext_resource type="Script" path="res://src/ui/pause/pause_menu.gd" id="8_pause"]
+[ext_resource type="Script" path="res://src/ui/notice/notice_toast.gd" id="9_toast"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_main")
@@ -27,3 +29,9 @@ script = ExtResource("6_offline")
 
 [node name="Haptics" type="Node" parent="."]
 script = ExtResource("7_haptics")
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+script = ExtResource("8_pause")
+
+[node name="NoticeToast" type="CanvasLayer" parent="."]
+script = ExtResource("9_toast")

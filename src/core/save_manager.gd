@@ -17,6 +17,10 @@ func is_active() -> bool:
 	return _is_active
 
 
+func has_save() -> bool:
+	return _store.exists()
+
+
 func load_game() -> void:
 	_is_active = true
 	var result := _store.read()
@@ -24,13 +28,15 @@ func load_game() -> void:
 		SaveStore.ReadStatus.NONE:
 			GameState.new_game()
 		SaveStore.ReadStatus.CORRUPT:
-			_start_fresh_after_failure(result.error)
+			_start_fresh_after_failure(result.error, &"corrupt_reset")
 		SaveStore.ReadStatus.OK:
 			var migration := _migrator.migrate(result.payload)
 			if migration.ok:
 				GameState.replace(GameData.from_dict(migration.data))
+				if result.source == "backup":
+					EventBus.save_problem.emit(&"restored_from_backup")
 			else:
-				_start_fresh_after_failure(migration.error)
+				_start_fresh_after_failure(migration.error, &"unreadable")
 	_start_autosave()
 	EventBus.game_loaded.emit()
 
@@ -41,6 +47,8 @@ func save_game() -> bool:
 	var saved := _store.write(build_payload())
 	if saved:
 		EventBus.game_saved.emit()
+	else:
+		EventBus.save_failed.emit()
 	return saved
 
 
@@ -84,9 +92,10 @@ func _start_autosave() -> void:
 	_autosave_timer.start()
 
 
-func _start_fresh_after_failure(reason: String) -> void:
+func _start_fresh_after_failure(reason: String, kind: StringName) -> void:
 	var moved_to := _store.quarantine_main()
 	push_error(
 		"Save could not be loaded (%s). File kept at %s; starting new game." % [reason, moved_to]
 	)
 	GameState.new_game()
+	EventBus.save_problem.emit(kind)

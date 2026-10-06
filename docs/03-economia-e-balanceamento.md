@@ -51,7 +51,7 @@ se dev override ativo:  final = override_absoluto  OU  final × override_multipl
 | `sell.vip_multiplier` | 5 | × | 1 | |
 | `counter.capacity` | 30 | itens | 5 | |
 | `counter.serve_time` | 0.6 | s | 0.1 | tempo por cliente no caixa |
-| `customer.spawn_interval` | 5.0 | s | 0.5 | menor = mais clientes |
+| `customer.spawn_interval` | 4.0 | s | 0.5 | **por balcão aberto** (cada balcão traz seus clientes); menor = mais clientes |
 | `customer.max_queue` | 5 | clientes | 1 | por balcão |
 | `customer.buy_min` / `customer.buy_max` | 1 / 3 | itens | 1 | |
 | `customer.patience` | 25 | s | 5 | |
@@ -94,14 +94,14 @@ xp_para_próximo(nível) = 50 × 1.35^(nível − 1)
 | Botas | $25 | 1.55 | +5% `player.move_speed` por nível, **máx. nível 20 (+100%)** |
 | Mochila | $30 | 1.60 | +2 `player.carry_capacity` (flat) |
 | Mãos rápidas | $35 | 1.55 | +10% pickup e drop rate |
-| Preço justo | $50 | 1.65 | +10% `sell.price` |
+| Preço justo | $50 | 1.55 | +15% `sell.price` |
 | Fazenda fértil | $40 | 1.60 | +8% `production.rate` |
-| Propaganda | $35 | 1.60 | −6% `customer.spawn_interval` (percent negativo, clamp) |
+| Propaganda | $35 | 1.50 | −8% `customer.spawn_interval` (percent negativo), **máx. nível 10** (−80%) |
 | Treinamento *(M6)* | $150 | 1.70 | +8% velocidade e +1 carga dos ajudantes |
 
 Árvore de passivas: nós custam 1–3★ e 5★ os nós-chave (ver `passives.json`).
 M5: 15 nós (Fazendeiro, Produção, Comércio). M6 adiciona Automação e Descanso (~25 no total).
-Propaganda tem nível máximo 12 (o intervalo de clientes tem piso de 0,5 s).
+Propaganda tem nível máximo 10 (o intervalo de clientes tem piso de 0,5 s).
 
 Fonte da verdade: `data/balance/upgrades.json` e `data/balance/passives.json`.
 
@@ -115,26 +115,29 @@ Fonte da verdade: `data/balance/unlocks.json` (custos × status `unlock.cost`). 
 | 0 | — | *(início)* Galinheiro c/ 2 galinhas + balcão de ovos | — | A1 | — | |
 | 1 | `chicken_3` | Galinha #3 | $15 | A1 | — | coop +1 |
 | 2 | `chicken_4` | Galinha #4 | $60 | A1 | 1 | coop +1 |
-| 3 | `area_field` | Expansão: Campo (leste) | $120 | A2 | 1 | abre a cerca leste |
+| 3 | `area_field` | Expansão: Campo (leste) | $80 | A2 | 1 | abre a cerca leste |
 | 4 | `wheat_field` | Plantação de trigo (6 canteiros) | $80 | A2 | 3 | |
 | 5 | `wheat_counter` | Balcão de trigo | $100 | A2 | 4 | |
-| 6 | `chickens_5_6` | Galinhas #5 e #6 | $250 | A1 | 2 | coop +2 |
-| 7 | `wheat_beds_2` | Canteiros +6 | $300 | A2 | 5 | field +6 |
-| 8 | `area_pasture` | Expansão: Pasto (oeste) | $600 | A3 | 5 | abre a cerca oeste |
-| 9 | `barn` | Curral + vaca #1 | $400 | A3 | 8 | |
-| 10 | `milk_counter` | Balcão de leite | $450 | A3 | 9 | |
-| 11 | `cow_2` | Vaca #2 | $900 | A3 | 9 | barn +1 |
+| 6 | `chickens_5_6` | Galinhas #5 e #6 | $150 | A1 | 2 | coop +2 |
+| 7 | `wheat_beds_2` | Canteiros +6 | $250 | A2 | 5 | field +6 |
+| 8 | `area_pasture` | Expansão: Pasto (oeste) | $200 | A3 | 5 | abre a cerca oeste |
+| 9 | `barn` | Curral + vaca #1 | $150 | A3 | 8 | |
+| 10 | `milk_counter` | Balcão de leite | $250 | A3 | 9 | |
+| 11 | `cow_2` | Vaca #2 | $800 | A3 | 9 | barn +1 |
 | 1b | `upgrade_board` | Mesa de Upgrades | $40 | A1 | 1 | abre o menu de upgrades (M5) |
-| 12 | `cashier_egg` | Caixa (ovos) | $700 | A1 | 5 (balcão de trigo) | ajudante no balcão de ovos; libera os ramos Automação/Descanso e o upgrade Treinamento |
+| 12 | `cashier_egg` | Caixa (ovos) | $400 | A1 | 5 (balcão de trigo) | ajudante no balcão de ovos; libera os ramos Automação/Descanso e o upgrade Treinamento |
 | 13 | `carrier_egg` | Carregador (ovos) | $1.2K | A1 | 12 | galinheiro → balcão |
-| 14 | `irrigation` | Irrigação | $1.5K | A2 | 7 | +40% `production.rate.wheat` |
-| 15 | `egg_conveyor` | Esteira de ovos | $2.5K | A1 | 13 | máquina |
-| 16 | `area_road` | Doca de carga (norte) | $4K | A4 | 11 | abre a cerca norte |
+| 14 | `irrigation` | Irrigação | $2K | A2 | 7 | +40% `production.rate.wheat` |
+| 15 | `egg_conveyor` | Esteira de ovos | $3K | A1 | 13 | máquina |
+| 16 | `area_road` | Doca de carga (norte) | $3.5K | A4 | 11 | abre a cerca norte |
 | 17 | `truck_bay` | Pedidos de caminhão | $3K | A4 | 16 | |
-| 18 | `cashier_wheat` / `cashier_milk` | Caixas de trigo e leite | $5K cada | | 12 + balcão | |
-| 19 | `milking_machine` | Ordenhadeira | $8K | A3 | 11 | +50% `production.rate.milk` |
-| 20 | `cows_3_4` | Vacas #3 e #4 | $12K | A3 | 11 | barn +2 |
-| 21 | `money_collector` | Coletor de dinheiro | $20K | | 17 | também mostra a placa "Em breve: Fábrica" |
+| 18 | `cashier_wheat` / `cashier_milk` | Caixas de trigo e leite | $8K cada | | 12 + balcão | |
+| 19 | `milking_machine` | Ordenhadeira | $50K | A3 | 11 | +50% `production.rate.milk` |
+| 20 | `cows_3_4` | Vacas #3 e #4 | $120K | A3 | 11 | barn +2 |
+| 21 | `money_collector` | Coletor de dinheiro | $280K | | 17 | também mostra a placa "Em breve: Fábrica" |
+
+Custos baratos no começo e caros no fim: o começo precisa de objetivos rápidos; o fim se estica
+com os pads grandes, os upgrades infinitos e a árvore de passivas (revisão do M8, seção 7).
 
 ## 7. Metas de ritmo (o que o balanceamento precisa atingir)
 
@@ -152,6 +155,56 @@ Fonte da verdade: `data/balance/unlocks.json` (custos × status `unlock.cost`). 
 
 Regra geral: **o próximo objetivo deve estar sempre a menos de 1–2 minutos de distância** no início,
 alongando aos poucos.
+
+### Simulador de ritmo (M8)
+
+`src/core/balance/pacing_sim.gd` simula, em passos de 1 s, um jogador que segue uma política simples e
+reaproveita as regras reais do jogo (`StatRegistry`, `UnlockRules`, `UpgradeRules`, `PassiveRules`,
+`FarmLevelRules`). Não é o jogo: é um modelo de fluxo para achar buracos de ritmo.
+
+```
+godot --headless -s tools/pacing_report.gd                    # relatório com os dados atuais
+godot --headless -s tools/pacing_report.gd -- --balance=<dir> # testa outra pasta de balanceamento
+```
+
+Hipóteses do modelo (constantes no topo do arquivo):
+- **Demanda**: cada balcão aberto recebe um cliente a cada `customer.spawn_interval`, que compra
+  `buy_min..buy_max` itens. Vendas por balcão = mín(demanda, itens que chegam ao balcão).
+- **Produção**: unidades × `production.rate` ÷ tempo do item × rendimento médio (yield, dobro, super).
+- **Transporte**: o jogador leva o que não é automático, dividindo o tempo por valor por segundo de
+  caminhada (distâncias do layout da fazenda); carregador e esteira cobrem os ovos. Há ~14 s de atraso
+  até o primeiro cliente chegar (ele vem de longe).
+- **Política de compra**: pads mais baratos primeiro; upgrade só se se paga em ≤ 4 min (a paciência
+  cresce com o tempo de jogo: ¼ do tempo jogado); estrelas gastas no nó mais barato disponível.
+- Caminhões: pedido médio por `truck.interval`, pago com `truck.bonus`.
+
+Calibração: o bot `tools/demo/autoplay_demo.tscn -- --report` (jogador ineficiente, sem comprar nada)
+ganha ~1,3 $/s nos primeiros 4 min; o simulador prevê 1,5 $/s (demanda = oferta = 2 galinhas).
+
+Resultado com os dados atuais (`tests/unit/test_pacing_sim.gd` falha se alguma meta passar de 1,5×):
+
+| Momento | Meta | Simulado |
+|---|---|---|
+| Primeira venda | < 20 s | ~14 s |
+| Primeiro pad | < 45 s | ~24 s |
+| Mesa de Upgrades | ~2 min | ~0:51 |
+| Abrir o Campo | ~4 min | ~3:00 |
+| Primeira vaca (`barn`) | ~10 min | ~9:18 |
+| Primeiro ajudante (`cashier_egg`) | ~15 min | ~13:48 |
+| Caminhões (`truck_bay`) | ~30 min | ~34:25 |
+| Fazenda completa | 2–3 h | ~2:20 |
+
+Achados que mudaram o balanceamento no M8:
+1. A demanda era **global** (um cliente a cada 5 s para a fazenda toda): abrir o balcão de trigo ($2)
+   *diminuía* a renda. Agora `customer.spawn_interval` vale **por balcão aberto** (D32).
+2. Com a demanda limitando a renda (0,4 itens/s por balcão), galinhas extras e produção não valiam
+   nada. Propaganda (−8%/nível, até −80%) e Preço justo (+15%/nível) ficaram mais fortes, e o
+   intervalo base caiu de 5 s para 4 s.
+3. Os custos do meio estavam altos demais (vaca em ~25 min, ajudante em ~34 min, caminhão em ~1 h 10)
+   e os do fim baixos demais; foram rebalanceados (seção 6).
+4. Limite que sobra: na fase final a renda é limitada pelo leite (no máximo 4 vacas) e pelo tempo do
+   jogador carregando trigo e leite; ficam esperas longas entre os pads grandes, preenchidas por
+   upgrades, estrelas e pelo futuro (fábrica). Reavaliar com playtests reais.
 
 ## 8. Ganhos offline
 

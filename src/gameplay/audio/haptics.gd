@@ -32,7 +32,9 @@ func _ready() -> void:
 ## Returns true if the device was asked to vibrate (enabled and not throttled).
 func pulse(duration_ms: int, amplitude: float, force: bool = false) -> bool:
 	var now := Time.get_ticks_msec() / 1000.0
-	if not enabled or (not force and now - _last_pulse_sec < MIN_INTERVAL_SEC):
+	if not enabled or not Settings.data.vibration:
+		return false
+	if not force and now - _last_pulse_sec < MIN_INTERVAL_SEC:
 		return false
 	_last_pulse_sec = now
 	Input.vibrate_handheld(duration_ms, amplitude)

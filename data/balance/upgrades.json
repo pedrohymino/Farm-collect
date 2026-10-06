@@ -15,8 +15,8 @@
     ]
   },
   "fair_price": {
-    "base_cost": 50, "growth": 1.65,
-    "effects": [{ "stat": "sell.price", "type": "percent", "value": 0.1 }]
+    "base_cost": 50, "growth": 1.55,
+    "effects": [{ "stat": "sell.price", "type": "percent", "value": 0.15 }]
   },
   "fertile_farm": {
     "base_cost": 40, "growth": 1.6,
@@ -30,7 +30,7 @@
     ]
   },
   "advertising": {
-    "base_cost": 35, "growth": 1.6, "max_level": 12,
-    "effects": [{ "stat": "customer.spawn_interval", "type": "percent", "value": -0.06 }]
+    "base_cost": 35, "growth": 1.5, "max_level": 10,
+    "effects": [{ "stat": "customer.spawn_interval", "type": "percent", "value": -0.08 }]
   }
 }

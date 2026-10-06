@@ -34,6 +34,11 @@
 | D29 | 2026-10-05 | **Cercados sempre com portão e nenhum pad dentro de cerca fechada** (teste de layout) | Bug reportado: jogador preso ao desbloquear o curral estando dentro da área |
 | D30 | 2026-10-05 | **Marcador "próximo objetivo" depois do tutorial**: aponta o pad disponível mais barato | Automação e novas áreas não eram descobertas |
 | D31 | 2026-10-05 | **Primeiro ajudante (Caixa) logo após o 2º balcão** (antes: após o 3º) e a árvore explica por que um ramo está travado | Os ramos Automação/Descanso pareciam impossíveis de liberar |
+| D32 | 2026-10-05 | **`customer.spawn_interval` vale por balcão aberto** (cada balcão traz seus clientes; base 4 s) | O simulador de ritmo mostrou que a demanda global fazia abrir o balcão de trigo diminuir a renda |
+| D33 | 2026-10-05 | **Balanceamento do M8**: Propaganda −8%/nível (máx. 10), Preço justo +15%/nível, pads baratos no começo e caros no fim (doc 03, seção 6) | Cumprir as metas de ritmo do doc 03 (vaca ~10 min, ajudante ~15 min, caminhões ~30 min, fazenda completa 2–3 h) |
+| D34 | 2026-10-05 | **Save**: temp relido antes de promover, backup só substituído por um principal legível, avisos ao jogador, nunca apagar save ilegível (vai para `.corrupt-<hora>.json`) | Corrompido, sem espaço em disco e relógio alterado não podem custar o progresso |
+| D35 | 2026-10-05 | **Configurações em `user://settings.cfg`, separadas do save** (volume, idioma, vibração, qualidade); idioma "auto" segue o sistema | Resetar o progresso não deve mexer nas preferências do jogador |
+| D36 | 2026-10-05 | **Cena inicial = menu principal**; o jogo está em `src/main.tscn`; pausa com a árvore pausada (Esc/Start/botão no HUD) | Fluxo normal de um jogo de loja (Steam e mobile) |
 | D16 | 2026-10-05 | **Plantações e curral usam `producers.json`** (unidades = canteiros/animais) e desbloqueios dão unidades extras | Um único modelo para "mais produção" em qualquer produtor |
 
 ## Perguntas em aberto

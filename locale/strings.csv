@@ -153,3 +153,27 @@ DEV_OFFLINE_NONE,No automated income yet,Ainda não há renda automática
 TREE_LOCKED_UNLOCK,Locked: first buy %s on the farm,Travado: antes compre %s na fazenda
 TREE_LOCKED_PARENT,Locked: buy the previous skill first,Travado: compre antes a passiva anterior
 UNLOCK_NAME_CASHIER_EGG,the Cashier (egg stand),o Caixa (balcão de ovos)
+MENU_CONTINUE,Continue,Continuar
+MENU_RESUME,Resume,Voltar ao jogo
+MENU_MAIN_MENU,Main menu,Menu principal
+MENU_PAUSED,Paused,Pausado
+SETTINGS_TITLE,Settings,Configurações
+SETTINGS_MASTER,Master volume,Volume geral
+SETTINGS_MUSIC,Music,Música
+SETTINGS_SFX,Sound effects,Efeitos sonoros
+SETTINGS_LANGUAGE,Language,Idioma
+SETTINGS_LANGUAGE_AUTO,Automatic,Automático
+SETTINGS_VIBRATION,Vibration,Vibração
+SETTINGS_QUALITY,Graphics quality,Qualidade gráfica
+SETTINGS_QUALITY_LOW,Low,Baixa
+SETTINGS_QUALITY_MEDIUM,Medium,Média
+SETTINGS_QUALITY_HIGH,High,Alta
+SETTINGS_RESET_SAVE,Reset progress,Apagar progresso
+SETTINGS_RESET_CONFIRM,Tap again to erase everything,Toque de novo para apagar tudo
+SETTINGS_BACK,Back,Voltar
+NOTICE_SAVE_RESTORED,Your save was damaged. The previous backup was restored.,Seu save estava danificado. O backup anterior foi restaurado.
+NOTICE_SAVE_RESET,Your save could not be read. It was kept aside and a new game started.,Não foi possível ler seu save. Ele foi guardado à parte e um jogo novo começou.
+NOTICE_SAVE_FAILED,Could not save! Check the free space on your device.,Não foi possível salvar! Verifique o espaço livre no aparelho.
+HUD_PAUSE,II,II
+SETTINGS_ON,On,Ligada
+SETTINGS_OFF,Off,Desligada

@@ -133,11 +133,16 @@ e o save reconstrói a fazenda corretamente.
 
 **Aceite:** o jogo se parece com os anúncios de referência; 60 FPS mantidos no PC de teste.
 
-## M8 — Polimento e meta · M
-- [ ] Menu principal, pausa, configurações (volume, idioma, vibração, qualidade gráfica).
-- [ ] Revisão de balanceamento contra as metas de ritmo (doc 03, seção 7).
-- [ ] Robustez de save (corrompido, sem espaço, relógio alterado).
-- [ ] Testes de jogo com outras pessoas.
+## M8 — Polimento e meta · M · 🔶 implementado — falta só o playtest com outras pessoas
+- [x] Menu principal (diorama 3D, Jogar/Continuar, Configurações, Sair no desktop), pausa (Esc/Start/botão no HUD: Continuar,
+      Configurações, Menu principal, Sair) e configurações (volume geral/música/efeitos, idioma, vibração, qualidade gráfica
+      Baixa/Média/Alta, apagar progresso com confirmação). Salvas em `user://settings.cfg` (`Settings`, `SettingsStore`).
+- [x] Revisão de balanceamento contra as metas de ritmo: simulador `PacingSim` + `tools/pacing_report.gd`, custos reequilibrados,
+      demanda de clientes por balcão aberto (doc 03, seção 7; D32, D33). `test_pacing_sim` guarda as metas.
+- [x] Robustez de save: o arquivo temporário é relido antes de virar o save, um principal ilegível nunca sobrescreve um backup bom,
+      avisos na tela (`NoticeToast`: restaurado do backup, save ilegível guardado à parte, falha ao salvar), ganho offline 0 se o relógio
+      voltou (D34).
+- [ ] Testes de jogo com outras pessoas *(precisa de pessoas reais; fora do alcance do assistente)*.
 
 **Aceite:** sessão nova até a fazenda completa sem travas, bugs bloqueantes ou momentos "sem objetivo".
 

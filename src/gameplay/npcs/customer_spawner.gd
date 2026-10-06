@@ -1,6 +1,6 @@
 class_name CustomerSpawner
 extends Marker3D
-## Sends customers to counters with queue space, at the rate of customer.spawn_interval.
+## Sends customers to counters with queue space, one every customer.spawn_interval per open counter.
 
 ## The first customer shows up quickly instead of waiting a full interval.
 const FIRST_SPAWN_RATIO: float = 0.8
@@ -23,7 +23,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	var interval := Stats.get_value(&"customer.spawn_interval")
-	if _cycle.advance(delta, interval) > 0 and not _try_spawn():
+	# customer.spawn_interval is per open counter: every counter brings its own customers.
+	var streams := maxi(_open_counters(false).size(), 1)
+	if _cycle.advance(delta * streams, interval) > 0 and not _try_spawn():
 		_cycle.hold(interval)
 
 
@@ -33,13 +35,7 @@ func spawn_now() -> bool:
 
 
 func _try_spawn() -> bool:
-	var open: Array[Counter] = []
-	for node in get_tree().get_nodes_in_group(&"counter"):
-		var counter := node as Counter
-		if counter == null or not get_parent().is_ancestor_of(counter):
-			continue
-		if counter.is_open() and counter.has_queue_space():
-			open.append(counter)
+	var open := _open_counters(true)
 	if open.is_empty():
 		return false
 
@@ -62,3 +58,15 @@ func _try_spawn() -> bool:
 	)
 	counter.enqueue(customer)
 	return true
+
+
+## Open counters of this location; with `needs_queue_space`, only those that can take a customer.
+func _open_counters(needs_queue_space: bool) -> Array[Counter]:
+	var open: Array[Counter] = []
+	for node in get_tree().get_nodes_in_group(&"counter"):
+		var counter := node as Counter
+		if counter == null or not get_parent().is_ancestor_of(counter) or not counter.is_open():
+			continue
+		if not needs_queue_space or counter.has_queue_space():
+			open.append(counter)
+	return open

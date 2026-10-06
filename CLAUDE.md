@@ -28,6 +28,8 @@ e registrar decisões novas no 09.
 "C:/Program Files/Godot/Godot_v4.7.2-stable_win64.exe"
 # abrir o editor
 "C:/Program Files/Godot/Godot_v4.7.2-stable_win64.exe" -e
+# relatório de ritmo (simula a linha do tempo de desbloqueios contra as metas do doc 03, seção 7)
+"C:/Program Files/Godot/Godot_v4.7.2-stable_win64_console.exe" --headless -s tools/pacing_report.gd
 # formatação e lint (config do lint em gdlintrc)
 gdformat src tests
 gdlint src tests

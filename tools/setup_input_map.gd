@@ -16,6 +16,7 @@ func _init() -> void:
 		"move_down":
 		[_key(KEY_S), _key(KEY_DOWN), _axis(JOY_AXIS_LEFT_Y, 1.0), _button(JOY_BUTTON_DPAD_DOWN)],
 		"dev_toggle": [_key(KEY_F1), _key(KEY_QUOTELEFT)],
+		"pause": [_key(KEY_ESCAPE), _button(JOY_BUTTON_START)],
 	}
 	for action: String in actions:
 		ProjectSettings.set_setting(

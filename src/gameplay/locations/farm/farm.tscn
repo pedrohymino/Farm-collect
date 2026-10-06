@@ -113,7 +113,7 @@ location_id = &"farm"
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Env")
 
-[node name="Sun" type="DirectionalLight3D" parent="."]
+[node name="Sun" type="DirectionalLight3D" parent="." groups=["sun"]]
 rotation = Vector3(-0.96, 0.6, 0)
 light_energy = 0.8
 shadow_enabled = true

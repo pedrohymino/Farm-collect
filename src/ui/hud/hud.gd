@@ -12,6 +12,9 @@ const ICON_SIZE: Vector2 = Vector2(64, 44)
 const XP_BAR_SIZE: Vector2 = Vector2(170, 26)
 const PANEL_COLOR: Color = Color(0.1, 0.12, 0.15, 0.75)
 const BANNER_FONT_SIZE: int = 120
+const PAUSE_BUTTON_WIDTH: float = 96.0
+const PAUSE_BUTTON_MARGIN: float = 32.0
+const PAUSE_BUTTON_TOP: float = 150.0
 const BANNER_TOP: float = 0.28
 const BANNER_HOLD_SEC: float = 1.2
 const BANNER_FADE_SEC: float = 0.4
@@ -22,6 +25,7 @@ var _pulse_tween: Tween
 var _money_label: Label
 var _money_panel: PanelContainer
 var _stars_label: Label
+var _tree_button: Button
 var _level_label: Label
 var _xp_bar: ProgressBar
 var _banner: Label
@@ -45,6 +49,7 @@ func _ready() -> void:
 	bar.add_child(_spacer())
 	bar.add_child(_build_stars_box())
 	_build_banner()
+	_build_pause_button()
 
 	EventBus.currency_changed.connect(_on_currency_changed)
 	EventBus.xp_changed.connect(_refresh_level.unbind(2))
@@ -152,13 +157,31 @@ func _build_stars_box() -> PanelContainer:
 	row.add_child(UiKit.swatch(UiKit.YELLOW, Vector2(48, 48)))
 	_stars_label = _label("0", BAR_FONT_SIZE)
 	row.add_child(_stars_label)
-	var tree_button := UiKit.button(
+	_tree_button = UiKit.button(
 		tr("HUD_TREE"), UiKit.YELLOW.darkened(0.15), EventBus.passive_tree_requested.emit
 	)
-	tree_button.add_theme_font_size_override(&"font_size", UiKit.SMALL_SIZE)
-	row.add_child(tree_button)
+	_tree_button.add_theme_font_size_override(&"font_size", UiKit.SMALL_SIZE)
+	row.add_child(_tree_button)
 	panel.add_child(row)
 	return panel
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED and _tree_button != null:
+		_tree_button.text = tr("HUD_TREE")
+
+
+func _build_pause_button() -> void:
+	var button := UiKit.button(
+		tr("HUD_PAUSE"), UiKit.GRAY.darkened(0.3), EventBus.pause_requested.emit
+	)
+	button.add_theme_font_size_override(&"font_size", UiKit.SMALL_SIZE)
+	button.anchor_left = 1.0
+	button.anchor_right = 1.0
+	button.offset_left = -PAUSE_BUTTON_WIDTH - PAUSE_BUTTON_MARGIN
+	button.offset_right = -PAUSE_BUTTON_MARGIN
+	button.offset_top = PAUSE_BUTTON_TOP
+	add_child(button)
 
 
 func _build_banner() -> void:

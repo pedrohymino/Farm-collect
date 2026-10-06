@@ -106,3 +106,27 @@ func test_validate_reports_cycles() -> void:
 func test_validate_reports_units_beyond_max() -> void:
 	var producers := {"coop": {"item": "egg", "base_units": 5, "max_units": 6}}
 	assert_eq(UnlockRules.validate(defs, producers).size(), 1)
+
+
+func test_unlock_effects_become_modifiers() -> void:
+	var with_effects := UnlockRules.new(
+		{
+			"irrigation":
+			{
+				"cost": 1,
+				"requires": [],
+				"effects": [{"stat": "rate", "type": "percent", "value": 0.4}]
+			}
+		}
+	)
+	var modifiers := with_effects.modifiers(&"irrigation")
+	assert_eq(modifiers.size(), 1)
+	assert_eq(modifiers[0].source_id, &"unlock:irrigation")
+	assert_eq(rules.modifiers(&"a"), [])
+
+
+func test_validate_checks_unlock_effect_stats() -> void:
+	var bad := {
+		"x": {"cost": 1, "requires": [], "effects": [{"stat": "ghost", "type": "flat", "value": 1}]}
+	}
+	assert_eq(UnlockRules.validate(bad, {}, {"rate": {"base": 1.0}}).size(), 1)

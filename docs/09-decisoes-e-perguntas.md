@@ -22,6 +22,10 @@
 | D17 | 2026-10-05 | **Árvore de passivas paga com estrelas** (1 estrela por nível da fazenda; XP = valor vendido) | Resposta à Q4; separa progressão de longo prazo do dinheiro do dia a dia |
 | D18 | 2026-10-05 | **Ramos Automação/Descanso e upgrade Treinamento ficam para o M6** | Só fazem efeito com ajudantes e ganhos offline; comprar nó sem efeito seria ruim |
 | D19 | 2026-10-05 | **Efeitos de upgrades/passivas são dados** (`stat`, `type`, `value`); por nível, flat/percent somam e multiplicadores compõem | Novo upgrade ou nó = só JSON; aparecem no breakdown do dev mode pela origem |
+| D20 | 2026-10-05 | **Ajudantes em camada física própria, movidos sem colisão** | Nunca empurram/bloqueiam o jogador; zonas adicionam a camada à máscara |
+| D21 | 2026-10-05 | **Máquinas de bônus são desbloqueios com `effects`** (irrigação, ordenhadeira) | Mesmo mecanismo de upgrades/passivas, zero código novo por máquina |
+| D22 | 2026-10-05 | **Doca de carga como faixa ao norte; caminhão espera o pedido sem prazo** | Mantém o jogador dentro da cerca; "sem punição" do doc 02 |
+| D23 | 2026-10-05 | **Offline conta só vendas feitas sem o jogador no caixa**; Automação/Descanso exigem o 1º ajudante | Sem automação não há renda offline (Q5 resolvida) |
 | D16 | 2026-10-05 | **Plantações e curral usam `producers.json`** (unidades = canteiros/animais) e desbloqueios dão unidades extras | Um único modelo para "mais produção" em qualquer produtor |
 
 ## Perguntas em aberto
@@ -30,6 +34,5 @@
 |---|---|---|---|
 | Q1 | Nome final do jogo? | "Farm Collect" é provisório | M9 (página da Steam antes, idealmente M7) |
 | Q2 | Monetização? | Premium / Steam pago + mobile com anúncios / F2P + IAP (ver doc 08) | M8 |
-| Q5 | Ganho offline só com automação? | Sim (recomendado) / sempre um pouco | M6 |
 | Q6 | Prestígio na v1? | Não (recomendado, entra depois da fábrica) / sim | M8 |
 | Q8 | Personagem do jogador: fixo ou escolhível (cor/gênero)? | Fixo na v1 / customização simples | M7 |

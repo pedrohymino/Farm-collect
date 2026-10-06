@@ -141,3 +141,10 @@ func test_stat_capacity_reads_from_stat_source() -> void:
 	assert_eq(c.capacity(), 2)
 	registry.set_base(&"cap", 4.0)
 	assert_eq(c.capacity(), 4)
+
+
+func test_set_accepts_changes_filter() -> void:
+	var c := _container(5, [&"egg"])
+	c.set_accepts([&"milk"] as Array[StringName])
+	assert_false(c.accepts(&"egg"))
+	assert_true(c.push(&"milk"))

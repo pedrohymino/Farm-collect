@@ -231,6 +231,12 @@ func _build_world_tab() -> Control:
 		)
 	)
 	box.add_child(DevUi.button(tr("DEV_SPAWN_CUSTOMER"), _spawn_customer))
+	box.add_child(
+		DevUi.button(
+			tr("DEV_SPAWN_TRUCK"),
+			func() -> void: get_tree().call_group(&"truck_bay", &"arrive_now")
+		)
+	)
 	box.add_child(DevUi.toggle(tr("DEV_SHOW_FPS"), _set_show_fps))
 	box.add_child(DevUi.button(tr("DEV_TOGGLE_ORIENTATION"), _toggle_orientation))
 	return box

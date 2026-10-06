@@ -59,6 +59,7 @@ func _ready() -> void:
 	EventBus.upgrade_board_exited.connect(close)
 	EventBus.currency_changed.connect(_refresh_all.unbind(2))
 	EventBus.upgrade_purchased.connect(_refresh_all.unbind(2))
+	EventBus.unlock_completed.connect(_refresh_all.unbind(1))
 	_refresh_all()
 
 
@@ -95,7 +96,7 @@ func _build_row(upgrade_id: StringName, color: Color) -> Control:
 	var button := UiKit.button("", UiKit.GREEN, Progression.buy_upgrade.bind(upgrade_id))
 	button.custom_minimum_size.x = BUY_BUTTON_WIDTH
 	row.add_child(button)
-	_rows[upgrade_id] = {"title": title, "effect": effect, "button": button}
+	_rows[upgrade_id] = {"root": row, "title": title, "effect": effect, "button": button}
 	return row
 
 
@@ -106,6 +107,7 @@ func _refresh_all() -> void:
 
 func _refresh_row(upgrade_id: StringName) -> void:
 	var row: Dictionary = _rows[upgrade_id]
+	(row["root"] as Control).visible = Progression.is_upgrade_visible(upgrade_id)
 	var level := Progression.upgrade_level(upgrade_id)
 	var maxed := Progression.upgrades.is_maxed(upgrade_id, level)
 	(row["title"] as Label).text = (

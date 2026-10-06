@@ -39,9 +39,14 @@ func upgrade_cost(upgrade_id: StringName) -> float:
 	return upgrades.cost(upgrade_id, upgrade_level(upgrade_id), Stats.get_value(&"upgrade.cost"))
 
 
+func is_upgrade_visible(upgrade_id: StringName) -> bool:
+	return upgrades.is_visible(upgrade_id, GameState.data)
+
+
 func can_buy_upgrade(upgrade_id: StringName) -> bool:
 	return (
 		upgrades.has(upgrade_id)
+		and is_upgrade_visible(upgrade_id)
 		and not upgrades.is_maxed(upgrade_id, upgrade_level(upgrade_id))
 		and Economy.can_afford(Wallet.MONEY, upgrade_cost(upgrade_id))
 	)

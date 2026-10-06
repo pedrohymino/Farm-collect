@@ -70,3 +70,15 @@ func test_validate_reports_bad_nodes() -> void:
 		"c": {"cost": 1, "requires": [], "effects": []},
 	}
 	assert_eq(PassiveRules.validate(bad, STATS).size(), 3)
+
+
+func test_root_can_require_an_unlock() -> void:
+	var gated := PassiveRules.new(
+		{
+			"a1":
+			{"branch": "a", "cost": 1, "requires": [], "requires_unlock": "cashier", "effects": []}
+		}
+	)
+	assert_false(gated.can_unlock(&"a1", data))
+	data.unlock(&"cashier")
+	assert_true(gated.can_unlock(&"a1", data))

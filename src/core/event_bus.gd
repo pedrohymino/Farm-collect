@@ -27,4 +27,11 @@ signal passive_purchased(node_id: StringName)
 signal upgrade_board_entered
 signal upgrade_board_exited
 signal passive_tree_requested
+
+## A sale nobody had to be present for (worker cashier): feeds offline earnings.
+signal automated_income(amount: float)
+signal truck_order_completed(reward: float)
+signal offline_earnings_ready(amount: float, away_seconds: float)
+## Emitted right before the save payload is built, so systems can write their state.
+signal before_save
 @warning_ignore_restore("unused_signal")

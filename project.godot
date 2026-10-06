@@ -25,6 +25,7 @@ GameState="*res://src/core/game_state.gd"
 Economy="*res://src/core/economy.gd"
 Unlocks="*res://src/core/progression/unlock_system.gd"
 Progression="*res://src/core/progression/progression.gd"
+Offline="*res://src/core/automation/offline_tracker.gd"
 SaveManager="*res://src/core/save_manager.gd"
 DevMode="*res://src/dev/dev_mode.gd"
 

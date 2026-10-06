@@ -15,6 +15,10 @@ var farm_xp: float = 0.0
 var locations: Dictionary = {}  # StringName -> Dictionary owned by that location
 ## Index of the next onboarding step (GuideArrow); past the last step = onboarding done.
 var tutorial_step: int = 0
+## Automated income per second measured before the last save (offline earnings).
+var income_rate: float = 0.0
+## Unix time of the last save; 0 = never saved.
+var last_seen_unix: float = 0.0
 
 
 func is_unlocked(unlock_id: StringName) -> bool:
@@ -37,6 +41,8 @@ func to_dict() -> Dictionary:
 		"farm_xp": farm_xp,
 		"locations": _keys_to_strings(locations),
 		"tutorial_step": tutorial_step,
+		"income_rate": income_rate,
+		"last_seen_unix": last_seen_unix,
 	}
 
 
@@ -50,6 +56,8 @@ static func from_dict(raw: Dictionary) -> GameData:
 	data.farm_level = maxi(_int_or(raw.get("farm_level"), DEFAULT_FARM_LEVEL), DEFAULT_FARM_LEVEL)
 	data.farm_xp = maxf(_float_or(raw.get("farm_xp"), 0.0), 0.0)
 	data.tutorial_step = maxi(_int_or(raw.get("tutorial_step"), 0), 0)
+	data.income_rate = maxf(_float_or(raw.get("income_rate"), 0.0), 0.0)
+	data.last_seen_unix = maxf(_float_or(raw.get("last_seen_unix"), 0.0), 0.0)
 	var raw_locations := _dict_or_empty(raw.get("locations"))
 	for location_id: String in raw_locations:
 		data.locations[StringName(location_id)] = _dict_or_empty(raw_locations[location_id])

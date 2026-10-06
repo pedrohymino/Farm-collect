@@ -1,6 +1,7 @@
 class_name MoneyPile
 extends Area3D
-## Money waiting next to a counter. The player picks up all of it by standing on it.
+## Money waiting next to a counter. The player (or a money-collector helper, group
+## "money_collector") picks up all of it by standing on it; it goes to the wallet.
 
 ## How much money one visible bill stands for (visual density only).
 const BILL_VALUE: float = 5.0
@@ -18,6 +19,7 @@ var _collector: Node3D = null
 
 
 func _ready() -> void:
+	collision_mask |= PhysicsLayers.WORKERS
 	stash.changed.connect(_refresh_bills)
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
@@ -77,7 +79,7 @@ func _bill_position(index: int) -> Vector3:
 
 
 func _on_body_entered(body: Node3D) -> void:
-	if body.is_in_group(&"player"):
+	if body.is_in_group(&"player") or body.is_in_group(&"money_collector"):
 		_collector = body
 
 

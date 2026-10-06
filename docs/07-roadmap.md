@@ -93,13 +93,19 @@ e o save reconstrói a fazenda corretamente.
 
 **Aceite:** comprar upgrade/passiva muda os status certos (verificável no breakdown do dev mode); testes de custo e vizinhança verdes.
 
-## M6 — Automação e caminhões · G
-- [ ] Ramos da árvore Automação e Descanso + upgrade Treinamento (precisam dos ajudantes/offline).
-- [ ] Ajudantes: caixa, carregador, coletor de dinheiro.
-- [ ] Máquinas de fazenda: esteira de ovos, ordenhadeira, irrigação.
-- [ ] Área A4: caminhões com pedidos.
-- [ ] Ganhos offline (renda automatizada medida, teto, eficiência, proteção de relógio).
-- [ ] Placa "Terreno à venda" (teaser da fábrica).
+## M6 — Automação e caminhões · G · ✅ concluído (2026-10-05)
+- [x] Ajudantes (`Worker` + `WorkerBrain` puro): caixa (3 balcões), carregador (galinheiro → balcão), coletor de dinheiro
+      (percorre as pilhas e leva ao caixa). Camada física própria: não bloqueiam o jogador, as zonas os detectam.
+- [x] Desbloqueios com efeitos de status (`unlocks.json` → `effects`): irrigação (+40% trigo), ordenhadeira (+50% leite);
+      esteira de ovos (`Conveyor`, itens andando na esteira, vazão `machine.conveyor_rate × machine.speed`); vacas #3 e #4.
+- [x] Doca de carga (norte) + pedidos de caminhão (`TruckBay` + `TruckOrderRules`): pedido cresce com o nível, paga com bônus
+      (`truck.bonus`), pedido aberto é salvo.
+- [x] Ganhos offline (autoload `Offline` + `IncomeMeter` + `OfflineRules`): só renda automática (venda sem o jogador no caixa),
+      teto em horas, eficiência, proteção contra relógio voltando; popup "Bem-vindo de volta".
+- [x] Placa "Em breve: Fábrica" (aparece com o coletor de dinheiro).
+- [x] Ramos Automação e Descanso da árvore + upgrade Treinamento, liberados só depois do primeiro ajudante (`requires_unlock`).
+- [x] Dev mode: caminhão agora, simular 1h/8h offline.
+- [x] Testes: regras puras + integração na fazenda (caixa, carregador, esteira, efeitos, caminhão, coletor, offline) — 253 verdes.
 
 **Aceite:** com caixas + carregadores a fazenda gera dinheiro sem o jogador; fechar e reabrir o jogo mostra ganho offline coerente.
 

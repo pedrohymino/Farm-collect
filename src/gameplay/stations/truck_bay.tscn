@@ -1,0 +1,86 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/stations/truck_bay.gd" id="1_bay"]
+[ext_resource type="Script" path="res://src/gameplay/items/stack_visual.gd" id="2_stack"]
+[ext_resource type="Script" path="res://src/gameplay/stations/transfer_zone.gd" id="3_zone"]
+[ext_resource type="Script" path="res://src/gameplay/stations/zone_marker.gd" id="4_marker"]
+[ext_resource type="Script" path="res://src/gameplay/stations/money_pile.gd" id="5_money"]
+[ext_resource type="PackedScene" path="res://assets/models/props/truck.tscn" id="6_truck"]
+
+[sub_resource type="BoxShape3D" id="Shape_zone"]
+size = Vector3(1.6, 1, 1.6)
+
+[sub_resource type="PlaneMesh" id="Mesh_zone"]
+size = Vector2(1.5, 1.5)
+
+[sub_resource type="StandardMaterial3D" id="Mat_zone"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.25, 0.83, 0.95, 0.45)
+
+[sub_resource type="StandardMaterial3D" id="Mat_money_zone"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.24, 0.73, 0.3, 0.35)
+
+[node name="TruckBay" type="Node3D" node_paths=PackedStringArray("enter_point", "park_point", "exit_point")]
+script = ExtResource("1_bay")
+truck_scene = ExtResource("6_truck")
+enter_point = NodePath("Enter")
+park_point = NodePath("Park")
+exit_point = NodePath("Exit")
+
+[node name="Enter" type="Marker3D" parent="."]
+position = Vector3(-40, 0, -2.6)
+
+[node name="Park" type="Marker3D" parent="."]
+position = Vector3(0, 0, -2.6)
+
+[node name="Exit" type="Marker3D" parent="."]
+position = Vector3(40, 0, -2.6)
+
+[node name="BedVisual" type="Node3D" parent="."]
+position = Vector3(-0.4, 1.06, -2.6)
+script = ExtResource("2_stack")
+columns = 6
+rows = 4
+cell_spacing = Vector2(0.36, 0.36)
+
+[node name="OrderLabel" type="Label3D" parent="."]
+position = Vector3(0, 3.2, -2.6)
+billboard = 1
+no_depth_test = true
+outline_modulate = Color(0.1, 0.1, 0.1, 1)
+font_size = 72
+outline_size = 18
+pixel_size = 0.005
+
+[node name="DropZone" type="Area3D" parent="." node_paths=PackedStringArray("station_visual", "marker")]
+script = ExtResource("3_zone")
+mode = 1
+station_visual = NodePath("../BedVisual")
+rate_stat = &"player.drop_rate"
+marker = NodePath("Marker")
+
+[node name="Shape" type="CollisionShape3D" parent="DropZone"]
+position = Vector3(0, 0.5, 0)
+shape = SubResource("Shape_zone")
+
+[node name="Marker" type="MeshInstance3D" parent="DropZone"]
+position = Vector3(0, 0.02, 0)
+mesh = SubResource("Mesh_zone")
+surface_material_override/0 = SubResource("Mat_zone")
+script = ExtResource("4_marker")
+
+[node name="MoneyPile" type="Area3D" parent="."]
+position = Vector3(2.6, 0, 0)
+script = ExtResource("5_money")
+
+[node name="Shape" type="CollisionShape3D" parent="MoneyPile"]
+position = Vector3(0, 0.5, 0)
+shape = SubResource("Shape_zone")
+
+[node name="Pad" type="MeshInstance3D" parent="MoneyPile"]
+position = Vector3(0, 0.015, 0)
+mesh = SubResource("Mesh_zone")
+surface_material_override/0 = SubResource("Mat_money_zone")

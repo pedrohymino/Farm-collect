@@ -2,10 +2,11 @@ class_name UnlockRules
 extends RefCounted
 ## Pure unlock logic over data/balance/unlocks.json and the saved GameData:
 ## availability (all requirements done), partial payments, unit bonuses, validation.
-## Def shape: {"cost": number, "requires": [ids], "units": {producer_id: int}}
+## Def shape: {"cost": number, "requires": [ids], "units": {producer_id: int}, "effects"?: [...]}
 
 ## Remaining cost below this counts as fully paid (float drain steps).
 const COMPLETE_EPSILON: float = 0.001
+const SOURCE_PREFIX: String = "unlock:"
 
 var _defs: Dictionary
 
@@ -79,6 +80,15 @@ func pay(unlock_id: StringName, amount: float, cost: float, data: GameData) -> b
 	return false
 
 
+func source_id(unlock_id: StringName) -> StringName:
+	return StringName(SOURCE_PREFIX + unlock_id)
+
+
+## Stat modifiers an unlock grants once completed (machines like irrigation).
+func modifiers(unlock_id: StringName) -> Array[Modifier]:
+	return EffectSpec.to_modifiers(_def(unlock_id).get("effects", []), 1, source_id(unlock_id))
+
+
 ## Extra units (animals, crop beds) that completed unlocks give to a producer.
 func units_bonus(target: StringName, data: GameData) -> int:
 	var total := 0
@@ -88,7 +98,9 @@ func units_bonus(target: StringName, data: GameData) -> int:
 	return total
 
 
-static func validate(defs: Dictionary, producers: Dictionary) -> PackedStringArray:
+static func validate(
+	defs: Dictionary, producers: Dictionary, stats: Dictionary = {}
+) -> PackedStringArray:
 	var found := PackedStringArray()
 	var max_bonus := {}
 	for unlock_id: String in defs:
@@ -102,6 +114,8 @@ static func validate(defs: Dictionary, producers: Dictionary) -> PackedStringArr
 		for required: Variant in entry.get("requires", []):
 			if not defs.has(required):
 				found.append("unlock '%s' requires unknown '%s'" % [unlock_id, required])
+		if entry.has("effects"):
+			found.append_array(EffectSpec.validate(entry["effects"], stats, unlock_id))
 		var units: Variant = entry.get("units", {})
 		for target: String in units:
 			if not producers.has(target):

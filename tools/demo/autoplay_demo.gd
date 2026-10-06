@@ -42,6 +42,8 @@ func _ready() -> void:
 		for node_id: StringName in [&"farmer_1", &"farmer_2", &"production_1"]:
 			Progression.buy_passive(node_id)
 		EventBus.passive_tree_requested.emit.call_deferred()
+	if args.has("--all-unlocked"):
+		get_tree().call_group.call_deferred(&"truck_bay", &"arrive_now", true)
 	if args.has("--overview"):
 		(farm.get_node("Camera") as FollowCamera).distance = OVERVIEW_DISTANCE
 	var coop := farm.get_node("Coop")

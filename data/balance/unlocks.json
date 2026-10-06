@@ -10,5 +10,18 @@
   "area_pasture": { "cost": 600, "requires": ["wheat_counter"] },
   "barn": { "cost": 400, "requires": ["area_pasture"] },
   "milk_counter": { "cost": 450, "requires": ["barn"] },
-  "cow_2": { "cost": 900, "requires": ["barn"], "units": { "barn": 1 } }
+  "cow_2": { "cost": 900, "requires": ["barn"], "units": { "barn": 1 } },
+  "cashier_egg": { "cost": 700, "requires": ["milk_counter"] },
+  "carrier_egg": { "cost": 1200, "requires": ["cashier_egg"] },
+  "irrigation": { "cost": 1500, "requires": ["wheat_beds_2"],
+    "effects": [{ "stat": "production.rate.wheat", "type": "percent", "value": 0.4 }] },
+  "egg_conveyor": { "cost": 2500, "requires": ["carrier_egg"] },
+  "area_road": { "cost": 4000, "requires": ["cow_2"] },
+  "truck_bay": { "cost": 3000, "requires": ["area_road"] },
+  "cashier_wheat": { "cost": 5000, "requires": ["cashier_egg", "wheat_counter"] },
+  "cashier_milk": { "cost": 5000, "requires": ["cashier_egg", "milk_counter"] },
+  "milking_machine": { "cost": 8000, "requires": ["cow_2"],
+    "effects": [{ "stat": "production.rate.milk", "type": "percent", "value": 0.5 }] },
+  "cows_3_4": { "cost": 12000, "requires": ["cow_2"], "units": { "barn": 2 } },
+  "money_collector": { "cost": 20000, "requires": ["truck_bay"] }
 }

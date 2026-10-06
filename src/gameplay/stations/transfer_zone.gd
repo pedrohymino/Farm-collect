@@ -19,6 +19,7 @@ var _tickers: Dictionary = {}  # Node3D -> TransferTicker
 
 
 func _ready() -> void:
+	collision_mask |= PhysicsLayers.WORKERS
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 

@@ -85,6 +85,11 @@ func accepts(item_id: StringName) -> bool:
 	return _accepts.is_empty() or _accepts.has(item_id)
 
 
+## Changes which items are accepted (truck beds narrow this as an order fills up).
+func set_accepts(accepts: Array[StringName]) -> void:
+	_accepts = accepts.duplicate()
+
+
 func can_accept(item_id: StringName) -> bool:
 	return accepts(item_id) and not is_full()
 

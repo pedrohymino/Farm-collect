@@ -121,3 +121,32 @@ DEV_LEVEL,Farm level,Nível da fazenda
 DEV_ADD_XP,+%s XP,+%s XP
 DEV_LEVEL_UP,Level up,Subir de nível
 DEV_RESET_PROGRESSION,Reset upgrades and skills,Resetar upgrades e passivas
+STAT_WORKER_MOVE_SPEED,helper speed,velocidade dos ajudantes
+STAT_WORKER_CARRY_CAPACITY,helper carry capacity,carga dos ajudantes
+STAT_MACHINE_SPEED,machine speed,velocidade das máquinas
+STAT_OFFLINE_MAX_HOURS,max offline hours,horas máximas offline
+STAT_OFFLINE_EFFICIENCY,offline earnings,ganho offline
+UPGRADE_TRAINING,Training,Treinamento
+BRANCH_AUTOMATION,Automation,Automação
+BRANCH_REST,Rest,Descanso
+PASSIVE_AUTOMATION_KEY,Production line,Linha de produção
+PASSIVE_REST_KEY,Farm that never sleeps,Fazenda que não dorme
+UNLOCK_CASHIER,Cashier,Caixa
+UNLOCK_CARRIER,Carrier,Carregador
+UNLOCK_IRRIGATION,Irrigation,Irrigação
+UNLOCK_EGG_CONVEYOR,Egg conveyor,Esteira de ovos
+UNLOCK_AREA_ROAD,Loading dock,Doca de carga
+UNLOCK_TRUCK_BAY,Truck orders,Pedidos de caminhão
+UNLOCK_MILKING_MACHINE,Milking machine,Ordenhadeira
+UNLOCK_COWS,2 cows,2 vacas
+UNLOCK_MONEY_COLLECTOR,Money collector,Coletor de dinheiro
+TRUCK_LINE,%s %d/%d,%s %d/%d
+TEASER_FACTORY,COMING SOON: FACTORY,EM BREVE: FÁBRICA
+OFFLINE_TITLE,Welcome back!,Bem-vindo de volta!
+OFFLINE_BODY,Your farm kept working for %s:,Sua fazenda trabalhou por %s:
+OFFLINE_COLLECT,Collect,Coletar
+TIME_HOURS_MINUTES,%dh %02dm,%dh %02dmin
+DEV_SPAWN_TRUCK,Truck now,Caminhão agora
+DEV_OFFLINE,Offline earnings,Ganhos offline
+DEV_SIMULATE_OFFLINE,Simulate %sh away,Simular %sh fora
+DEV_OFFLINE_NONE,No automated income yet,Ainda não há renda automática

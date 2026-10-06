@@ -9,6 +9,7 @@ const AUTOLOADS: Array[String] = [
 	"Economy",
 	"Unlocks",
 	"Progression",
+	"Offline",
 	"SaveManager",
 	"DevMode",
 ]

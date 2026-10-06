@@ -2,7 +2,8 @@ class_name PassiveRules
 extends RefCounted
 ## Passive tree from data/balance/passives.json, bought with stars.
 ## A node can be bought when it has no requirements (branch root) or when any required
-## neighbor is owned. Def shape: {"branch", "cost", "requires": [ids], "key"?, "effects": [...]}
+## neighbor is owned, and its "requires_unlock" (if any) is done.
+## Def shape: {"branch", "cost", "requires": [ids], "requires_unlock"?, "key"?, "effects": [...]}
 
 enum NodeState { LOCKED, AVAILABLE, OWNED }
 
@@ -80,6 +81,9 @@ func effects(node_id: StringName) -> Array:
 
 func can_unlock(node_id: StringName, data: GameData) -> bool:
 	if not has(node_id) or data.passive_nodes.has(node_id):
+		return false
+	var required_unlock := StringName(_def(node_id).get("requires_unlock", ""))
+	if not required_unlock.is_empty() and not data.is_unlocked(required_unlock):
 		return false
 	var parents := requires(node_id)
 	if parents.is_empty():

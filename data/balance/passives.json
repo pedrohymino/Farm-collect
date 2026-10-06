@@ -33,5 +33,30 @@
   "commerce_4": { "branch": "commerce", "cost": 3, "requires": ["commerce_3"],
     "effects": [{ "stat": "sell.price", "type": "percent", "value": 0.15 }] },
   "commerce_key": { "branch": "commerce", "cost": 5, "requires": ["commerce_4"], "key": true,
-    "effects": [{ "stat": "sell.vip_chance", "type": "flat", "value": 0.05 }] }
+    "effects": [{ "stat": "sell.vip_chance", "type": "flat", "value": 0.05 }] },
+
+  "automation_1": { "branch": "automation", "cost": 1, "requires": [], "requires_unlock": "cashier_egg",
+    "effects": [{ "stat": "worker.move_speed", "type": "percent", "value": 0.1 }] },
+  "automation_2": { "branch": "automation", "cost": 1, "requires": ["automation_1"],
+    "effects": [{ "stat": "worker.carry_capacity", "type": "flat", "value": 1 }] },
+  "automation_3": { "branch": "automation", "cost": 2, "requires": ["automation_2"],
+    "effects": [{ "stat": "machine.speed", "type": "percent", "value": 0.2 }] },
+  "automation_4": { "branch": "automation", "cost": 2, "requires": ["automation_3"],
+    "effects": [{ "stat": "worker.move_speed", "type": "percent", "value": 0.15 }] },
+  "automation_key": { "branch": "automation", "cost": 5, "requires": ["automation_4"], "key": true,
+    "effects": [
+      { "stat": "machine.speed", "type": "multiplier", "value": 1.5 },
+      { "stat": "worker.carry_capacity", "type": "flat", "value": 2 }
+    ] },
+
+  "rest_1": { "branch": "rest", "cost": 1, "requires": [], "requires_unlock": "cashier_egg",
+    "effects": [{ "stat": "offline.max_hours", "type": "flat", "value": 2 }] },
+  "rest_2": { "branch": "rest", "cost": 1, "requires": ["rest_1"],
+    "effects": [{ "stat": "offline.efficiency", "type": "flat", "value": 0.1 }] },
+  "rest_3": { "branch": "rest", "cost": 2, "requires": ["rest_2"],
+    "effects": [{ "stat": "offline.max_hours", "type": "flat", "value": 4 }] },
+  "rest_4": { "branch": "rest", "cost": 3, "requires": ["rest_3"],
+    "effects": [{ "stat": "offline.efficiency", "type": "flat", "value": 0.15 }] },
+  "rest_key": { "branch": "rest", "cost": 5, "requires": ["rest_4"], "key": true,
+    "effects": [{ "stat": "offline.efficiency", "type": "flat", "value": 1 }] }
 }

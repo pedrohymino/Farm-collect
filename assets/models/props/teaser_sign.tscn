@@ -1,0 +1,40 @@
+[gd_scene format=3]
+
+[sub_resource type="BoxMesh" id="Mesh_post"]
+size = Vector3(0.14, 1.8, 0.14)
+
+[sub_resource type="StandardMaterial3D" id="Mat_wood"]
+albedo_color = Color(0.55, 0.34, 0.18, 1)
+
+[sub_resource type="BoxMesh" id="Mesh_board"]
+size = Vector3(2.4, 1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_board"]
+albedo_color = Color(0.97, 0.95, 0.88, 1)
+
+[node name="TeaserSign" type="Node3D"]
+
+[node name="PostLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-1, 0.9, 0)
+mesh = SubResource("Mesh_post")
+surface_material_override/0 = SubResource("Mat_wood")
+
+[node name="PostRight" type="MeshInstance3D" parent="."]
+position = Vector3(1, 0.9, 0)
+mesh = SubResource("Mesh_post")
+surface_material_override/0 = SubResource("Mat_wood")
+
+[node name="Board" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.5, 0)
+mesh = SubResource("Mesh_board")
+surface_material_override/0 = SubResource("Mat_board")
+
+[node name="Text" type="Label3D" parent="."]
+position = Vector3(0, 1.5, 0.07)
+modulate = Color(0.75, 0.25, 0.2, 1)
+outline_size = 0
+text = "TEASER_FACTORY"
+font_size = 56
+pixel_size = 0.005
+autowrap_mode = 2
+width = 420.0

@@ -38,6 +38,12 @@
   "worker.carry_capacity": { "base": 6, "min": 1, "integer": true },
 
   "machine.speed": { "base": 1.0, "min": 0.1 },
+  "machine.conveyor_rate": { "base": 2.0, "min": 0.1 },
+
+  "truck.order_size": { "base": 12, "min": 1, "integer": true },
+  "truck.order_growth": { "base": 0.15, "min": 0.0 },
+  "truck.bonus": { "base": 1.5, "min": 1.0 },
+  "truck.interval": { "base": 40.0, "min": 5.0 },
 
   "farm.xp_gain": { "base": 1.0, "min": 0.1 },
 

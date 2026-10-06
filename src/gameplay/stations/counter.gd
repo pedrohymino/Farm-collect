@@ -18,6 +18,7 @@ var service: CounterService
 
 var _customers: Dictionary = {}  # CustomerOrder -> Customer
 var _cashiers: int = 0
+var _players_at_cashier: int = 0
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 @onready var stock_visual: StackVisual = $StockVisual
@@ -34,6 +35,7 @@ func _ready() -> void:
 	stock = ItemContainer.new(ItemContainer.stat_capacity(Stats, &"counter.capacity"), [item_id])
 	stock_visual.bind(stock)
 	service = CounterService.new(stock, item_id)
+	_cashier_spot.collision_mask |= PhysicsLayers.WORKERS
 	_cashier_spot.body_entered.connect(_on_cashier_entered)
 	_cashier_spot.body_exited.connect(_on_cashier_exited)
 
@@ -100,6 +102,8 @@ func _complete_sale(order: CustomerOrder) -> void:
 		VIP_TEXT_COLOR if is_vip else SALE_TEXT_COLOR
 	)
 	EventBus.item_sold.emit(item_id, order.count, value)
+	if _players_at_cashier == 0:
+		EventBus.automated_income.emit(value)
 	_release(order, true)
 
 
@@ -113,10 +117,14 @@ func _release(order: CustomerOrder, happy: bool) -> void:
 func _on_cashier_entered(body: Node3D) -> void:
 	if body.is_in_group(&"cashier"):
 		_cashiers += 1
+		if body.is_in_group(&"player"):
+			_players_at_cashier += 1
 		_cashier_marker.set_active(true)
 
 
 func _on_cashier_exited(body: Node3D) -> void:
 	if body.is_in_group(&"cashier"):
 		_cashiers = maxi(_cashiers - 1, 0)
+		if body.is_in_group(&"player"):
+			_players_at_cashier = maxi(_players_at_cashier - 1, 0)
 		_cashier_marker.set_active(_cashiers > 0)

@@ -3,6 +3,8 @@ extends VBoxContainer
 ## Dev panel tab: unlocks and onboarding shortcuts.
 
 const XP_STEPS: Array[float] = [100.0, 1000.0, 10000.0]
+const OFFLINE_HOURS: Array[float] = [1.0, 8.0]
+const SECONDS_PER_HOUR: float = 3600.0
 
 var _report: Callable
 var _count_label: Label
@@ -30,6 +32,15 @@ func _init(report: Callable) -> void:
 		)
 	)
 	add_child(DevUi.button(tr("DEV_RESET_PROGRESSION"), _reset_progression))
+	add_child(DevUi.section(tr("DEV_OFFLINE")))
+	var offline_buttons: Array[Control] = []
+	for hours in OFFLINE_HOURS:
+		offline_buttons.append(
+			DevUi.button(
+				tr("DEV_SIMULATE_OFFLINE") % DevUi.num(hours), _simulate_offline.bind(hours)
+			)
+		)
+	add_child(DevUi.flow(offline_buttons))
 	EventBus.unlock_completed.connect(_refresh_count.unbind(1))
 	_refresh_count()
 
@@ -64,6 +75,11 @@ func _skip_tutorial() -> void:
 	EventBus.tutorial_step_changed.emit(GameState.data.tutorial_step)
 	get_tree().call_group(&"guide_arrow", &"queue_free")
 	_report.call(tr("DEV_DONE"))
+
+
+func _simulate_offline(hours: float) -> void:
+	if Offline.compute_pending(hours * SECONDS_PER_HOUR) <= 0.0:
+		_report.call(tr("DEV_OFFLINE_NONE"))
 
 
 func _reset_progression() -> void:

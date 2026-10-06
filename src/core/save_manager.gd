@@ -46,6 +46,7 @@ func save_game() -> bool:
 
 ## Current game as a save payload (also used by dev mode to export the save).
 func build_payload() -> Dictionary:
+	EventBus.before_save.emit()
 	get_tree().call_group(&"persistent_location", &"write_state")
 	return {
 		"schema_version": SaveMigrator.CURRENT_VERSION,

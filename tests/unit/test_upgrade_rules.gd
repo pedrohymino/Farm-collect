@@ -70,3 +70,14 @@ func test_validate_accepts_good_data_and_reports_bad() -> void:
 		"shrinking": {"base_cost": 5, "growth": 0.9, "effects": []},
 	}
 	assert_eq(UpgradeRules.validate(bad, STATS).size(), 2)
+
+
+func test_upgrade_can_require_an_unlock() -> void:
+	var gated := UpgradeRules.new(
+		{"training": {"base_cost": 1, "growth": 2, "requires_unlock": "cashier", "effects": []}}
+	)
+	var data := GameData.new()
+	assert_false(gated.is_visible(&"training", data))
+	assert_true(rules.is_visible(&"boots", data))
+	data.unlock(&"cashier")
+	assert_true(gated.is_visible(&"training", data))

@@ -59,6 +59,11 @@ se dev override ativo:  final = override_absoluto  OU  final × override_multipl
 | `worker.move_speed` | 3.0 | m/s | 1 | |
 | `worker.carry_capacity` | 6 | itens | 1 | |
 | `machine.speed` | 1.0 | × | 0.1 | |
+| `machine.conveyor_rate` | 2 | itens/s | 0.1 | esteira (× `machine.speed`) |
+| `truck.order_size` | 12 | itens | 1 | pedido no nível 1 |
+| `truck.order_growth` | 0.15 | × | 0 | +15% de pedido por nível da fazenda |
+| `truck.bonus` | 1.5 | × | 1 | caminhão paga 50% a mais que o balcão |
+| `truck.interval` | 40 | s | 5 | entre caminhões |
 | `farm.xp_gain` | 1.0 | × | 0.1 | |
 | `offline.max_hours` | 2 | h | 0 | |
 | `offline.efficiency` | 0.25 | × | 0 | |
@@ -102,8 +107,8 @@ Fonte da verdade: `data/balance/upgrades.json` e `data/balance/passives.json`.
 
 ## 6. Sequência de desbloqueios v1
 
-Fonte da verdade: `data/balance/unlocks.json` (custos × status `unlock.cost`). Implementado até o #11 no M4;
-o resto entra com seus sistemas (M5 Mesa de Upgrades, M6 ajudantes/máquinas/caminhões).
+Fonte da verdade: `data/balance/unlocks.json` (custos × status `unlock.cost`). Um desbloqueio pode dar unidades
+(`units`) e/ou efeitos de status (`effects`, origem `unlock:<id>`).
 
 | # | ID | Pad | Custo | Área | Pré-requisito | Efeito |
 |---|---|---|---|---|---|---|
@@ -119,9 +124,17 @@ o resto entra com seus sistemas (M5 Mesa de Upgrades, M6 ajudantes/máquinas/cam
 | 9 | `barn` | Curral + vaca #1 | $400 | A3 | 8 | |
 | 10 | `milk_counter` | Balcão de leite | $450 | A3 | 9 | |
 | 11 | `cow_2` | Vaca #2 | $900 | A3 | 9 | barn +1 |
-| — | *(M5)* | Mesa de Upgrades | $40 | A1 | 1 | |
-| — | *(M6)* | Caixa, carregador, irrigação, esteira, ordenhadeira, estrada/caminhões, coletor de dinheiro | $700+ | | | |
-| — | *(M6)* | Placa "Terreno à venda" (teaser fábrica) | — | A5 | | |
+| 1b | `upgrade_board` | Mesa de Upgrades | $40 | A1 | 1 | abre o menu de upgrades (M5) |
+| 12 | `cashier_egg` | Caixa (ovos) | $700 | A1 | 10 | ajudante no balcão de ovos |
+| 13 | `carrier_egg` | Carregador (ovos) | $1.2K | A1 | 12 | galinheiro → balcão |
+| 14 | `irrigation` | Irrigação | $1.5K | A2 | 7 | +40% `production.rate.wheat` |
+| 15 | `egg_conveyor` | Esteira de ovos | $2.5K | A1 | 13 | máquina |
+| 16 | `area_road` | Doca de carga (norte) | $4K | A4 | 11 | abre a cerca norte |
+| 17 | `truck_bay` | Pedidos de caminhão | $3K | A4 | 16 | |
+| 18 | `cashier_wheat` / `cashier_milk` | Caixas de trigo e leite | $5K cada | | 12 + balcão | |
+| 19 | `milking_machine` | Ordenhadeira | $8K | A3 | 11 | +50% `production.rate.milk` |
+| 20 | `cows_3_4` | Vacas #3 e #4 | $12K | A3 | 11 | barn +2 |
+| 21 | `money_collector` | Coletor de dinheiro | $20K | | 17 | também mostra a placa "Em breve: Fábrica" |
 
 ## 7. Metas de ritmo (o que o balanceamento precisa atingir)
 

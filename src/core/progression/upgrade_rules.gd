@@ -2,7 +2,7 @@ class_name UpgradeRules
 extends RefCounted
 ## Leveled money upgrades from data/balance/upgrades.json.
 ## cost(level) = base_cost × growth^level × cost_multiplier (the upgrade.cost stat).
-## Def shape: {"base_cost", "growth", "max_level"?, "effects": [...]}
+## Def shape: {"base_cost", "growth", "max_level"?, "requires_unlock"?, "effects": [...]}
 
 const SOURCE_PREFIX: String = "upgrade:"
 
@@ -41,6 +41,16 @@ func max_level(upgrade_id: StringName) -> int:
 func is_maxed(upgrade_id: StringName, level: int) -> bool:
 	var limit := max_level(upgrade_id)
 	return limit > 0 and level >= limit
+
+
+## Unlock that must be completed before the upgrade shows up ("" = always available).
+func required_unlock(upgrade_id: StringName) -> StringName:
+	return StringName(_def(upgrade_id).get("requires_unlock", ""))
+
+
+func is_visible(upgrade_id: StringName, data: GameData) -> bool:
+	var required := required_unlock(upgrade_id)
+	return required.is_empty() or data.is_unlocked(required)
 
 
 func effects(upgrade_id: StringName) -> Array:

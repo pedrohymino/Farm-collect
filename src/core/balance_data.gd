@@ -37,7 +37,7 @@ static func load_from_dir(dir_path: String) -> BalanceData:
 	data.errors.append_array(validate_progression(data.progression))
 	data.errors.append_array(validate_item_stats(data.items, data.stats))
 	data.errors.append_array(validate_producers(data.producers, data.items))
-	data.errors.append_array(UnlockRules.validate(data.unlocks, data.producers))
+	data.errors.append_array(UnlockRules.validate(data.unlocks, data.producers, data.stats))
 	data.errors.append_array(UpgradeRules.validate(data.upgrades, data.stats))
 	data.errors.append_array(PassiveRules.validate(data.passives, data.stats))
 	return data
